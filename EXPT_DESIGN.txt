@@ -1,0 +1,83 @@
+Experiment Flow:
+	ad.html
+		basically has 2 pages, the actual ad, and a link to the beginning of the experiment
+		this has js that creates a new window and loads 'consent.html'
+	consent.html
+	exp.html
+		Main form controlling experiment
+			psiturk specifically depends on underscore.js, backbone.js and jquery
+			does automated bookkeeping of psiturk server stuff
+		Points to 'task.js' to begin the experiment presentation
+	task.js
+		var pages							all the pages you're goint to load (does preload)
+		var instructionPages 				pre-task instructions (instruct-1.html, etc)
+		var NBExperiment = function() 			Main Experiment "script"
+			d3.select("#div id")				apprently API for dynamic div changes
+			stage.html
+				acts as a placeholder for the experiment, basically. Gets loaded in during the main experiment function call. The actual HTML in the file is barebones - basic header, and then 2 divs (stim, query); could add more for more advanced structure, I assume. Uses d3.select("#div id") to manipulate these divs
+
+			RUNNING THE ACTUAL SCRIPTS ONCE IT'S ALL SET UP:
+			$(window).load( function(){
+    			psiTurk.doInstructions(
+    				instructionPages,
+	    			function() { currentview = new NBExperiment(); } 
+			    );
+			});
+		Can create multiple high level functions, call one using currentview = new exp() from it at the end to jump into the new one. Can use different stage.html files if necessary
+
+PSITURK COMMANDS:
+psiTurk.showPage('pagename.html'); 
+	makes the given html file the main page in the window
+
+psiTurk.recordTrialData({'label1':'data1', 'label2':'data2', ...});
+	Record all the data you want for a given trial
+
+psiTurk.recordUnstructuredData(this.id, this.value);
+	Record whatever
+
+psiTurk.saveData({
+            success: function(){
+                psiTurk.computeBonus('compute_bonus', function() { 
+                	psiTurk.completeHIT(); // when finished saving compute bonus, the quit
+                }); 
+            }, 
+            error: prompt_resubmit});
+    ALWAYS ALWAYS CALL THIS. IT WON'T SAVE YOUR STUFF OTHERWISE
+
+
+psiTurk.computeBonus('compute_bonus', function(){finish()}); 
+psiTurk.completeHIT()
+	does "self.teardownTask()", and then points the window back to the initial adServerLoc
+
+
+
+USEFUL JS
+
+currentview	
+	appears to actually handle what's being shown in the current window. task.js instantiates it (var currentview;), and then after the doInstructions, it uses:
+		currentview = new functionname() which appears to then take over everything
+
+var stims = [structure array]		Experiment stimuli / designations
+
+
+FUNCTIONS
+
+var next = function() 				Moving from trial to trial
+var finish = function()				leave task.js
+
+(arraystructure).shift()
+	pulls off (literally, it's no longer there) the next node in an array
+
+
+
+
+INPUT EVENTS
+	$("body").focus().keydown(response_handler);
+		var response_handler = function(e)
+			takes over keyboard input; use switch to determine responses, etc
+			can also use logicals to control stim presentation, data recording, next trial
+
+timevar = new Date().getTime();
+
+listening = false; 	(don't look for responses)
+listening = true; 	(start looking for responses)

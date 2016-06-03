@@ -1,0 +1,35 @@
+SHORT-TERM TO DO / WHERE TO PICK UP:
+	Finish timing controls, especially while allowing for responses the whole time
+	Control stimulus order / generate N-back sequence properly
+	Update the instructions / questionaire etc. to be accurate
+	IRB
+	
+
+
+
+
+LONG-TERM PSITURK TO DO:
+	Change from SQLite to MySQL
+		Setup MySQL database to hold it (AWS? Other, here?)
+		Test local MySQL configuration - for debugging purposes / to check that the data is collecting as we want it to
+	Use 'routes' to do concurrent data collection on the server
+		for both posterity, and data formatted more how I want it
+	Make sure all the timing works.
+		setInterval can call subfunctions, seems like a good idea
+		
+
+PSITURK ISSUES:
+	Secure Ad Server can't play well with this computer
+		Running the HIT on the workersandbox is error 1015 (no server I guess)
+			Hmm, the psiturk 'system_status' page on the dashboard is 404
+		Forum suggests this is because the ad server can't talk to this computer
+			Recommended OpenShift as a solution
+				Involves public SSH keys
+
+	Psiturk dashboard for managing ads...
+		Actions do nothing
+		Action list is cut off (does not display properly)
+			*oh my god this issue has been around for 2 years*
+
+
+
