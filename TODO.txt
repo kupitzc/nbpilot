@@ -1,7 +1,9 @@
 SHORT-TERM TO DO / WHERE TO PICK UP:
-	Finish timing controls, especially while allowing for responses the whole time
-	Control stimulus order / generate N-back sequence properly
-	Update the instructions / questionaire etc. to be accurate
+	Get block loops up and running
+	Add AXCPT
+	Add Reset Version
+	Decide how to structure the changing of tasks (likely all in on .js file, use counterbalancing to call between different main functions)
+	Update the instructions / questionnaire etc. to be accurate
 	IRB
 	
 
