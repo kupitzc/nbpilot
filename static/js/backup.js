@@ -135,17 +135,52 @@ var NBS_Task = function() {
 	var rt 			= -1; 
 
 	//STIMULUS VARIABLES
+
 	var stimletters = ["C","D","K","P","Q","T","V"]; //from Jaeggi & Buschkuehl's
 	var nletters = stimletters.length;
-	//instantiating these here allows for manipulation in a block manager function
-	//without losing them to changes in scope
-	var stims
-	var stimID
-	var letterID
+
+	// array of stimulus presentations
+	var tmpar1			= new Array(ntargets).fill(1);
+	var tmpar2			= new Array(nnontargets).fill(2);
+
+	var tmpar3	 		= tmpar1.concat(tmpar2);
+	tmpar3 				= _.shuffle(stimID);
+
+	// prepend nlevel non-targets to the sequence after randomizing
+	var tmpar4 			= new Array(nlevel).fill(2);
+	var stimID 		= tmpar4.concat(tmpar3);
+
+	//always prefer numerical IDs for data recording
+	var letterID		= new Array(stimID.length).fill(0);
+
+	// set up the stims to present; instantiate empty array
+	var stims = [];
+
+	// selects stimulus letters for each trial; nontargets are chosen randomly
+	for (i = 0; i < stimID.length; i++) {
+
+		letterID[i] = Math.floor(Math.random() * nletters);
+
+		//target
+		if (stimID[i]===1) {
+			letterID[i] = letterID[i - nlevel];
+			stims.push([ stimletters[letterID[i]] , "target", letterID[i] ]);
+		} //if
+		//notarget
+		else { 
+			if (i > (nlevel-1)) { 
+				while (letterID[i]===letterID[i-nlevel]) {
+					letterID[i] = Math.floor(Math.random() * nletters);
+				}
+			}
+			stims.push([ stimletters[letterID[i]] , "nontarget", letterID[i] ]);
+		} //else
+	} //for
+	
 
 	var nexttrial = function() {
 		if (stims.length===0) {
-			nextblock();
+			finish();
 		}
 		else {
 			// trial begin (reset everything)
@@ -177,44 +212,12 @@ var NBS_Task = function() {
 
 			nlevel = nlevelblocks.shift();
 
-			// array of stimulus presentations
-			var tmpar1			= new Array(ntargets).fill(1);
-			var tmpar2			= new Array(nnontargets).fill(2);
-
-			var tmpar3	 		= tmpar1.concat(tmpar2);
-			tmpar3 				= _.shuffle(stimID);
-
-			// prepend nlevel non-targets to the sequence after randomizing
-			var tmpar4 			= new Array(nlevel).fill(2);
-
-			// not using var as these are declared at the task level 
-			stimID 		= tmpar4.concat(tmpar3);
-			letterID		= new Array(stimID.length).fill(0); //prefer number IDs for data 
-			stims = []; // reset to empty array
-
-			// selects stimulus letters for each trial; nontargets are chosen randomly
-			for (i = 0; i < stimID.length; i++) {
-
-				letterID[i] = Math.floor(Math.random() * nletters);
-
-				//target
-				if (stimID[i]===1) {
-					letterID[i] = letterID[i - nlevel];
-					stims.push([ stimletters[letterID[i]] , "target", letterID[i] ]);
-				} //if
-				//notarget
-				else { 
-					if (i > (nlevel-1)) { 
-						while (letterID[i]===letterID[i-nlevel]) {
-							letterID[i] = Math.floor(Math.random() * nletters);
-						}
-					}
-					stims.push([ stimletters[letterID[i]] , "nontarget", letterID[i] ]);
-				} //else
-			} //for
-
-			nexttrial();
-		} //else
+			//executes the code inside the anonymous function after a specified time
+			//e.g. this clears the stimulus after 'stimtime' ms
+			setTimeout(function() {
+    			remove_word();
+			}, stimtime);
+		}
 	};
 	
 	var response_handler = function(e) {
@@ -303,7 +306,7 @@ var NBS_Task = function() {
 	$("body").focus().keydown(response_handler); 
 
 	// Start the test
-	nextblock();
+	nexttrial();
 };
 
 
