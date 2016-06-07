@@ -107,8 +107,8 @@ var NBS_Task = function() {
 
 	// Experiment Control Variables
 	// TIMING VARIABLES (in ms):
-	var stimtime 		= 250;
-	var ISI 			= 500; // CHANGEBACK 2500;
+	var stimtime 		= 50; // CHANGEBACK 250;
+	var ISI 			= 50; // CHANGEBACK 2500;
 	//var resptimeout		= 100; // how long before they can respond
 
 	// PRESENTATION VARIABLES:
@@ -120,7 +120,7 @@ var NBS_Task = function() {
 	var nlevelblocks 	= [2, 3]; //CHANGEBACK [2, 2, 3, 3, 4, 4];
 	var ntargets 		= 2; //CHANGEBACK 6;
 	var nnontargets 	= 2; //CHANGEBACK 12;
-	//var ntrials			= ntargets + nnontargets;
+	
 
 	//TRIAL RECORDING VARIABLES
 	var letteron 	// time letter is presented
@@ -133,12 +133,14 @@ var NBS_Task = function() {
 	var hit 		= -1;
 	var rt 			= -1; 
 
+	var curblock		= 0;
+	var curtrial		= 0; //need my own trial counter
+
 	//STIMULUS VARIABLES
-	var stimletters = ["C","D","K","P","Q","T","V"]; //from Jaeggi & Buschkuehl's
+	var stimletters = ["C","D","K","P","Q","T","V"]; //from Jaeggi & Buschkuehl's verbatim
 	var nletters = stimletters.length;
-	//instantiating these here allows for manipulation in a block manager function
-	//without losing them to changes in scope
-	var stims
+	//instantiate to set task scope
+	var stims 
 	var stimID
 	var letterID
 
@@ -155,6 +157,8 @@ var NBS_Task = function() {
 			hit 		= -1;
 			rt 			= -1; 
 
+			curtrial 	= curtrial + 1; //increment trial
+
 			stim = stims.shift();
 			show_word( stim[0], stimcolor );
 			letteron = new Date().getTime();
@@ -165,7 +169,7 @@ var NBS_Task = function() {
 			setTimeout(function() {
     			remove_word();
 			}, stimtime);
-		}
+		}//else
 	};
 
 	//CONTROLS BLOCKS
@@ -176,8 +180,9 @@ var NBS_Task = function() {
 		else {
 			// block begin (prepare everything)
 
-			//extracts the nlevel of the block to be run
-			nlevel = nlevelblocks.shift();
+			curblock		= curblock + 1; 		//increment block counter
+			curtrial 		= 0; 					//reset trial counter 
+			nlevel 			= nlevelblocks.shift(); //get nlevel of this block
 
 			// easy setup of stimulus presentations
 			var tmpar1		= new Array(ntargets).fill(1);
@@ -188,27 +193,11 @@ var NBS_Task = function() {
 			// prepend nlevel non-targets to the sequence after randomizing
 			var tmpar4 		= new Array(nlevel).fill(2);
 
-			// not using var - these are task scope variables
+			// not redeclaring vars - these are task scope variables
 			stimID 			= tmpar4.concat(tmpar3);
-			letterID		= new Array(stimID.length).fill(0); //prefer number IDs for data 
+			letterID		= new Array(stimID.length).fill(0); //prefer numbers for data 
 			stims 			= []; // reset to empty array
-			var tmpphase = "postsetup";
-			// psiTurk.recordTrialData({	'phase': 	tmpphase,
-   //                                   	'tmpar1': 	tmpar1.length,
-   //                                   	'tmpar2': 	tmpar2.length,
-   //                                   	'tmpar3': 	tmpar3.length,
-   //                                   	'tmpar4': 	tmpar4.length,
-   //                                   	'stimID': 	stimID.length,
-   //                                   	'letterID': letterID.length}
-   //                                 );
-  			 psiTurk.recordTrialData({	'phase': 	tmpphase,
-                                     	'tmpar1': 	tmpar1,
-                                     	'tmpar2': 	tmpar2,
-                                     	'tmpar3': 	tmpar3,
-                                     	'tmpar4': 	tmpar4,
-                                     	'stimID': 	stimID,
-                                     	'letterID': letterID}
-                                   );
+
 			// selects stimulus letters for each trial; nontargets are chosen randomly
 			for (i = 0; i < stimID.length; i++) {
 
@@ -230,6 +219,17 @@ var NBS_Task = function() {
 				} //else
 			} //for
 
+			var tmpphase = "blocksetup";
+  			psiTurk.recordTrialData({	'phase': 	tmpphase,
+  										'task': 	curtask,
+    									'block': 	curblock,
+                                     	'stimID': 	stimID,
+                                     	'letterID': letterID
+                                     });
+                                     	// 'tmpar1': 	tmpar1,
+                                     	// 'tmpar2': 	tmpar2,
+                                     	// 'tmpar3': 	tmpar3,
+                                     	// 'tmpar4': 	tmpar4,
 			nexttrial(); //runs every trial
 		} //else
 	};
@@ -294,18 +294,24 @@ var NBS_Task = function() {
 		lettertime = letteroff - letteron;
 
 		// after ISI ms, record the current trial data, move to next trial
+		//THIS IS IN JSON FORMAT
 		setTimeout(function() {
-    			psiTurk.recordTrialData({	'phase': 		curphase,
-                                    		'letter': 		stim[0],
-                                     		'stimType': 	stim[1],
-                                     		'letterID': 	stim[2],
-                                     		'stimID': 		stim[3],
-                                     		'response': 	response,
-                                     		'respsame': 	respsame,
-                                     		'lettertime': 	lettertime,
-                                     		'hit': 			hit,
-                                     		'rt': 			rt}
-                                   );
+    			// psiTurk.recordTrialData({	'phase': 		curphase,
+    			// 							'task': 		curtask,
+    			// 							'block': 		curblock,
+    			// 							'trial': 		curtrial,
+       //                              		'letter': 		stim[0],
+       //                               		'stimType': 	stim[1],
+       //                               		'letterID': 	stim[2],
+       //                               		'stimID': 		stim[3],
+       //                               		'response': 	response,
+       //                               		'respsame': 	respsame,
+       //                               		'lettertime': 	lettertime,
+       //                               		'hit': 			hit,
+       //                               		'rt': 			rt
+       //                               	});
+       
+       psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],response,respsame,lettertime,hit,rt]);
     			nexttrial();
 		}, ISI);
 	};
@@ -358,8 +364,9 @@ var Questionnaire = function() {
 		
 		psiTurk.saveData({
 			success: function() {
-			    clearInterval(reprompt); 
-                psiTurk.computeBonus('compute_bonus', function(){finish()}); 
+			    clearInterval(reprompt);
+			    psiTurk.completeHIT();
+                // psiTurk.computeBonus('compute_bonus', function(){finish()}); 
 			}, 
 			error: prompt_resubmit
 		});
@@ -373,9 +380,10 @@ var Questionnaire = function() {
 	    record_responses();
 	    psiTurk.saveData({
             success: function(){
-                psiTurk.computeBonus('compute_bonus', function() { 
-                	psiTurk.completeHIT(); // when finished saving compute bonus, the quit
-                }); 
+            	psiTurk.completeHIT();
+                // psiTurk.computeBonus('compute_bonus', function() { 
+                // 	psiTurk.completeHIT(); // when finished saving compute bonus, the quit
+                // }); 
             }, 
             error: prompt_resubmit});
 	});
@@ -385,7 +393,9 @@ var Questionnaire = function() {
 
 // Task object to keep track of the current phase
 var currentview;
-var curphase = "NBS_Task";
+var curphase 	= "Main";
+var curtask 	= "NBS";
+var curtaskID	= 1;
 
 /*******************
  * Run Task
