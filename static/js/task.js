@@ -54,7 +54,7 @@ switch (mycounterbalance) {
 		var Jresp = "nontarget";
 		var Jrespsame = 0;
 		break;
-};
+}
 
 /*
 // All pages to be loaded
@@ -272,7 +272,7 @@ var NBS_Task = function() {
 
 	var finish = function() {
 	    $("body").unbind("keydown", response_handler); // Unbind keys
-	    currentview = new Questionnaire();
+	    currentview = new Task_Controller();
 	};
 	
 	var show_word = function(text, color) {
@@ -391,11 +391,52 @@ var Questionnaire = function() {
 	
 };
 
-// Task object to keep track of the current phase
+var Task_Controller = function() {
+	//var taskorder = [1, 2, 3];
+
+	if (taskorder.length===0) {
+			currentview = new Questionnaire(); //done!
+		}
+	else {
+		// block begin (prepare everything)
+
+		curtaskIndex 	= curtaskIndex + 1;  //increment task counter
+		curtaskID 		= taskorder.shift(); //get next task
+
+		switch (curtaskID) {
+		case 1:
+			curtask = "NBS";
+			currentview = new NBS_Task();
+			break;
+		case 2:
+			curtask = "NBR";
+			currentview = new NBR_Task();
+			break;
+		case 3:
+			curtask = "CPT";
+			currentview = new CPT_Task();
+			break;
+		default:
+			curtask = "Broken";
+			currentview = new Questionnaire();
+			break;
+		}//switch
+	}//else
+
+	
+
+
+}; //Task_Controller
+
+
+// Task management variables
 var currentview;
-var curphase 	= "Main";
-var curtask 	= "NBS";
-var curtaskID	= 1;
+var curtask
+var curtaskID
+var curphase 	 = "Main";
+var curtaskIndex = 0;
+
+taskorder = [1, 1]; //CHANGEBACK --REMOVEME!
 
 /*******************
  * Run Task
