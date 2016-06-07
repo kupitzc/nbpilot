@@ -1,11 +1,8 @@
 SHORT-TERM TO DO / WHERE TO PICK UP:
-	Get block loops up and running
 	Add AXCPT
-	Add Reset Version
-	Decide how to structure the changing of tasks (likely all in on .js file, use counterbalancing to call between different main functions)
 	Update the instructions / questionnaire etc. to be accurate
 	IRB
-	
+	Should we count "no-response" as a "reset" on the reset task?
 
 
 
