@@ -116,9 +116,8 @@ var NBS_Task = function() {
 	var stimcolor		= "black";
 
 	//EXPT CONTROL VARIABLES:
-	var numblocks		= 2;
-	var nlevel			= 2;
-	var nlevelblocks 	= [2, 3, 4];
+	var nlevel          //instantiate for full scope
+	var nlevelblocks 	= [2, 3]; //CHANGEBACK [2, 2, 3, 3, 4, 4];
 	var ntargets 		= 2; //CHANGEBACK 6;
 	var nnontargets 	= 2; //CHANGEBACK 12;
 	var ntrials			= ntargets + nnontargets;
@@ -143,6 +142,7 @@ var NBS_Task = function() {
 	var stimID
 	var letterID
 
+	//CONTROLS INDIVIDUAL TRIALS
 	var nexttrial = function() {
 		if (stims.length===0) {
 			nextblock();
@@ -168,6 +168,7 @@ var NBS_Task = function() {
 		}
 	};
 
+	//CONTROLS BLOCKS
 	var nextblock = function() {
 		if (nlevelblocks.length===0) {
 			finish();
@@ -175,45 +176,45 @@ var NBS_Task = function() {
 		else {
 			// block begin (prepare everything)
 
+			//extracts the nlevel of the block to be run
 			nlevel = nlevelblocks.shift();
 
-			// array of stimulus presentations
-			var tmpar1			= new Array(ntargets).fill(1);
-			var tmpar2			= new Array(nnontargets).fill(2);
-
-			var tmpar3	 		= tmpar1.concat(tmpar2);
-			tmpar3 				= _.shuffle(stimID);
+			// easy setup of stimulus presentations
+			var tmpar1		= new Array(ntargets).fill(1);
+			var tmpar2		= new Array(nnontargets).fill(2);
+			var tmpar3	 	= tmpar1.concat(tmpar2);
+			tmpar3 			= _.shuffle(stimID);
 
 			// prepend nlevel non-targets to the sequence after randomizing
-			var tmpar4 			= new Array(nlevel).fill(2);
+			var tmpar4 		= new Array(nlevel).fill(2);
 
-			// not using var as these are declared at the task level 
-			stimID 		= tmpar4.concat(tmpar3);
+			// not using var - these are task scope variables
+			stimID 			= tmpar4.concat(tmpar3);
 			letterID		= new Array(stimID.length).fill(0); //prefer number IDs for data 
-			stims = []; // reset to empty array
+			stims 			= []; // reset to empty array
 
 			// selects stimulus letters for each trial; nontargets are chosen randomly
 			for (i = 0; i < stimID.length; i++) {
 
 				letterID[i] = Math.floor(Math.random() * nletters);
 
-				//target
-				if (stimID[i]===1) {
+				//TARGET TRIAL
+				if (stimID[i]===1) { 	
 					letterID[i] = letterID[i - nlevel];
-					stims.push([ stimletters[letterID[i]] , "target", letterID[i] ]);
+					stims.push([ stimletters[letterID[i]] , "target", letterID[i], stimID[i] ]);
 				} //if
-				//notarget
-				else { 
+				//NONTARGET TRIAL
+				else { 					
 					if (i > (nlevel-1)) { 
 						while (letterID[i]===letterID[i-nlevel]) {
 							letterID[i] = Math.floor(Math.random() * nletters);
-						}
-					}
-					stims.push([ stimletters[letterID[i]] , "nontarget", letterID[i] ]);
+						}//while
+					}//if
+					stims.push([ stimletters[letterID[i]] , "nontarget", letterID[i], stimID[i] ]);
 				} //else
 			} //for
 
-			nexttrial();
+			nexttrial(); //runs every trial
 		} //else
 	};
 	
@@ -278,14 +279,16 @@ var NBS_Task = function() {
 
 		// after ISI ms, record the current trial data, move to next trial
 		setTimeout(function() {
-    			psiTurk.recordTrialData({	'phase':"NBS_Task",
-                                    		'letter':stim[0],
-                                     		'trialtype':stim[1],
-                                     		'response':response,
-                                     		'respsame':respsame,
-                                     		'lettertime':lettertime,
-                                     		'hit':hit,
-                                     		'rt':rt}
+    			psiTurk.recordTrialData({	'phase': 		curphase,
+                                    		'letter': 		stim[0],
+                                     		'stimType': 	stim[1],
+                                     		'letterID': 	stim[2],
+                                     		'stimID': 		stim[3],
+                                     		'response': 	response,
+                                     		'respsame': 	respsame,
+                                     		'lettertime': 	lettertime,
+                                     		'hit': 			hit,
+                                     		'rt': 			rt}
                                    );
     			nexttrial();
 		}, ISI);
@@ -366,6 +369,7 @@ var Questionnaire = function() {
 
 // Task object to keep track of the current phase
 var currentview;
+var curphase = "NBS_Task";
 
 /*******************
  * Run Task
