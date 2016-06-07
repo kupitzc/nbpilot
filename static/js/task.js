@@ -120,7 +120,7 @@ var NBS_Task = function() {
 	var nlevelblocks 	= [2, 3]; //CHANGEBACK [2, 2, 3, 3, 4, 4];
 	var ntargets 		= 2; //CHANGEBACK 6;
 	var nnontargets 	= 2; //CHANGEBACK 12;
-	var ntrials			= ntargets + nnontargets;
+	//var ntrials			= ntargets + nnontargets;
 
 	//TRIAL RECORDING VARIABLES
 	var letteron 	// time letter is presented
@@ -183,7 +183,7 @@ var NBS_Task = function() {
 			var tmpar1		= new Array(ntargets).fill(1);
 			var tmpar2		= new Array(nnontargets).fill(2);
 			var tmpar3	 	= tmpar1.concat(tmpar2);
-			tmpar3 			= _.shuffle(stimID);
+			tmpar3 			= _.shuffle(tmpar3);
 
 			// prepend nlevel non-targets to the sequence after randomizing
 			var tmpar4 		= new Array(nlevel).fill(2);
@@ -192,7 +192,23 @@ var NBS_Task = function() {
 			stimID 			= tmpar4.concat(tmpar3);
 			letterID		= new Array(stimID.length).fill(0); //prefer number IDs for data 
 			stims 			= []; // reset to empty array
-
+			var tmpphase = "postsetup";
+			// psiTurk.recordTrialData({	'phase': 	tmpphase,
+   //                                   	'tmpar1': 	tmpar1.length,
+   //                                   	'tmpar2': 	tmpar2.length,
+   //                                   	'tmpar3': 	tmpar3.length,
+   //                                   	'tmpar4': 	tmpar4.length,
+   //                                   	'stimID': 	stimID.length,
+   //                                   	'letterID': letterID.length}
+   //                                 );
+  			 psiTurk.recordTrialData({	'phase': 	tmpphase,
+                                     	'tmpar1': 	tmpar1,
+                                     	'tmpar2': 	tmpar2,
+                                     	'tmpar3': 	tmpar3,
+                                     	'tmpar4': 	tmpar4,
+                                     	'stimID': 	stimID,
+                                     	'letterID': letterID}
+                                   );
 			// selects stimulus letters for each trial; nontargets are chosen randomly
 			for (i = 0; i < stimID.length; i++) {
 
