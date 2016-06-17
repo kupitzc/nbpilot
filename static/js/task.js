@@ -13,47 +13,47 @@ var mycounterbalance = counterbalance;  // they tell you which condition you hav
 //counterbalancing task order; 6 'conditions' 
 switch (mycondition) {
 	case 1:
-		var taskorder = [1, 2, 3];
-		break;
+	var taskorder = [1, 2, 3];
+	break;
 	case 2:
-		var taskorder = [1, 3, 2];
-		break;
+	var taskorder = [1, 3, 2];
+	break;
 	case 3:
-		var taskorder = [2, 1, 3];
-		break;
+	var taskorder = [2, 1, 3];
+	break;
 	case 4:
-		var taskorder = [2, 3, 1];
-		break;
+	var taskorder = [2, 3, 1];
+	break;
 	case 5:
-		var taskorder = [3, 1, 2];
-		break;
+	var taskorder = [3, 1, 2];
+	break;
 	case 6:
-		var taskorder = [3, 2, 1];
-		break;
+	var taskorder = [3, 2, 1];
+	break;
 	default:
-		var taskorder = [1, 2, 3];
-		break;
+	var taskorder = [1, 2, 3];
+	break;
 }
 
 switch (mycounterbalance) {
 	case 1:
-		var Fresp = "target";
-		var Frespsame = 1; 
-		var Jresp = "nontarget";
-		var Jrespsame = 0;
-		break;
+	var Fresp = "target";
+	var Frespsame = 1; 
+	var Jresp = "nontarget";
+	var Jrespsame = 0;
+	break;
 	case 2:
-		var Fresp = "nontarget";
-		var Frespsame = 0; 
-		var Jresp = "target";
-		var Jrespsame = 1;
-		break;
+	var Fresp = "nontarget";
+	var Frespsame = 0; 
+	var Jresp = "target";
+	var Jrespsame = 1;
+	break;
 	default:
-		var Fresp = "target";
-		var Frespsame = 1; 
-		var Jresp = "nontarget";
-		var Jrespsame = 0;
-		break;
+	var Fresp = "target";
+	var Frespsame = 1; 
+	var Jresp = "nontarget";
+	var Jrespsame = 0;
+	break;
 }
 
 /*
@@ -76,18 +76,41 @@ var instructionPages = [ // add as a list as many pages as you like
 	"instructions/instruct-ready.html"
 ]; 
 */
+var testpagevar = "instructions/NBS-instruct-1.html";
 // All pages to be loaded
 var pages = [
-	"instructions/instruct-1.html",
-	"instructions/instruct-ready.html",
-	"stage.html",
-	"postquestionnaire.html"
+"instructions/instruct-1.html",
+"instructions/instruct-ready.html",
+"stage.html",
+"postquestionnaire.html",
+testpagevar
+// "instructions/NBS-instruct-1.html"
+// "instructions/NBS/NBS-instruct-ready.html"
 ];
 
 psiTurk.preloadPages(pages);
 
 var instructionPages = [ // add as a list as many pages as you like
-	"instructions/instruct-ready.html"
+"instructions/instruct-ready.html"
+];
+
+// NBS
+var instructionPagesNBS = [ // add as a list as many pages as you like
+// "instructions/NBS-instruct-1.html",
+testpagevar,
+"instructions/instruct-ready.html"
+// "instructions/NBS/NBS-instruct-1.html",
+// "instructions/NBS/NBS-instruct-ready.html"
+];
+
+//NBR
+var instructionPagesNBR = [ // add as a list as many pages as you like
+"instructions/instruct-ready.html"
+];
+
+//CPT
+var instructionPagesCPT = [ // add as a list as many pages as you like
+"instructions/instruct-ready.html"
 ];
 
 /********************
@@ -100,17 +123,17 @@ var instructionPages = [ // add as a list as many pages as you like
 *
 ********************/
 
-	var show_word = function(text, color) {
-		d3.select("#stim")
-			.append("div")
-			.attr("id","letter")
-			.style("color",color)
-			.style("text-align","center")
-			.style("font-size","150px")
-			.style("font-weight","400")
-			.style("margin","20px")
-			.text(text);
-	};
+var show_word = function(text, color) {
+	d3.select("#stim")
+	.append("div")
+	.attr("id","letter")
+	.style("color",color)
+	.style("text-align","center")
+	.style("font-size","150px")
+	.style("font-weight","400")
+	.style("margin","20px")
+	.text(text);
+};
 
 /**************************************
 ***************************************
@@ -132,7 +155,7 @@ var NBS_Task = function() {
 
 	//EXPT CONTROL VARIABLES:
 	var nlevel          //instantiate for full scope
-	var nlevelblocks 	= [2, 2, 3, 3, 4, 4]; // [2, 3]; //CHANGEBACK [2, 2, 3, 3, 4, 4];
+	var nlevelblocks 	= [2, 3, 4]; //CHANGEBACK [2, 2, 3, 3, 4, 4];
 	var ntargets 		= 2; //CHANGEBACK 6;
 	var nnontargets 	= 2; //CHANGEBACK 12;
 	
@@ -182,7 +205,7 @@ var NBS_Task = function() {
 			//executes the code inside the anonymous function after a specified time
 			//e.g. this clears the stimulus after 'stimtime' ms
 			setTimeout(function() {
-    			remove_word();
+				remove_word();
 			}, stimtime);
 		}//else
 	};
@@ -235,12 +258,12 @@ var NBS_Task = function() {
 			} //for
 
 			var tmpphase = "blocksetup";
-  			psiTurk.recordTrialData({	'phase': 	tmpphase,
-  										'task': 	curtask,
-    									'block': 	curblock,
-                                     	'stimID': 	stimID,
-                                     	'letterID': letterID
-                                     });
+			psiTurk.recordTrialData({	'phase': 	tmpphase,
+				'task': 	curtask,
+				'block': 	curblock,
+				'stimID': 	stimID,
+				'letterID': letterID
+			});
                                      	// 'tmpar1': 	tmpar1,
                                      	// 'tmpar2': 	tmpar2,
                                      	// 'tmpar3': 	tmpar3,
@@ -260,27 +283,27 @@ var NBS_Task = function() {
 		// space = 32
 		switch (keyCode) {
 			case 70: 	// "F"
-				response 	= Fresp;
-				respsame 	= Frespsame;
+			response 	= Fresp;
+			respsame 	= Frespsame;
 				// response = "target";
 				// respsame = 1;
 				break;
 			case 74: 	// "J"
-				response 	= Jresp;
-				respsame 	= Jrespsame;
+			response 	= Jresp;
+			respsame 	= Jrespsame;
 				// response = "nontarget";
 				// respsame = 0;
 				break;
-			default:
+				default:
 				response = "";
 				respsame = -1; //redundant but w/e
 				break;
-		}
-		if (response.length>0) {
-			listening 	= false;
-			gotresp 	= 1;
-			hit 		= response == stim[1];
-			rt 			= new Date().getTime() - letteron;
+			}
+			if (response.length>0) {
+				listening 	= false;
+				gotresp 	= 1;
+				hit 		= response == stim[1];
+				rt 			= new Date().getTime() - letteron;
 
 		} // if (response.length>0) {
 	}; //response_handler
@@ -298,8 +321,8 @@ var NBS_Task = function() {
 
 		// after ISI ms, record the current trial data, move to next trial
 		setTimeout(function() {
-        psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],response,respsame,lettertime,hit,rt]);
-    			nexttrial();
+			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],response,respsame,lettertime,hit,rt]);
+			nexttrial();
 		}, ISI);
 	};
 
@@ -338,7 +361,7 @@ var NBR_Task = function() {
 
 	//EXPT CONTROL VARIABLES:
 	var nlevel          //instantiate for full scope
-	var nlevelblocks 	= [2, 2, 3, 3, 4, 4]; //= [2, 3]; //CHANGEBACK [2, 2, 3, 3, 4, 4];
+	var nlevelblocks 	= [2, 3, 4]; //= [2, 3]; //CHANGEBACK [2, 2, 3, 3, 4, 4];
 	var ntargets 		= 2; //CHANGEBACK 6;
 	var nnontargets 	= 2; //CHANGEBACK 12;
 	
@@ -393,7 +416,7 @@ var NBR_Task = function() {
 			//executes the code inside the anonymous function after a specified time
 			//e.g. this clears the stimulus after 'stimtime' ms
 			setTimeout(function() {
-    			remove_word();
+				remove_word();
 			}, stimtime);
 		}//else
 	};
@@ -451,12 +474,12 @@ var NBR_Task = function() {
 			} //for
 
 			var tmpphase = "blocksetup";
-  			psiTurk.recordTrialData({	'phase': 	tmpphase,
-  										'task': 	curtask,
-    									'block': 	curblock,
-                                     	'stimID': 	stimID,
-                                     	'letterID': letterID
-                                     });
+			psiTurk.recordTrialData({	'phase': 	tmpphase,
+				'task': 	curtask,
+				'block': 	curblock,
+				'stimID': 	stimID,
+				'letterID': letterID
+			});
                                      	// 'tmpar1': 	tmpar1,
                                      	// 'tmpar2': 	tmpar2,
                                      	// 'tmpar3': 	tmpar3,
@@ -502,13 +525,13 @@ var NBR_Task = function() {
 			} //for
 
 			var tmpphase = "reset";
-  			psiTurk.recordTrialData({	'phase': 	tmpphase,
-  										'task': 	curtask,
-    									'block': 	curblock,
-                                     	'stimID': 	stimID,
-                                     	'letterID': letterID,
-                                     	'nresets': 	nresets
-                                     });
+			psiTurk.recordTrialData({	'phase': 	tmpphase,
+				'task': 	curtask,
+				'block': 	curblock,
+				'stimID': 	stimID,
+				'letterID': letterID,
+				'nresets': 	nresets
+			});
 	}; //do_reset
 
 	var response_handler = function(e) {
@@ -520,28 +543,28 @@ var NBR_Task = function() {
 		// space = 32
 		switch (keyCode) {
 			case 32: 	// "spacebar"
-				response 	= "reset";
-				respsame 	= -2;
-				break;
+			response 	= "reset";
+			respsame 	= -2;
+			break;
 			case 70: 	// "F"
-				response 	= Fresp;
-				respsame 	= Frespsame;
+			response 	= Fresp;
+			respsame 	= Frespsame;
 				// response = "target";
 				// respsame = 1;
 				break;
 			case 74: 	// "J"
-				response 	= Jresp;
-				respsame 	= Jrespsame;
+			response 	= Jresp;
+			respsame 	= Jrespsame;
 				// response = "nontarget";
 				// respsame = 0;
 				break;
-			default:
+				default:
 				response = "";
 				respsame = -1; //redundant but w/e
 				break;
-		}
-		if (response.length>0) {
-			listening 	= false;
+			}
+			if (response.length>0) {
+				listening 	= false;
 			rt 			= new Date().getTime() - letteron; //still want RT as is even on RESET
 
 			if (respsame===-2) {  //RESET RESPONSE
@@ -580,13 +603,13 @@ var NBR_Task = function() {
 		// after ISI ms, record the current trial data, move to next trial
 		//THIS IS IN JSON FORMAT
 		setTimeout(function() {
-				psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],
-       			response,respsame,lettertime,hit,rt,nresets,nseqlength,ntargetsans,nnontargetsans]);
-       			if (respsame===-2) {
-       				do_reset();
+			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],
+				response,respsame,lettertime,hit,rt,nresets,nseqlength,ntargetsans,nnontargetsans]);
+			if (respsame===-2) {
+				do_reset();
        			}//if
-    			nexttrial();
-		}, ISI);
+       			nexttrial();
+       		}, ISI);
 	};
 
 	
@@ -615,8 +638,8 @@ var CPT_Task = function() {
 
 	// Experiment Control Variables
 	// TIMING VARIABLES (in ms):
-	var stimtime 		= 50; // CHANGEBACK 250;
-	var ISI 			= 50; // CHANGEBACK 1000;
+	var stimtime 		= 15; // CHANGEBACK 250;
+	var ISI 			= 15; // CHANGEBACK 1000;
 
 	// PRESENTATION VARIABLES:
 	var stimsize		= 80;
@@ -687,7 +710,7 @@ var CPT_Task = function() {
 			//executes the code inside the anonymous function after a specified time
 			//e.g. this clears the stimulus after 'stimtime' ms
 			setTimeout(function() {
-    			remove_word();
+				remove_word();
 			}, stimtime);
 		}//else
 	};
@@ -740,23 +763,23 @@ var CPT_Task = function() {
 						ttype2 = "target";
 						break;
 					case 3: 	//  non-target X  	B->X
-						letterID1[i] = Math.floor(2 + Math.random() * (nletters - 2));
+					letterID1[i] = Math.floor(2 + Math.random() * (nletters - 2));
 						letterID2[i] = 1; //X
 						ttype1 = "nontarget";
 						ttype2 = "target";
 						break;
 					case 4: 	//  pure distractor	B->Y
-						letterID1[i] = Math.floor(2 + Math.random() * (nletters - 2));
-						letterID2[i] = Math.floor(2 + Math.random() * (nletters - 2));
-						ttype1 = "nontarget";
-						ttype2 = "target";
-						break;
+					letterID1[i] = Math.floor(2 + Math.random() * (nletters - 2));
+					letterID2[i] = Math.floor(2 + Math.random() * (nletters - 2));
+					ttype1 = "nontarget";
+					ttype2 = "target";
+					break;
 					default:
-						letterID1[i] = -1;
-						letterID2[i] = -1;
-						ttype1 = "broken";
-						ttype2 = "broken";
-						break;
+					letterID1[i] = -1;
+					letterID2[i] = -1;
+					ttype1 = "broken";
+					ttype2 = "broken";
+					break;
 				}
 
 				// stims.push([ 	stimletters[letterID1[i]] , stimletters[letterID2[i]],
@@ -767,13 +790,13 @@ var CPT_Task = function() {
 			} //for
 
 			var tmpphase = "blocksetup";
-  			psiTurk.recordTrialData({	'phase': 	tmpphase,
-  										'task': 	curtask,
-    									'block': 	curblock,
-                                     	'stimID': 	stimID,
-                                     	'letterID1': letterID1,
-                                     	'letterID2': letterID2
-                                     });
+			psiTurk.recordTrialData({	'phase': 	tmpphase,
+				'task': 	curtask,
+				'block': 	curblock,
+				'stimID': 	stimID,
+				'letterID1': letterID1,
+				'letterID2': letterID2
+			});
                                      	// 'tmpar1': 	tmpar1,
                                      	// 'tmpar2': 	tmpar2,
                                      	// 'tmpar3': 	tmpar3,
@@ -791,23 +814,23 @@ var CPT_Task = function() {
 		// space = 32
 		switch (keyCode) {
 			case 70: 	// "F"
-				response 	= Fresp;
-				respsame 	= Frespsame;
-				break;
+			response 	= Fresp;
+			respsame 	= Frespsame;
+			break;
 			case 74: 	// "J"
-				response 	= Jresp;
-				respsame 	= Jrespsame;
-				break;
+			response 	= Jresp;
+			respsame 	= Jrespsame;
+			break;
 			default:
-				response = "";
+			response = "";
 				respsame = -1; //redundant but w/e
 				break;
-		}
-		if (response.length>0) {
-			listening 	= false;
-			gotresp 	= 1;
-			hit 		= response == stim[1];
-			rt 			= new Date().getTime() - letteron;
+			}
+			if (response.length>0) {
+				listening 	= false;
+				gotresp 	= 1;
+				hit 		= response == stim[1];
+				rt 			= new Date().getTime() - letteron;
 
 		} // if (response.length>0) {
 	}; //response_handler
@@ -825,9 +848,9 @@ var CPT_Task = function() {
 
 		// after ISI ms, record the current trial data, move to next trial
 		setTimeout(function() {
-    			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,trialphase,stim[0],stim[1],stim[2],stim[3],
-       			response,respsame,lettertime,hit,rt]);
-    			nexttrial();
+			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,trialphase,stim[0],stim[1],stim[2],stim[3],
+				response,respsame,lettertime,hit,rt]);
+			nexttrial();
 		}, ISI);
 	};
 
@@ -878,12 +901,12 @@ var Questionnaire = function() {
 		
 		psiTurk.saveData({
 			success: function() {
-			    clearInterval(reprompt);
-			    psiTurk.completeHIT();
+				clearInterval(reprompt);
+				psiTurk.completeHIT();
                 // psiTurk.computeBonus('compute_bonus', function(){finish()}); 
-			}, 
-			error: prompt_resubmit
-		});
+            }, 
+            error: prompt_resubmit
+        });
 	};
 
 	// Load the questionnaire snippet 
@@ -891,17 +914,17 @@ var Questionnaire = function() {
 	psiTurk.recordTrialData({'phase':'postquestionnaire', 'status':'begin'});
 	
 	$("#next").click(function () {
-	    record_responses();
-	    psiTurk.saveData({
-            success: function(){
-            	psiTurk.completeHIT();
+		record_responses();
+		psiTurk.saveData({
+			success: function(){
+				psiTurk.completeHIT();
                 // psiTurk.computeBonus('compute_bonus', function() { 
                 // 	psiTurk.completeHIT(); // when finished saving compute bonus, the quit
                 // }); 
             }, 
             error: prompt_resubmit});
 	});
-    
+
 	
 };
 
@@ -911,26 +934,45 @@ var Task_Controller = function() {
 	if (taskorder.length===0) {
 			currentview = new Questionnaire(); //done!
 		}
-	else {
+		else {
 		// block begin (prepare everything)
 
 		curtaskIndex 	= curtaskIndex + 1;  //increment task counter
 		curtaskID 		= taskorder.shift(); //get next task
 
-		switch (curtaskID) {
-		case 1:
-			curtask = "NBS";
-			currentview = new NBS_Task();
+
+		// psiTurk.doInstructions(
+  //   		instructionPages, // a list of pages you want to display in sequence
+  //   		function() { currentview = new Task_Controller(); } // what you want to do when you are done with instructions
+  //   	);
+
+
+  switch (curtaskID) {
+  	case 1:
+  	curtask = "NBS";
+			// currentview = new NBS_Task();
+			psiTurk.doInstructions(
+    		instructionPagesNBS, // a list of pages you want to display in sequence
+    		function() { currentview = new NBS_Task(); } // what you want to do when you are done with instructions
+    		);
 			break;
-		case 2:
+			case 2:
 			curtask = "NBR";
-			currentview = new NBR_Task();
+			// currentview = new NBR_Task();
+			psiTurk.doInstructions(
+    		instructionPagesNBR, // a list of pages you want to display in sequence
+    		function() { currentview = new NBR_Task(); } // what you want to do when you are done with instructions
+    		);
 			break;
-		case 3:
+			case 3:
 			curtask = "CPT";
-			currentview = new CPT_Task();
+			// currentview = new CPT_Task();
+			psiTurk.doInstructions(
+    		instructionPagesCPT, // a list of pages you want to display in sequence
+    		function() { currentview = new CPT_Task(); } // what you want to do when you are done with instructions
+    		);
 			break;
-		default:
+			default:
 			curtask = "Broken";
 			currentview = new Questionnaire();
 			break;
@@ -951,9 +993,9 @@ taskorder = [1, 2, 3]; //CHANGEBACK --REMOVEME!
 /*******************
  * Run Task
  ******************/
-$(window).load( function(){
-    psiTurk.doInstructions(
+ $(window).load( function(){
+ 	psiTurk.doInstructions(
     	instructionPages, // a list of pages you want to display in sequence
     	function() { currentview = new Task_Controller(); } // what you want to do when you are done with instructions
-    );
-});
+    	);
+ });

@@ -1,4 +1,5 @@
-    	// psiTurk.recordTrialData({	'phase': 		curphase,
+    	   //THIS IS IN JSON FORMAT
+      // psiTurk.recordTrialData({	'phase': 		curphase,
     	// 							'task': 		curtask,
     	// 							'block': 		curblock,
     	// 							'trial': 		curtrial,
