@@ -111,7 +111,7 @@ var instructionPages = [ // add as a list as many pages as you like
 			.style("margin","20px")
 			.text(text);
 	};
-
+	
 /**************************************
 ***************************************
 ***************************************
@@ -123,8 +123,8 @@ var NBS_Task = function() {
 
 	// Experiment Control Variables
 	// TIMING VARIABLES (in ms):
-	var stimtime 		= 25; // CHANGEBACK 250;
-	var ISI 			= 25; // CHANGEBACK 2500;
+	var stimtime 		= 50; // CHANGEBACK 250;
+	var ISI 			= 50; // CHANGEBACK 2500;
 
 	// PRESENTATION VARIABLES:
 	var stimsize		= 80;
@@ -289,6 +289,18 @@ var NBS_Task = function() {
 	    $("body").unbind("keydown", response_handler); // Unbind keys
 	    currentview = new Task_Controller();
 	};
+	
+	// var show_word = function(text, color) {
+	// 	d3.select("#stim")
+	// 		.append("div")
+	// 		.attr("id","letter")
+	// 		.style("color",color)
+	// 		.style("text-align","center")
+	// 		.style("font-size","150px")
+	// 		.style("font-weight","400")
+	// 		.style("margin","20px")
+	// 		.text(text);
+	// };
 
 	var remove_word = function() {
 		// the 'letter' attribute is set in the show_word function
@@ -297,8 +309,24 @@ var NBS_Task = function() {
 		lettertime = letteroff - letteron;
 
 		// after ISI ms, record the current trial data, move to next trial
+		//THIS IS IN JSON FORMAT
 		setTimeout(function() {
-        psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],response,respsame,lettertime,hit,rt]);
+    			// psiTurk.recordTrialData({	'phase': 		curphase,
+    			// 							'task': 		curtask,
+    			// 							'block': 		curblock,
+    			// 							'trial': 		curtrial,
+       //                              		'letter': 		stim[0],
+       //                               		'stimType': 	stim[1],
+       //                               		'letterID': 	stim[2],
+       //                               		'stimID': 		stim[3],
+       //                               		'response': 	response,
+       //                               		'respsame': 	respsame,
+       //                               		'lettertime': 	lettertime,
+       //                               		'hit': 			hit,
+       //                               		'rt': 			rt
+       //                               	});
+       
+       psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],response,respsame,lettertime,hit,rt]);
     			nexttrial();
 		}, ISI);
 	};
@@ -329,8 +357,8 @@ var NBR_Task = function() {
 
 	// Experiment Control Variables
 	// TIMING VARIABLES (in ms):
-	var stimtime 		= 25; // CHANGEBACK 250;
-	var ISI 			= 25; // CHANGEBACK 2500;
+	var stimtime 		= 50; // CHANGEBACK 250;
+	var ISI 			= 50; // CHANGEBACK 2500;
 
 	// PRESENTATION VARIABLES:
 	var stimsize		= 80;
@@ -570,6 +598,18 @@ var NBR_Task = function() {
 	    $("body").unbind("keydown", response_handler); // Unbind keys
 	    currentview = new Task_Controller();
 	};
+	
+	// var show_word = function(text, color) {
+	// 	d3.select("#stim")
+	// 		.append("div")
+	// 		.attr("id","letter")
+	// 		.style("color",color)
+	// 		.style("text-align","center")
+	// 		.style("font-size","150px")
+	// 		.style("font-weight","400")
+	// 		.style("margin","20px")
+	// 		.text(text);
+	// };
 
 	var remove_word = function() {
 		// the 'letter' attribute is set in the show_word function
@@ -580,7 +620,22 @@ var NBR_Task = function() {
 		// after ISI ms, record the current trial data, move to next trial
 		//THIS IS IN JSON FORMAT
 		setTimeout(function() {
-				psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],
+    			// psiTurk.recordTrialData({	'phase': 		curphase,
+    			// 							'task': 		curtask,
+    			// 							'block': 		curblock,
+    			// 							'trial': 		curtrial,
+       //                              		'letter': 		stim[0],
+       //                               		'stimType': 	stim[1],
+       //                               		'letterID': 	stim[2],
+       //                               		'stimID': 		stim[3],
+       //                               		'response': 	response,
+       //                               		'respsame': 	respsame,
+       //                               		'lettertime': 	lettertime,
+       //                               		'hit': 			hit,
+       //                               		'rt': 			rt
+       //                               	});
+       
+      			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],
        			response,respsame,lettertime,hit,rt,nresets,nseqlength,ntargetsans,nnontargetsans]);
        			if (respsame===-2) {
        				do_reset();
@@ -640,8 +695,7 @@ var CPT_Task = function() {
 	var response 	= "noresp";
 	var listening 	= false;
 	var hit 		= -1;
-	var rt 			= -1;
-	var trialphase  = 2; // each 'trial' is 2 consecutive letters; this keeps track
+	var rt 			= -1; 
 
 	var maxblocks   = 1; //CHANGEBACK 6
 	var curblock	= 0;
@@ -668,16 +722,9 @@ var CPT_Task = function() {
 			respsame 	= -1;
 			response 	= "noresp";
 			hit 		= -1;
-			rt 			= -1;
+			rt 			= -1; 
 
-			if (trialphase===2) {
-				trialphase = 1;
-				curtrial++;//increment trial only on 'first' letter
-			}
-			else if (trialphase===1) {
-				trialphase = 2;
-			}
-			else { trialphase = -1; } //something is broken if we get here
+			curtrial 	= curtrial + 1; //increment trial
 
 			stim = stims.shift();
 			show_word( stim[0], stimcolor );
@@ -716,8 +763,7 @@ var CPT_Task = function() {
 			letterID2		= new Array(stimID.length).fill(0); //prefer numbers for data 
 			stims 			= []; // reset to empty array
 
-			var ttype1
-			var ttype2
+			var ttype
 
 			// selects stimulus letters for each trial; nontargets are chosen randomly
 			for (i = 0; i < stimID.length; i++) {
@@ -730,39 +776,32 @@ var CPT_Task = function() {
 					case 1: 	//  target 	A->X	
 						letterID1[i] = 0; //A
 						letterID2[i] = 1; //X
-						ttype1 = "nontarget";
-						ttype2 = "target";
+						ttype = "target";
 						break;
 					case 2: 	//  on-target lure	A->Y
 						letterID1[i] = 0; //A
 						letterID2[i] = Math.floor(2 + Math.random() * (nletters - 2));
-						ttype1 = "nontarget";
-						ttype2 = "target";
+						ttype = "nontarget";
 						break;
 					case 3: 	//  non-target X  	B->X
 						letterID1[i] = Math.floor(2 + Math.random() * (nletters - 2));
 						letterID2[i] = 1; //X
-						ttype1 = "nontarget";
-						ttype2 = "target";
+						ttype = "nontarget";
 						break;
 					case 4: 	//  pure distractor	B->Y
 						letterID1[i] = Math.floor(2 + Math.random() * (nletters - 2));
 						letterID2[i] = Math.floor(2 + Math.random() * (nletters - 2));
-						ttype1 = "nontarget";
-						ttype2 = "target";
+						ttype = "nontarget";
 						break;
 					default:
 						letterID1[i] = -1;
 						letterID2[i] = -1;
-						ttype1 = "broken";
-						ttype2 = "broken";
+						ttype = "broken";
 						break;
 				}
 
-				// stims.push([ 	stimletters[letterID1[i]] , stimletters[letterID2[i]],
-				//  				ttype, letterID1[i], letterID2[i], stimID[i] ]);
-				stims.push([ stimletters[letterID1[i]], ttype1, letterID1[i], stimID[i] ]);
-				stims.push([ stimletters[letterID2[i]], ttype2, letterID2[i], stimID[i] ]);
+				stims.push([ 	stimletters[letterID1[i]] , stimletters[letterID2[i]],
+				 				ttype, letterID1[i], letterID2[i], stimID[i] ]);
 
 			} //for
 
@@ -806,7 +845,7 @@ var CPT_Task = function() {
 		if (response.length>0) {
 			listening 	= false;
 			gotresp 	= 1;
-			hit 		= response == stim[1];
+			hit 		= response == stim[2];
 			rt 			= new Date().getTime() - letteron;
 
 		} // if (response.length>0) {
@@ -816,6 +855,18 @@ var CPT_Task = function() {
 	    $("body").unbind("keydown", response_handler); // Unbind keys
 	    currentview = new Task_Controller();
 	};
+	
+	// var show_word = function(text, color) {
+	// 	d3.select("#stim")
+	// 		.append("div")
+	// 		.attr("id","letter")
+	// 		.style("color",color)
+	// 		.style("text-align","center")
+	// 		.style("font-size","150px")
+	// 		.style("font-weight","400")
+	// 		.style("margin","20px")
+	// 		.text(text);
+	// };
 
 	var remove_word = function() {
 		// the 'letter' attribute is set in the show_word function
@@ -824,13 +875,30 @@ var CPT_Task = function() {
 		lettertime = letteroff - letteron;
 
 		// after ISI ms, record the current trial data, move to next trial
+		//THIS IS IN JSON FORMAT
 		setTimeout(function() {
-    			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,trialphase,stim[0],stim[1],stim[2],stim[3],
+    			// psiTurk.recordTrialData({	'phase': 		curphase,
+    			// 							'task': 		curtask,
+    			// 							'block': 		curblock,
+    			// 							'trial': 		curtrial,
+       //                              		'letter': 		stim[0],
+       //                               		'stimType': 	stim[1],
+       //                               		'letterID': 	stim[2],
+       //                               		'stimID': 		stim[3],
+       //                               		'response': 	response,
+       //                               		'respsame': 	respsame,
+       //                               		'lettertime': 	lettertime,
+       //                               		'hit': 			hit,
+       //                               		'rt': 			rt
+       //                               	});
+       
+      			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],
        			response,respsame,lettertime,hit,rt]);
     			nexttrial();
 		}, ISI);
 	};
 
+	
 	// Load the stage.html snippet into the body of the page
 	psiTurk.showPage('stage.html');
 
