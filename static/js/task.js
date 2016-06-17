@@ -132,7 +132,7 @@ var NBS_Task = function() {
 
 	//EXPT CONTROL VARIABLES:
 	var nlevel          //instantiate for full scope
-	var nlevelblocks 	= [2, 3]; //CHANGEBACK [2, 2, 3, 3, 4, 4];
+	var nlevelblocks 	= [2, 2, 3, 3, 4, 4]; // [2, 3]; //CHANGEBACK [2, 2, 3, 3, 4, 4];
 	var ntargets 		= 2; //CHANGEBACK 6;
 	var nnontargets 	= 2; //CHANGEBACK 12;
 	
@@ -338,7 +338,7 @@ var NBR_Task = function() {
 
 	//EXPT CONTROL VARIABLES:
 	var nlevel          //instantiate for full scope
-	var nlevelblocks 	= [2, 3]; //CHANGEBACK [2, 2, 3, 3, 4, 4];
+	var nlevelblocks 	= [2, 2, 3, 3, 4, 4]; //= [2, 3]; //CHANGEBACK [2, 2, 3, 3, 4, 4];
 	var ntargets 		= 2; //CHANGEBACK 6;
 	var nnontargets 	= 2; //CHANGEBACK 12;
 	
@@ -643,7 +643,7 @@ var CPT_Task = function() {
 	var rt 			= -1;
 	var trialphase  = 2; // each 'trial' is 2 consecutive letters; this keeps track
 
-	var maxblocks   = 1; //CHANGEBACK 6
+	var maxblocks   = 6; //CHANGEBACK 6
 	var curblock	= 0;
 	var curtrial	= 0; //need my own trial counter
 
