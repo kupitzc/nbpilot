@@ -105,25 +105,25 @@ var instructionPagesCPT = [
 //counterbalancing task order; 6 'conditions' 
 switch (mycondition) {
 	case 1:
-	var taskorder = [1, 2, 3];
+	var taskorder = [1, 2, 3, 4, 5];
 	break;
 	case 2:
-	var taskorder = [1, 3, 2];
+	var taskorder = [1, 2, 5, 3, 4];
 	break;
 	case 3:
-	var taskorder = [2, 1, 3];
+	var taskorder = [3, 4, 1, 2, 5];
 	break;
 	case 4:
-	var taskorder = [2, 3, 1];
+	var taskorder = [3, 4, 5, 1, 2];
 	break;
 	case 5:
-	var taskorder = [3, 1, 2];
+	var taskorder = [5, 1, 2, 3, 4];
 	break;
 	case 6:
-	var taskorder = [3, 2, 1];
+	var taskorder = [5, 3, 4, 1, 2];
 	break;
 	default:
-	var taskorder = [1, 2, 3];
+	var taskorder = [1, 2, 3, 4, 5];
 	break;
 }
 
@@ -1160,46 +1160,28 @@ var Task_Controller = function() {
 	if (taskorder.length===0 && donewtask===1) {
 			currentview = new Questionnaire(); //done!
 		}
-		else {
-		if (donewtask===1)
+	else {
+		if (donewtask===1) {
 			donewtask = 0;
 			isprac = 1;
 			dointerlude = 0;
 			curtaskIndex 	= curtaskIndex + 1;  //increment task counter
-			curtaskID 		= taskorder.shift(); //get next task
+			TID 		= taskorder.shift(); //get next task
 			taskblockindex 	= -1;
 		}
-		// block begin (prepare everything)
-
-		//always start with practice
-		// if (isprac===0) {
-		// isprac = 1;
-		// curtaskIndex 	= curtaskIndex + 1;  //increment task counter
-		// curtaskID 		= taskorder.shift(); //get next task
-		// dointerlude 	= 1;
-		// }
-		if (isprac===1) {
-		isprac = 0;
-		dointerlude = 1;
-		taskblockindex 	= 1;
-		// curtaskIndex 	= curtaskIndex + 1;  //increment task counter
-		// curtaskID 		= taskorder.shift(); //get next task
+		else if (isprac===1) {
+			isprac = 0;
+			dointerlude = 1;
+			taskblockindex 	= 1;
 		}
 		else {
 			dointerlude = 1;
 			taskblockindex++;
-		}
+		}//else
 
-		// psiTurk.doInstructions(
-  //   		instructionPages, // a list of pages you want to display in sequence
-  //   		function() { currentview = new Task_Controller(); } // what you want to do when you are done with instructions
-  //   	);
-
-
-  switch (curtaskID) {
+  switch (TID) {
   		case 1:
-  			curtask = "NBS";
-			// currentview = new NBS_Task();
+  			curtask = "NBS2";
 
 			if (isprac===1) {
 				nlevelblocks = [2]; // one block of 2-back
@@ -1208,47 +1190,113 @@ var Task_Controller = function() {
 	    		instructionPagesNBS2, // a list of pages you want to display in sequence
 	    		function() { currentview = new NBS_Task(); } // what you want to do when you are done with instructions
 	    		);
-			}
+			}//if
 
 			else {
-				nbs2ind++;
-				if (nbs2ind>nbs2blocks) {
+				tblockind[TID]++;
+				if (tblockind[TID]>tblocks[TID]) {
 					donewtask = 1;
 					currentview = new Task_Controller();
-				}
+				} //if
 				else {
 					nlevelblocks = [2];
 					psiTurk.doInstructions(
-		    		instructionPagesNBS2, // a list of pages you want to display in sequence
+		    		interludePages, // a list of pages you want to display in sequence
 		    		function() { currentview = new NBS_Task(); } // what you want to do when you are done with instructions
 		    		);
-				}
-			}
+				} //else
+			}//else
 
-			break;
+		break;
 
 		case 2:
-			curtask = "NBR";
-			// currentview = new NBR_Task();
+  			curtask = "NBS3";
+
+			if (isprac===1) {
+				nlevelblocks = [3]; // one block of 3-back
+
+				psiTurk.doInstructions(
+	    		instructionPagesNBS3, // a list of pages you want to display in sequence
+	    		function() { currentview = new NBS_Task(); } // what you want to do when you are done with instructions
+	    		);
+			}//if
+
+			else {
+				tblockind[TID]++;
+				if (tblockind[TID]>tblocks[TID]) {
+					donewtask = 1;
+					currentview = new Task_Controller();
+				} //if
+				else {
+					nlevelblocks = [3];
+					psiTurk.doInstructions(
+		    		interludePages, // a list of pages you want to display in sequence
+		    		function() { currentview = new NBS_Task(); } // what you want to do when you are done with instructions
+		    		);
+				} //else
+			}//else
+
+		break;
+
+		case 3:
+  			curtask = "NBR2";
+
 			if (isprac===1) {
 				nlevelblocks = [2]; // one block of 2-back
 
 				psiTurk.doInstructions(
-    			instructionPagesNBR2, // a list of pages you want to display in sequence
-    			function() { currentview = new NBR_Task(); } // what you want to do when you are done with instructions
-    			);
-			}//if
-			else {
-				nlevelblocks = [2];
-				donewtask = 1;
-				psiTurk.doInstructions(
 	    		instructionPagesNBR2, // a list of pages you want to display in sequence
 	    		function() { currentview = new NBR_Task(); } // what you want to do when you are done with instructions
 	    		);
+			}//if
+
+			else {
+				tblockind[TID]++;
+				if (tblockind[TID]>tblocks[TID]) {
+					donewtask = 1;
+					currentview = new Task_Controller();
+				} //if
+				else {
+					nlevelblocks = [2];
+					psiTurk.doInstructions(
+		    		interludePages, // a list of pages you want to display in sequence
+		    		function() { currentview = new NBR_Task(); } // what you want to do when you are done with instructions
+		    		);
+				} //else
 			}//else
+
 		break;
 
-		case 3:
+		case 4:
+  			curtask = "NBR3";
+
+			if (isprac===1) {
+				nlevelblocks = [3]; // one block of 3-back
+
+				psiTurk.doInstructions(
+	    		instructionPagesNBR3, // a list of pages you want to display in sequence
+	    		function() { currentview = new NBR_Task(); } // what you want to do when you are done with instructions
+	    		);
+			}//if
+
+			else {
+				tblockind[TID]++;
+				if (tblockind[TID]>tblocks[TID]) {
+					donewtask = 1;
+					currentview = new Task_Controller();
+				} //if
+				else {
+					nlevelblocks = [3];
+					psiTurk.doInstructions(
+		    		interludePages, // a list of pages you want to display in sequence
+		    		function() { currentview = new NBR_Task(); } // what you want to do when you are done with instructions
+		    		);
+				} //else
+			}//else
+
+		break;
+
+		case 5:
 		curtask = "CPT";
 
 			if (isprac===1) {
@@ -1271,25 +1319,25 @@ var Task_Controller = function() {
 				donewtask = 1;
 
 				psiTurk.doInstructions(
-	    		instructionPagesCPT, // a list of pages you want to display in sequence
+	    		interludePages, // a list of pages you want to display in sequence
 	    		function() { currentview = new CPT_Task(); } // what you want to do when you are done with instructions
 	    		);
 			}//else
+		break;
 
-			break;
-			default:
+		default:
 			curtask = "Broken";
 			currentview = new Questionnaire();
-			break;
+		break;
 		}//switch
-	// }//else
+	}//else
 }; //Task_Controller
 
 
 // Task management variables ()
 var currentview;
 var curtask
-var curtaskID
+var TID
 var curphase 	 = "Main";
 var curtaskIndex = 0;
 
@@ -1298,29 +1346,19 @@ var trialtypes
 var maxblocks
 var isprac 		 = 0;
 var dointerlude  = 0;
-var donewtask
+var donewtask    = 1;
 
-// var nbs2blocks 	 = [2, 2];
-// var nbs3blocks 	 = [3, 3];
-// var nbr2blocks   = [2, 2];
-// var nbr3blocks 	 = [3, 3];
-var taskblockindex
-
-var nbs2blocks 	 = 2;
-var nbs2ind		 = 0;
-var nbs3blocks 	 = 2;
-var nbs3ind 	 = 0;
-var nbr2blocks   = 2;
-var nbr2ind 	 = 0;
-var nbr3blocks 	 = 2;
-var nbr3ind 	 = 0;
+//Holders always relate to: NBS2, NBS3, NBR2, NBR3, CPT];
+//Leading -1s to deal with 0-index of JS
+var tblockind  = [-1, 0, 0, 0, 0, 0];
+var tblocks	   = [-1, 2, 2, 2, 2, 6];
 
 var cptTTprac 	= [4, 1, 1, 1]; //CHANGEBACK [8, 2, 2, 2]
 var cptTT 		= [4, 1, 1, 1]; //[42, 6, 6, 6] //var trialtypes = [42, 6, 6, 6]; //CHANGEBACK
 var cptInd 		= 0;
-var cptblocks 	= 6;
+// var cptblocks 	= 6;
  
-taskorder = [1, 2, 3]; //CHANGEBACK --REMOVEME!
+taskorder = [1, 2, 3, 4, 5]; //CHANGEBACK --REMOVEME!
 
 
 /*******************
