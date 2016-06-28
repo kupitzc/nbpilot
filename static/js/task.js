@@ -140,20 +140,20 @@ switch (mycounterbalance) {
 		"instructions/nbs-inst-2f.html"
 		]);
 
-	// //NBS3
-	// instructionPagesNBS23 = instructionPagesNBS23.concat([
-	// 	"instructions/nbs-inst-3f.html"
-	// 	]);
+	//NBS3
+	instructionPagesNBS3 = instructionPagesNBS3.concat([
+		"instructions/nbs-inst-3f.html"
+		]);
 
 	//NBR2
 	var instructionPagesNBR2 = instructionPagesNBR2.concat([
 		"instructions/nbr-inst-2f.html"
 		]);
 
-	// //NBR3
-	// instructionPagesNBR3 = instructionPagesNBR3.concat([
-	// 	"instructions/nbr-inst-3f.html"
-	// 	]);
+	//NBR3
+	instructionPagesNBR3 = instructionPagesNBR3.concat([
+		"instructions/nbr-inst-3f.html"
+		]);
 
 	//CPT
 	var instructionPagesCPT = instructionPagesCPT.concat([
@@ -174,20 +174,20 @@ break;
 		"instructions/nbs-inst-2j.html"
 		]);
 
-	// //NBS3
-	// instructionPagesNBS23 = instructionPagesNBS23.concat([
-	// 	"instructions/nbs-inst-3j.html"
-	// 	]);
+	//NBS3
+	instructionPagesNBS3 = instructionPagesNBS3.concat([
+		"instructions/nbs-inst-3j.html"
+		]);
 
 	//NBR2
 	var instructionPagesNBR2 = instructionPagesNBR2.concat([
 		"instructions/nbr-inst-2j.html"
 		]);
 
-	// //NBR3
-	// instructionPagesNBR3 = instructionPagesNBR3.concat([
-	// 	"instructions/nbr-inst-3j.html"
-	// 	]);
+	//NBR3
+	instructionPagesNBR3 = instructionPagesNBR3.concat([
+		"instructions/nbr-inst-3j.html"
+		]);
 
 	//CPT
 	var instructionPagesCPT = instructionPagesCPT.concat([
@@ -209,20 +209,20 @@ break;
 		"instructions/nbs-inst-2f.html"
 		]);
 
-	// //NBS3
-	// instructionPagesNBS23 = instructionPagesNBS23.concat([
-	// 	"instructions/nbs-inst-3f.html"
-	// 	]);
+	//NBS3
+	instructionPagesNBS3 = instructionPagesNBS3.concat([
+		"instructions/nbs-inst-3f.html"
+		]);
 
 	//NBR2
 	var instructionPagesNBR2 = instructionPagesNBR2.concat([
 		"instructions/nbr-inst-2f.html"
 		]);
 
-	// //NBR3
-	// instructionPagesNBR3 = instructionPagesNBR3.concat([
-	// 	"instructions/nbr-inst-3f.html"
-	// 	]);
+	//NBR3
+	instructionPagesNBR3 = instructionPagesNBR3.concat([
+		"instructions/nbr-inst-3f.html"
+		]);
 
 	//CPT
 	var instructionPagesCPT = instructionPagesCPT.concat([
@@ -231,30 +231,30 @@ break;
 	break;
 }
 
-//NBS2
-	instructionPagesNBS2 = instructionPagesNBS2.concat([
-		"instructions/nbs-inst-ready.html"
-		]);
+// //NBS2
+// 	instructionPagesNBS2 = instructionPagesNBS2.concat([
+// 		"instructions/nbs-inst-ready.html"
+// 		]);
 
-	// //NBS3
-	// instructionPagesNBS23 = instructionPagesNBS23.concat([
-	// 	"instructions/nbs-inst-3f.html"
-	// 	]);
+// 	//NBS3
+// 	instructionPagesNBS3 = instructionPagesNBS3.concat([
+// 		"instructions/nbs-inst-3f.html"
+// 		]);
 
-	//NBR2
-	var instructionPagesNBR2 = instructionPagesNBR2.concat([
-		"instructions/nbr-inst-ready.html"
-		]);
+// 	//NBR2
+// 	var instructionPagesNBR2 = instructionPagesNBR2.concat([
+// 		"instructions/nbr-inst-ready.html"
+// 		]);
 
-	// //NBR3
-	// instructionPagesNBR3 = instructionPagesNBR3.concat([
-	// 	"instructions/nbr-inst-3f.html"
-	// 	]);
+// 	//NBR3
+// 	instructionPagesNBR3 = instructionPagesNBR3.concat([
+// 		"instructions/nbr-inst-3f.html"
+// 		]);
 
-	//CPT
-	var instructionPagesCPT = instructionPagesCPT.concat([
-		"instructions/cpt-inst-ready.html"
-		]);
+// 	//CPT
+// 	var instructionPagesCPT = instructionPagesCPT.concat([
+// 		"instructions/cpt-inst-ready.html"
+// 		]);
 
 pages = pages.concat(
 	instructionPages,
@@ -262,8 +262,8 @@ pages = pages.concat(
 	instructionPagesNBR2,
 	instructionPagesCPT);
 
-alert(instructionPagesNBS2);
-alert(pages);
+// alert(instructionPagesNBS2);
+// alert(pages);
 
 //after everything has been setup, preload all the pages we're actually going to use
 psiTurk.preloadPages(pages);
