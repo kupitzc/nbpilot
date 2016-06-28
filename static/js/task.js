@@ -76,14 +76,17 @@ var instructionPages = [ // add as a list as many pages as you like
 	"instructions/instruct-ready.html"
 ]; 
 */
-var testpagevar = "instructions/NBS-instruct-1.html";
+//var testpagevar = [	"instructions/NBS-instruct-1.html","instructions/NBS-instruct-2.html"];
+
 // All pages to be loaded
 var pages = [
 "instructions/instruct-1.html",
 "instructions/instruct-ready.html",
 "stage.html",
 "postquestionnaire.html",
-testpagevar
+"instructions/NBS-instruct-1.html",
+"instructions/NBS-instruct-2.html"
+//testpagevar
 // "instructions/NBS-instruct-1.html"
 // "instructions/NBS/NBS-instruct-ready.html"
 ];
@@ -97,7 +100,8 @@ var instructionPages = [ // add as a list as many pages as you like
 // NBS
 var instructionPagesNBS = [ // add as a list as many pages as you like
 // "instructions/NBS-instruct-1.html",
-testpagevar,
+"instructions/NBS-instruct-1.html",
+"instructions/NBS-instruct-2.html",
 "instructions/instruct-ready.html"
 // "instructions/NBS/NBS-instruct-1.html",
 // "instructions/NBS/NBS-instruct-ready.html"

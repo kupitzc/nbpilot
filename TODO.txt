@@ -1,8 +1,8 @@
-SHORT-TERM TO DO / WHERE TO PICK UP:
-	Add AXCPT
-	Update the instructions / questionnaire etc. to be accurate
-	IRB
-	Should we count "no-response" as a "reset" on the reset task?
+TO DO:
+	Finish Instructions
+	change from SQLite to MySQL saving
+	Upload to cidlab server
+	Test external run
 
 
 
