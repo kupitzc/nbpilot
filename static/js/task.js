@@ -10,23 +10,8 @@ var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 // var mycondition = condition;  // these two variables are passed by the psiturk server process
 // var mycounterbalance = counterbalance;  // they tell you which condition you have been assigned to
 
-var mycondition = psiTurk.taskdata.get('condition');  // these two variables are passed by the psiturk server process
-var mycounterbalance = psiTurk.taskdata.get('counterbalance'); ;  // they tell you which condition you have been assigned to
-
-
-// All pages to be loaded
-// var pages = [
-// "instructions/base-inst-1.html",
-// "instructions/inst-ready.html",
-// "stage.html",
-// "postquestionnaire.html",
-// "instructions/nbs-inst-stim.html",
-// "instructions/nbs-inst-ready.html",
-// "instructions/nbr-inst-stim.html",
-// "instructions/nbr-inst-ready.html",
-// "instructions/cpt-inst-stim.html",
-// "instructions/cpt-inst-ready.html"
-// ];
+var mycondition 		= psiTurk.taskdata.get('condition');  // these two variables are passed by the psiturk server process
+var mycounterbalance 	= psiTurk.taskdata.get('counterbalance'); ;  // they tell you which condition you have been assigned to
 
 var pages = [
 "stage.html",
@@ -34,75 +19,31 @@ var pages = [
 ];
 
 var instructionPages = [
-"instructions/base-inst-1.html",
-"instructions/inst-ready.html"
-];
-
-// // NBS
-// var instructionPagesNBS2 = [
-// "instructions/nbs-inst-stim.html",
-// "instructions/nbs-inst-2f.html",
-// "instructions/nbs-inst-ready.html"
-// ];
-
-// //NBR
-// var instructionPagesNBR2 = [
-// "instructions/nbr-inst-stim.html",
-// "instructions/nbr-inst-ready.html"
-// ];
-
-// //CPT
-// var instructionPagesCPT = [
-// "instructions/cpt-inst-stim.html",
-// "instructions/cpt-inst-ready.html"
-// ];
-
-// NBS2
-var instructionPagesNBS2 = [
-"instructions/nbs-inst-stim.html"
-];
-
-// NBS3
-var instructionPagesNBS3 = [
-"instructions/nbs-inst-stim.html"
-];
-
-//NBR2
-var instructionPagesNBR2 = [
-"instructions/nbr-inst-stim.html"
-];
-
-//NBR3
-var instructionPagesNBR3 = [
-"instructions/nbr-inst-stim.html"
-];
-
-//CPT
-var instructionPagesCPT = [
-"instructions/cpt-inst-stim.html"
+"instructions/base-inst-1.html"
 ];
 
 
+var instructionPagesNBS2 = []; // NBS2
 
-// alert(mycondition, mycounterbalance);
+var instructionPagesNBS3 = []; // NBS3
 
-// alert(mycounterbalance);
+var instructionPagesNBR2 = []; //NBR2
+
+var instructionPagesNBR3 = []; //NBR3
+
+var instructionPagesCPT = []; //CPT
 
 //if psiturk's variables for counterbalancing fail for some reason
 //selecting condition (task order) and counterbalance (targetkey)
 //randomly should be close to true counterbalance with all the participants
-// if (mycondition===0) {
-// 	mycondition = 1 + Math.floor(Math.random() * 6);
-// }
+if (mycondition===0) {
+	mycondition = 1 + Math.floor(Math.random() * 6);
+}
+if (mycounterbalance===0) {
+	mycounterbalance = 1 + Math.floor(Math.random() * 2);
+}
 
-// if (mycounterbalance===0) {
-// 	mycounterbalance = 1 + Math.floor(Math.random() * 2);
-// }
-
-// mycondition = 1;
-// mycounterbalance = 2;
-
-//counterbalancing task order; 6 'conditions' 
+//counterbalancing task order (1/2 are both NBS, 3/4 are both NBR)
 switch (mycondition) {
 	case 1:
 	var taskorder = [1, 2, 3, 4, 5];
@@ -129,208 +70,127 @@ switch (mycondition) {
 
 switch (mycounterbalance) {
 	case 1: //f is target
-	var Fresp 		= "target";
-	var Frespsame 	= 1; 
-	var Jresp 		= "nontarget";
-	var Jrespsame 	= 0;
-	var tarkey 		= "f";
+		var Fresp 		= "target";
+		var Frespsame 	= 1; 
+		var Jresp 		= "nontarget";
+		var Jrespsame 	= 0;
+		var tarkey 		= "f";
 
-	//NBS2
-	instructionPagesNBS2 = instructionPagesNBS2.concat([
-		"instructions/nbs-inst-2f.html"
-		]);
+		//NBS2
+		instructionPagesNBS2 = instructionPagesNBS2.concat([
+			"instructions/nbs-inst-2f.html"]);
 
-	//NBS3
-	instructionPagesNBS3 = instructionPagesNBS3.concat([
-		"instructions/nbs-inst-3f.html"
-		]);
+		//NBS3
+		instructionPagesNBS3 = instructionPagesNBS3.concat([
+			"instructions/nbs-inst-3f.html"]);
 
-	//NBR2
-	instructionPagesNBR2 = instructionPagesNBR2.concat([
-		"instructions/nbr-inst-2f.html"
-		]);
+		//NBR2
+		instructionPagesNBR2 = instructionPagesNBR2.concat([
+			"instructions/nbr-inst-2f.html"]);
 
-	//NBR3
-	instructionPagesNBR3 = instructionPagesNBR3.concat([
-		"instructions/nbr-inst-3f.html"
-		]);
+		//NBR3
+		instructionPagesNBR3 = instructionPagesNBR3.concat([
+			"instructions/nbr-inst-3f.html"]);
 
-	//CPT
-	instructionPagesCPT = instructionPagesCPT.concat([
-		"instructions/cpt-inst-f.html"
-		]);
-
-
+		//CPT
+		instructionPagesCPT = instructionPagesCPT.concat([
+			"instructions/cpt-inst-f.html"]);
 	break;
+
 	case 2: //j is target
-	var Fresp 		= "nontarget";
-	var Frespsame 	= 0; 
-	var Jresp 		= "target";
-	var Jrespsame 	= 1;
-	var tarkey 		= "j";
+		var Fresp 		= "nontarget";
+		var Frespsame 	= 0; 
+		var Jresp 		= "target";
+		var Jrespsame 	= 1;
+		var tarkey 		= "j";
 
-	//NBS2
-	instructionPagesNBS2 = instructionPagesNBS2.concat([
-		"instructions/nbs-inst-2j.html"
-		]);
+		//NBS2
+		instructionPagesNBS2 = instructionPagesNBS2.concat([
+			"instructions/nbs-inst-2j.html"]);
 
-	//NBS3
-	instructionPagesNBS3 = instructionPagesNBS3.concat([
-		"instructions/nbs-inst-3j.html"
-		]);
+		//NBS3
+		instructionPagesNBS3 = instructionPagesNBS3.concat([
+			"instructions/nbs-inst-3j.html"]);
 
-	//NBR2
-	instructionPagesNBR2 = instructionPagesNBR2.concat([
-		"instructions/nbr-inst-2j.html"
-		]);
+		//NBR2
+		instructionPagesNBR2 = instructionPagesNBR2.concat([
+			"instructions/nbr-inst-2j.html"]);
 
-	//NBR3
-	instructionPagesNBR3 = instructionPagesNBR3.concat([
-		"instructions/nbr-inst-3j.html"
-		]);
+		//NBR3
+		instructionPagesNBR3 = instructionPagesNBR3.concat([
+			"instructions/nbr-inst-3j.html"]);
 
-	//CPT
-	instructionPagesCPT = instructionPagesCPT.concat([
-		"instructions/cpt-inst-j.html"
-		]);
-
+		//CPT
+		instructionPagesCPT = instructionPagesCPT.concat([
+			"instructions/cpt-inst-j.html"]);
 	break;
+
 	default:
-	var Fresp 		= "target";
-	var Frespsame 	= 1; 
-	var Jresp 		= "nontarget";
-	var Jrespsame 	= 0;
-	var tarkey 		= "f";
+		var Fresp 		= "target";
+		var Frespsame 	= 1; 
+		var Jresp 		= "nontarget";
+		var Jrespsame 	= 0;
+		var tarkey 		= "f";
 
-	// pages.push("instructions/nbs-inst-2f.html");
-	// instructionPagesNBS2.push("instructions/nbs-inst-2f.html");
-	//NBS2
-	instructionPagesNBS2 = instructionPagesNBS2.concat([
-		"instructions/nbs-inst-2f.html"
-		]);
+		// pages.push("instructions/nbs-inst-2f.html");
+		// instructionPagesNBS2.push("instructions/nbs-inst-2f.html");
+		//NBS2
+		instructionPagesNBS2 = instructionPagesNBS2.concat([
+			"instructions/nbs-inst-2f.html"]);
 
-	//NBS3
-	instructionPagesNBS3 = instructionPagesNBS3.concat([
-		"instructions/nbs-inst-3f.html"
-		]);
+		//NBS3
+		instructionPagesNBS3 = instructionPagesNBS3.concat([
+			"instructions/nbs-inst-3f.html"
+			]);
 
-	//NBR2
-	instructionPagesNBR2 = instructionPagesNBR2.concat([
-		"instructions/nbr-inst-2f.html"
-		]);
+		//NBR2
+		instructionPagesNBR2 = instructionPagesNBR2.concat([
+			"instructions/nbr-inst-2f.html"]);
 
-	//NBR3
-	instructionPagesNBR3 = instructionPagesNBR3.concat([
-		"instructions/nbr-inst-3f.html"
-		]);
+		//NBR3
+		instructionPagesNBR3 = instructionPagesNBR3.concat([
+			"instructions/nbr-inst-3f.html"]);
 
-	//CPT
-	instructionPagesCPT = instructionPagesCPT.concat([
-		"instructions/cpt-inst-f.html"
-		]);
+		//CPT
+		instructionPagesCPT = instructionPagesCPT.concat([
+			"instructions/cpt-inst-f.html"]);
 	break;
 }
-
-// //NBS2
-// 	instructionPagesNBS2 = instructionPagesNBS2.concat([
-// 		"instructions/nbs-inst-ready.html"
-// 		]);
-
-// 	//NBS3
-// 	instructionPagesNBS3 = instructionPagesNBS3.concat([
-// 		"instructions/nbs-inst-3f.html"
-// 		]);
-
-// 	//NBR2
-// 	var instructionPagesNBR2 = instructionPagesNBR2.concat([
-// 		"instructions/nbr-inst-ready.html"
-// 		]);
-
-// 	//NBR3
-// 	instructionPagesNBR3 = instructionPagesNBR3.concat([
-// 		"instructions/nbr-inst-3f.html"
-// 		]);
-
-// 	//CPT
-// 	var instructionPagesCPT = instructionPagesCPT.concat([
-// 		"instructions/cpt-inst-ready.html"
-// 		]);
-
 	//NBS2
 	instructionPagesNBS2 = instructionPagesNBS2.concat([
-		"instructions/inst-prac.html"
-		]);
+		"instructions/inst-prac.html"]);
 
 	//NBS3
 	instructionPagesNBS3 = instructionPagesNBS3.concat([
-		"instructions/inst-prac.html"
-		]);
+		"instructions/inst-prac.html"]);
 
 	//NBR2
 	instructionPagesNBR2 = instructionPagesNBR2.concat([
-		"instructions/inst-prac.html"
-		]);
+		"instructions/inst-prac.html"]);
 
 	//NBR3
 	instructionPagesNBR3 = instructionPagesNBR3.concat([
-		"instructions/inst-prac.html"
-		]);
+		"instructions/inst-prac.html"]);
 
 	//CPT
 	instructionPagesCPT = instructionPagesCPT.concat([
-		"instructions/inst-prac.html"
-		]);
+		"instructions/inst-prac.html"]);
 
 	interludePages = ["instructions/inst-interlude.html"];
 
 pages = pages.concat(
 	instructionPages,
 	instructionPagesNBS2,
+	instructionPagesNBS3,
 	instructionPagesNBR2,
+	instructionPagesNBR3,
 	instructionPagesCPT,
 	interludePages);
 
-// alert(instructionPagesNBS2);
-// alert(pages);
 
-//after everything has been setup, preload all the pages we're actually going to use
+//after everything has been setup, (MUST) preload pages we're going to use
 psiTurk.preloadPages(pages);
 
-// alert(pages);
-// alert(instructionPagesNBS2);
-/*
-// All pages to be loaded
-var pages = [
-	"instructions/instruct-1.html",
-	"instructions/instruct-2.html",
-	"instructions/instruct-3.html",
-	"instructions/inst-ready.html",
-	"stage.html",
-	"postquestionnaire.html"
-];
-
-psiTurk.preloadPages(pages);
-
-var instructionPages = [ // add as a list as many pages as you like
-	"instructions/instruct-1.html",
-	"instructions/instruct-2.html",
-	"instructions/instruct-3.html",
-	"instructions/inst-ready.html"
-]; 
-*/
-//var testpagevar = [	"instructions/NBS-instruct-1.html","instructions/NBS-instruct-2.html"];
-
-
-
-/********************
-* HTML manipulation
-*
-* All HTML files in the templates directory are requested 
-* from the server when the PsiTurk object is created above. We
-* need code to get those pages from the PsiTurk object and 
-* insert them into the document.
-*
-********************/
 
 var show_word = function(text, color) {
 	d3.select("#stim")
@@ -479,54 +339,49 @@ var NBS_Task = function() {
 				'stimID': 	stimID,
 				'letterID': letterID
 			});
-                                     	// 'tmpar1': 	tmpar1,
-                                     	// 'tmpar2': 	tmpar2,
-                                     	// 'tmpar3': 	tmpar3,
-                                     	// 'tmpar4': 	tmpar4,
 			nexttrial(); //runs every trial
 		} //else
-	};
+	}; //nextblock
 	
 	var response_handler = function(e) {
 		if (!listening) return;
 
-		//var keyCode = e.keyCode,
-		//	response;
 		var keyCode = e.keyCode;
 
-		// f = 70, j = 74
-		// space = 32
+		// f = 70, j = 74, space = 32
 		switch (keyCode) {
 			case 70: 	// "F"
-			response 	= Fresp;
-			respsame 	= Frespsame;
+				response 	= Fresp;
+				respsame 	= Frespsame;
 				// response = "target";
 				// respsame = 1;
-				break;
+			break;
+
 			case 74: 	// "J"
-			response 	= Jresp;
-			respsame 	= Jrespsame;
+				response 	= Jresp;
+				respsame 	= Jrespsame;
 				// response = "nontarget";
 				// respsame = 0;
-				break;
-				default:
+			break;
+
+			default:
 				response = "";
 				respsame = -1; //redundant but w/e
-				break;
-			}
-			if (response.length>0) {
-				listening 	= false;
-				gotresp 	= 1;
-				hit 		= response == stim[1];
-				rt 			= new Date().getTime() - letteron;
+			break;
+		}//switch
 
+		if (response.length>0) {
+			listening 	= false;
+			gotresp 	= 1;
+			hit 		= response == stim[1];
+			rt 			= new Date().getTime() - letteron;
 		} // if (response.length>0) {
 	}; //response_handler
 
 	var finish = function() {
 	    $("body").unbind("keydown", response_handler); // Unbind keys
 	    currentview = new Task_Controller();
-	};
+	}; //finish
 
 	var remove_word = function() {
 		// the 'letter' attribute is set in the show_word function
@@ -539,11 +394,10 @@ var NBS_Task = function() {
 			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],response,respsame,lettertime,hit,rt,isprac]);
 			nexttrial();
 		}, ISI);
-	};
+	}; //remove_word
 
 	
-	// Load the stage.html snippet into the body of the page
-	psiTurk.showPage('stage.html');
+	psiTurk.showPage('stage.html'); // Load the stage.html snippet into the body of the page
 
 	//basic task reminder at top
 	temptest = '<p id="prompt">2-back. F = Target, J = Non-Target.</p>';
@@ -641,7 +495,7 @@ var NBR_Task = function() {
 	var nextblock = function() {
 		if (nlevelblocks.length===0) {
 			finish();
-		}
+		} //if
 		else {
 			// block begin (prepare everything)
 
@@ -696,13 +550,9 @@ var NBR_Task = function() {
 				'stimID': 	stimID,
 				'letterID': letterID
 			});
-                                     	// 'tmpar1': 	tmpar1,
-                                     	// 'tmpar2': 	tmpar2,
-                                     	// 'tmpar3': 	tmpar3,
-                                     	// 'tmpar4': 	tmpar4,
 			nexttrial(); //runs every trial
 		} //else
-	};
+	};//nextblock
 	
 	var do_reset = function() {
 			// re-setup remainder of stimulus presentations
@@ -759,28 +609,32 @@ var NBR_Task = function() {
 		// space = 32
 		switch (keyCode) {
 			case 32: 	// "spacebar"
-			response 	= "reset";
-			respsame 	= -2;
+				response 	= "reset";
+				respsame 	= -2;
 			break;
+
 			case 70: 	// "F"
-			response 	= Fresp;
-			respsame 	= Frespsame;
+				response 	= Fresp;
+				respsame 	= Frespsame;
 				// response = "target";
 				// respsame = 1;
-				break;
+			break;
+
 			case 74: 	// "J"
-			response 	= Jresp;
-			respsame 	= Jrespsame;
+				response 	= Jresp;
+				respsame 	= Jrespsame;
 				// response = "nontarget";
 				// respsame = 0;
-				break;
-				default:
+			break;
+
+			default:
 				response = "";
 				respsame = -1; //redundant but w/e
-				break;
-			}
-			if (response.length>0) {
-				listening 	= false;
+			break;
+		} //switch
+
+		if (response.length>0) {
+			listening 	= false;
 			rt 			= new Date().getTime() - letteron; //still want RT as is even on RESET
 
 			if (respsame===-2) {  //RESET RESPONSE
@@ -788,19 +642,19 @@ var NBR_Task = function() {
 				hit 	= -2;
 				nresets = nresets + 1;
 				nseqlength = 0;
-			}//if
-			else {
-				nseqlength  = nseqlength + 1; //another answered in a row
-				gotresp 	= 1;
-				hit 		= response == stim[1];
+		}//if
+		else {
+			nseqlength  = nseqlength + 1; //another answered in a row
+			gotresp 	= 1;
+			hit 		= response == stim[1];
 
-				if (stim[3]===1) {//target trial
-					ntargetsans = ntargetsans + 1;
-				}//if
-				else { //nontarget trial
-					nnontargetsans = nnontargetsans + 1;
-				}
-			}//else
+			if (stim[3]===1) {//target trial
+				ntargetsans = ntargetsans + 1;
+			}//if
+			else { //nontarget trial
+				nnontargetsans = nnontargetsans + 1;
+			}
+		}//else
 
 		} // if (response.length>0) {
 	}; //response_handler
@@ -808,7 +662,7 @@ var NBR_Task = function() {
 	var finish = function() {
 	    $("body").unbind("keydown", response_handler); // Unbind keys
 	    currentview = new Task_Controller();
-	};
+	}; //finish
 
 	var remove_word = function() {
 		// the 'letter' attribute is set in the show_word function
@@ -825,7 +679,7 @@ var NBR_Task = function() {
 				do_reset();
        			}//if
        			nexttrial();
-       		}, ISI);
+   		}, ISI);
 	};
 
 	
@@ -840,9 +694,8 @@ var NBR_Task = function() {
 	// Register the response handler that is defined above to handle any
 	// key down events.
 	$("body").focus().keydown(response_handler); 
-
-	// Start the test
-	nextblock();
+	
+	nextblock(); // Start the test
 };
 
 /**************************************
@@ -902,16 +755,8 @@ var CPT_Task = function() {
 	var nexttrial = function() {
 		if (stims.length===0) {
 			nextblock();
-
-			// $("body").unbind("keydown", response_handler); // Unbind keys
-
-			// psiTurk.doInstructions(
-	  //   		interludePages, // a list of pages you want to display in sequence
-	  //   		function() { nextblock(); } // what you want to do when you are done with instructions
-	  //   		);
-		}
-		else {
-			// trial begin (reset everything)
+		} //if
+		else { // trial begin (reset everything)
 			gotresp 	= 0;
 			respsame 	= -1;
 			response 	= "noresp";
@@ -938,13 +783,13 @@ var CPT_Task = function() {
 				remove_word();
 			}, stimtime);
 		}//else
-	};
+	}; //nextrial
 
 	//CONTROLS BLOCKS
 	var nextblock = function() {
 		if (curblock===maxblocks) {
 			finish();
-		}
+		} //if
 		else {
 
 			// block begin (prepare everything)
@@ -995,21 +840,19 @@ var CPT_Task = function() {
 						ttype2 = "target";
 						break;
 					case 4: 	//  pure distractor	B->Y
-					letterID1[i] = Math.floor(2 + Math.random() * (nletters - 2));
-					letterID2[i] = Math.floor(2 + Math.random() * (nletters - 2));
-					ttype1 = "nontarget";
-					ttype2 = "target";
+						letterID1[i] = Math.floor(2 + Math.random() * (nletters - 2));
+						letterID2[i] = Math.floor(2 + Math.random() * (nletters - 2));
+						ttype1 = "nontarget";
+						ttype2 = "target";
 					break;
 					default:
-					letterID1[i] = -1;
-					letterID2[i] = -1;
-					ttype1 = "broken";
-					ttype2 = "broken";
+						letterID1[i] = -1;
+						letterID2[i] = -1;
+						ttype1 = "broken";
+						ttype2 = "broken";
 					break;
-				}
+				}//switch
 
-				// stims.push([ 	stimletters[letterID1[i]] , stimletters[letterID2[i]],
-				//  				ttype, letterID1[i], letterID2[i], stimID[i] ]);
 				stims.push([ stimletters[letterID1[i]], ttype1, letterID1[i], stimID[i] ]);
 				stims.push([ stimletters[letterID2[i]], ttype2, letterID2[i], stimID[i] ]);
 
@@ -1023,41 +866,38 @@ var CPT_Task = function() {
 				'letterID1': letterID1,
 				'letterID2': letterID2
 			});
-                                     	// 'tmpar1': 	tmpar1,
-                                     	// 'tmpar2': 	tmpar2,
-                                     	// 'tmpar3': 	tmpar3,
-                                     	// 'tmpar4': 	tmpar4,
 			nexttrial(); //runs every trial
 		} //else
-	};
+	}; //nextblock
 
 	var response_handler = function(e) {
 		if (!listening) return;
 
 		var keyCode = e.keyCode;
 
-		/// f = 70, j = 74
-		// space = 32
+		/// f = 70, j = 74, space = 32
 		switch (keyCode) {
 			case 70: 	// "F"
-			response 	= Fresp;
-			respsame 	= Frespsame;
+				response 	= Fresp;
+				respsame 	= Frespsame;
 			break;
+
 			case 74: 	// "J"
-			response 	= Jresp;
-			respsame 	= Jrespsame;
+				response 	= Jresp;
+				respsame 	= Jrespsame;
 			break;
+
 			default:
-			response = "";
+				response = "";
 				respsame = -1; //redundant but w/e
 				break;
-			}
-			if (response.length>0) {
-				listening 	= false;
-				gotresp 	= 1;
-				hit 		= response == stim[1];
-				rt 			= new Date().getTime() - letteron;
+			} //switch
 
+		if (response.length>0) {
+			listening 	= false;
+			gotresp 	= 1;
+			hit 		= response == stim[1];
+			rt 			= new Date().getTime() - letteron;
 		} // if (response.length>0) {
 	}; //response_handler
 
@@ -1078,7 +918,7 @@ var CPT_Task = function() {
 				response,respsame,lettertime,hit,rt]);
 			nexttrial();
 		}, ISI);
-	};
+	}; //remove_word
 
 	// Load the stage.html snippet into the body of the page
 	psiTurk.showPage('stage.html');
@@ -1090,8 +930,7 @@ var CPT_Task = function() {
 	// key down events.
 	$("body").focus().keydown(response_handler); 
 
-	// Start the test
-	nextblock();
+	nextblock(); // Start the test
 };
 
 
@@ -1155,27 +994,23 @@ var Questionnaire = function() {
 };
 
 var Task_Controller = function() {
-	//var taskorder = [1, 2, 3];
 
 	if (taskorder.length===0 && donewtask===1) {
 			currentview = new Questionnaire(); //done!
-		}
+	}//if
 	else {
 		if (donewtask===1) {
-			donewtask = 0;
-			isprac = 1;
-			dointerlude = 0;
+			donewtask 		= 0;
+			isprac 			= 1;
 			curtaskIndex 	= curtaskIndex + 1;  //increment task counter
-			TID 		= taskorder.shift(); //get next task
+			TID 			= taskorder.shift(); //get next task
 			taskblockindex 	= -1;
 		}
 		else if (isprac===1) {
-			isprac = 0;
-			dointerlude = 1;
+			isprac 			= 0;
 			taskblockindex 	= 1;
 		}
 		else {
-			dointerlude = 1;
 			taskblockindex++;
 		}//else
 
@@ -1206,7 +1041,6 @@ var Task_Controller = function() {
 		    		);
 				} //else
 			}//else
-
 		break;
 
 		case 2:
@@ -1235,7 +1069,6 @@ var Task_Controller = function() {
 		    		);
 				} //else
 			}//else
-
 		break;
 
 		case 3:
@@ -1264,7 +1097,6 @@ var Task_Controller = function() {
 		    		);
 				} //else
 			}//else
-
 		break;
 
 		case 4:
@@ -1293,7 +1125,6 @@ var Task_Controller = function() {
 		    		);
 				} //else
 			}//else
-
 		break;
 
 		case 5:
@@ -1345,21 +1176,20 @@ var nlevelblocks
 var trialtypes
 var maxblocks
 var isprac 		 = 0;
-var dointerlude  = 0;
 var donewtask    = 1;
 
-//Holders always relate to: NBS2, NBS3, NBR2, NBR3, CPT];
-//Leading -1s to deal with 0-index of JS
+
+//Leading -1 to deal with 0-index of JS that I dislike
 var tblockind  = [-1, 0, 0, 0, 0, 0];
-var tblocks	   = [-1, 2, 2, 2, 2, 6];
+
+//Holder that determines how many blocks are done for each task:
+//  			  (blank)	NBS2, 	NBS3, 	NBR2, 	NBR3, 	CPT];
+var tblocks	    = [-1, 		2, 		2, 		2, 		2, 		6];
 
 var cptTTprac 	= [4, 1, 1, 1]; //CHANGEBACK [8, 2, 2, 2]
 var cptTT 		= [4, 1, 1, 1]; //[42, 6, 6, 6] //var trialtypes = [42, 6, 6, 6]; //CHANGEBACK
-var cptInd 		= 0;
-// var cptblocks 	= 6;
  
 taskorder = [1, 2, 3, 4, 5]; //CHANGEBACK --REMOVEME!
-
 
 /*******************
  * Run Task

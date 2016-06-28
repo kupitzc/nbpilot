@@ -7,15 +7,18 @@
 	<div class="instructions well">
 
 	    <p>
-		    This is the first page of instructions.
-	    </p>
-	    
-	    <p>
-	    	Be helpful, clear.
+		    This HIT involves performing a number of short, similar tasks. <br>
+            In each task, you will be asked to view a stream of letters, and respond to each letter by pressing a key on your keyboard. <br>
+            Explicit instructions will be provided before each task. <br>
+	    	Generally, it will look something like this: <br>
         </p>
 
-        <p>
-        	Use images and concrete examples.
+        <p align="center">
+            <img id="nbsstim" src="{{ server_location }}/static/images/nbs-stim.png" alt="Lab Logo" style='width: 70%; object-fit: contain' />
+        </p>
+
+        <p align="center">
+            Press the "Begin Experiment" button below to move on to the first task instructions.
         </p>
 
 	    <script type="text/javascript">
@@ -30,14 +33,22 @@
     <div class="instructionsnav">
         <div class="row">
             <div class="col-xs-2">
-            	<!-- no previous button on first screen -->
+                <!--  Maybe not previous button on this screen? -->
+                <!--
+                <button type="button" id="next" value="next" class="btn btn-primary btn-lg previous">
+                <span class="glyphicon glyphicon-arrow-left"></span> Previous
+                </button>
+                -->
             </div>
             <div class="col-xs-8">
+                <center>
+                    <button type="button" id="next" value="next" class="btn btn-success btn-lg continue">
+                    Begin experiment <span class="glyphicon glyphicon-arrow-right"></span>
+                    </button>
+                </center>
             </div>
             <div class="col-xs-2">
-                <button type="button" id="next" value="next" class="btn btn-primary btn-lg continue">
-                Next <span class="glyphicon glyphicon-arrow-right"></span>
-                </button>
+
             </div>
         </div>
     </div>
