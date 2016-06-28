@@ -7,8 +7,100 @@
 // Initalize psiturk object
 var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 
-var mycondition = condition;  // these two variables are passed by the psiturk server process
-var mycounterbalance = counterbalance;  // they tell you which condition you have been assigned to
+// var mycondition = condition;  // these two variables are passed by the psiturk server process
+// var mycounterbalance = counterbalance;  // they tell you which condition you have been assigned to
+
+var mycondition = psiTurk.taskdata.get('condition');  // these two variables are passed by the psiturk server process
+var mycounterbalance = psiTurk.taskdata.get('counterbalance'); ;  // they tell you which condition you have been assigned to
+
+
+// All pages to be loaded
+// var pages = [
+// "instructions/base-inst-1.html",
+// "instructions/inst-ready.html",
+// "stage.html",
+// "postquestionnaire.html",
+// "instructions/nbs-inst-stim.html",
+// "instructions/nbs-inst-ready.html",
+// "instructions/nbr-inst-stim.html",
+// "instructions/nbr-inst-ready.html",
+// "instructions/cpt-inst-stim.html",
+// "instructions/cpt-inst-ready.html"
+// ];
+
+var pages = [
+"stage.html",
+"postquestionnaire.html"
+];
+
+var instructionPages = [
+"instructions/base-inst-1.html",
+"instructions/inst-ready.html"
+];
+
+// // NBS
+// var instructionPagesNBS2 = [
+// "instructions/nbs-inst-stim.html",
+// "instructions/nbs-inst-2f.html",
+// "instructions/nbs-inst-ready.html"
+// ];
+
+// //NBR
+// var instructionPagesNBR2 = [
+// "instructions/nbr-inst-stim.html",
+// "instructions/nbr-inst-ready.html"
+// ];
+
+// //CPT
+// var instructionPagesCPT = [
+// "instructions/cpt-inst-stim.html",
+// "instructions/cpt-inst-ready.html"
+// ];
+
+// NBS2
+var instructionPagesNBS2 = [
+"instructions/nbs-inst-stim.html"
+];
+
+// NBS3
+var instructionPagesNBS3 = [
+"instructions/nbs-inst-stim.html"
+];
+
+//NBR2
+var instructionPagesNBR2 = [
+"instructions/nbr-inst-stim.html"
+];
+
+//NBR3
+var instructionPagesNBR3 = [
+"instructions/nbr-inst-stim.html"
+];
+
+//CPT
+var instructionPagesCPT = [
+"instructions/cpt-inst-stim.html"
+];
+
+
+
+// alert(mycondition, mycounterbalance);
+
+// alert(mycounterbalance);
+
+//if psiturk's variables for counterbalancing fail for some reason
+//selecting condition (task order) and counterbalance (targetkey)
+//randomly should be close to true counterbalance with all the participants
+// if (mycondition===0) {
+// 	mycondition = 1 + Math.floor(Math.random() * 6);
+// }
+
+// if (mycounterbalance===0) {
+// 	mycounterbalance = 1 + Math.floor(Math.random() * 2);
+// }
+
+// mycondition = 1;
+// mycounterbalance = 2;
 
 //counterbalancing task order; 6 'conditions' 
 switch (mycondition) {
@@ -36,33 +128,155 @@ switch (mycondition) {
 }
 
 switch (mycounterbalance) {
-	case 1:
-	var Fresp = "target";
-	var Frespsame = 1; 
-	var Jresp = "nontarget";
-	var Jrespsame = 0;
-	break;
-	case 2:
-	var Fresp = "nontarget";
-	var Frespsame = 0; 
-	var Jresp = "target";
-	var Jrespsame = 1;
+	case 1: //f is target
+	var Fresp 		= "target";
+	var Frespsame 	= 1; 
+	var Jresp 		= "nontarget";
+	var Jrespsame 	= 0;
+	var tarkey 		= "f";
+
+	//NBS2
+	instructionPagesNBS2 = instructionPagesNBS2.concat([
+		"instructions/nbs-inst-2f.html"
+		]);
+
+	// //NBS3
+	// instructionPagesNBS23 = instructionPagesNBS23.concat([
+	// 	"instructions/nbs-inst-3f.html"
+	// 	]);
+
+	//NBR2
+	var instructionPagesNBR2 = instructionPagesNBR2.concat([
+		"instructions/nbr-inst-2f.html"
+		]);
+
+	// //NBR3
+	// instructionPagesNBR3 = instructionPagesNBR3.concat([
+	// 	"instructions/nbr-inst-3f.html"
+	// 	]);
+
+	//CPT
+	var instructionPagesCPT = instructionPagesCPT.concat([
+		"instructions/cpt-inst-f.html"
+		]);
+
+
+break;
+	case 2: //j is target
+	var Fresp 		= "nontarget";
+	var Frespsame 	= 0; 
+	var Jresp 		= "target";
+	var Jrespsame 	= 1;
+	var tarkey 		= "j";
+
+	//NBS2
+	instructionPagesNBS2 = instructionPagesNBS2.concat([
+		"instructions/nbs-inst-2j.html"
+		]);
+
+	// //NBS3
+	// instructionPagesNBS23 = instructionPagesNBS23.concat([
+	// 	"instructions/nbs-inst-3j.html"
+	// 	]);
+
+	//NBR2
+	var instructionPagesNBR2 = instructionPagesNBR2.concat([
+		"instructions/nbr-inst-2j.html"
+		]);
+
+	// //NBR3
+	// instructionPagesNBR3 = instructionPagesNBR3.concat([
+	// 	"instructions/nbr-inst-3j.html"
+	// 	]);
+
+	//CPT
+	var instructionPagesCPT = instructionPagesCPT.concat([
+		"instructions/cpt-inst-j.html"
+		]);
+
 	break;
 	default:
-	var Fresp = "target";
-	var Frespsame = 1; 
-	var Jresp = "nontarget";
-	var Jrespsame = 0;
+	var Fresp 		= "target";
+	var Frespsame 	= 1; 
+	var Jresp 		= "nontarget";
+	var Jrespsame 	= 0;
+	var tarkey 		= "f";
+
+	// pages.push("instructions/nbs-inst-2f.html");
+	// instructionPagesNBS2.push("instructions/nbs-inst-2f.html");
+	//NBS2
+	instructionPagesNBS2 = instructionPagesNBS2.concat([
+		"instructions/nbs-inst-2f.html"
+		]);
+
+	// //NBS3
+	// instructionPagesNBS23 = instructionPagesNBS23.concat([
+	// 	"instructions/nbs-inst-3f.html"
+	// 	]);
+
+	//NBR2
+	var instructionPagesNBR2 = instructionPagesNBR2.concat([
+		"instructions/nbr-inst-2f.html"
+		]);
+
+	// //NBR3
+	// instructionPagesNBR3 = instructionPagesNBR3.concat([
+	// 	"instructions/nbr-inst-3f.html"
+	// 	]);
+
+	//CPT
+	var instructionPagesCPT = instructionPagesCPT.concat([
+		"instructions/cpt-inst-f.html"
+		]);
 	break;
 }
 
+//NBS2
+	instructionPagesNBS2 = instructionPagesNBS2.concat([
+		"instructions/nbs-inst-ready.html"
+		]);
+
+	// //NBS3
+	// instructionPagesNBS23 = instructionPagesNBS23.concat([
+	// 	"instructions/nbs-inst-3f.html"
+	// 	]);
+
+	//NBR2
+	var instructionPagesNBR2 = instructionPagesNBR2.concat([
+		"instructions/nbr-inst-ready.html"
+		]);
+
+	// //NBR3
+	// instructionPagesNBR3 = instructionPagesNBR3.concat([
+	// 	"instructions/nbr-inst-3f.html"
+	// 	]);
+
+	//CPT
+	var instructionPagesCPT = instructionPagesCPT.concat([
+		"instructions/cpt-inst-ready.html"
+		]);
+
+pages = pages.concat(
+	instructionPages,
+	instructionPagesNBS2,
+	instructionPagesNBR2,
+	instructionPagesCPT);
+
+alert(instructionPagesNBS2);
+alert(pages);
+
+//after everything has been setup, preload all the pages we're actually going to use
+psiTurk.preloadPages(pages);
+
+// alert(pages);
+// alert(instructionPagesNBS2);
 /*
 // All pages to be loaded
 var pages = [
 	"instructions/instruct-1.html",
 	"instructions/instruct-2.html",
 	"instructions/instruct-3.html",
-	"instructions/instruct-ready.html",
+	"instructions/inst-ready.html",
 	"stage.html",
 	"postquestionnaire.html"
 ];
@@ -73,49 +287,12 @@ var instructionPages = [ // add as a list as many pages as you like
 	"instructions/instruct-1.html",
 	"instructions/instruct-2.html",
 	"instructions/instruct-3.html",
-	"instructions/instruct-ready.html"
+	"instructions/inst-ready.html"
 ]; 
 */
 //var testpagevar = [	"instructions/NBS-instruct-1.html","instructions/NBS-instruct-2.html"];
 
-// All pages to be loaded
-var pages = [
-"instructions/instruct-1.html",
-"instructions/instruct-ready.html",
-"stage.html",
-"postquestionnaire.html",
-"instructions/NBS-instruct-1.html",
-"instructions/NBS-instruct-2.html"
-//testpagevar
-// "instructions/NBS-instruct-1.html"
-// "instructions/NBS/NBS-instruct-ready.html"
-];
 
-psiTurk.preloadPages(pages);
-
-var instructionPages = [ // add as a list as many pages as you like
-"instructions/instruct-ready.html"
-];
-
-// NBS
-var instructionPagesNBS = [ // add as a list as many pages as you like
-// "instructions/NBS-instruct-1.html",
-"instructions/NBS-instruct-1.html",
-"instructions/NBS-instruct-2.html",
-"instructions/instruct-ready.html"
-// "instructions/NBS/NBS-instruct-1.html",
-// "instructions/NBS/NBS-instruct-ready.html"
-];
-
-//NBR
-var instructionPagesNBR = [ // add as a list as many pages as you like
-"instructions/instruct-ready.html"
-];
-
-//CPT
-var instructionPagesCPT = [ // add as a list as many pages as you like
-"instructions/instruct-ready.html"
-];
 
 /********************
 * HTML manipulation
@@ -621,7 +798,9 @@ var NBR_Task = function() {
 	psiTurk.showPage('stage.html');
 
 	//basic task reminder at top
-	d3.select("#query").html('<p id="prompt">2-back. F = Target, J = Non-Target.</p>');
+	//d3.select("#query").html('<p id="prompt">2-back. F = Target, J = Non-Target.</p>');
+	var shortinst = '<p id="prompt">2-back. F = Target, J = Non-Target.</p>'
+	d3.select("#query").html(shortinst);
 
 	// Register the response handler that is defined above to handle any
 	// key down events.
@@ -956,7 +1135,7 @@ var Task_Controller = function() {
   	curtask = "NBS";
 			// currentview = new NBS_Task();
 			psiTurk.doInstructions(
-    		instructionPagesNBS, // a list of pages you want to display in sequence
+    		instructionPagesNBS2, // a list of pages you want to display in sequence
     		function() { currentview = new NBS_Task(); } // what you want to do when you are done with instructions
     		);
 			break;
@@ -964,7 +1143,7 @@ var Task_Controller = function() {
 			curtask = "NBR";
 			// currentview = new NBR_Task();
 			psiTurk.doInstructions(
-    		instructionPagesNBR, // a list of pages you want to display in sequence
+    		instructionPagesNBR2, // a list of pages you want to display in sequence
     		function() { currentview = new NBR_Task(); } // what you want to do when you are done with instructions
     		);
 			break;
