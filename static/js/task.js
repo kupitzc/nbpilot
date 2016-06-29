@@ -13,16 +13,14 @@ var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 var mycondition 		= psiTurk.taskdata.get('condition');  // these two variables are passed by the psiturk server process
 var mycounterbalance 	= psiTurk.taskdata.get('counterbalance'); ;  // they tell you which condition you have been assigned to
 
+var isdebugrun = 1; 	//SET ME TO 0 FOR REAL RUN!
+
 var pages = [
 "stage.html",
 "postquestionnaire.html"
 ];
 
-var instructionPages = [
-"instructions/base-inst-1.html"
-];
-
-
+var instructionPages = []; //setup
 var instructionPagesNBS2 = []; // NBS2
 var instructionPagesNBS3 = []; // NBS3
 var instructionPagesNBR2 = []; //NBR2
@@ -74,6 +72,9 @@ switch (mycounterbalance) {
 
 		var tarquery 	= "Target Key = F; Non-Target Key = J";
 
+		instructionPages = instructionPages.concat([
+			"instructions/base-inst-f.html"]);
+
 		//NBS2
 		instructionPagesNBS2 = instructionPagesNBS2.concat([
 			"instructions/nbs-inst-2f.html"]);
@@ -103,6 +104,9 @@ switch (mycounterbalance) {
 		var tarkey 		= "j";
 
 		var tarquery 	= "Target Key = J; Non-Target Key = F";
+
+		instructionPages = instructionPages.concat([
+			"instructions/base-inst-j.html"]);
 
 		//NBS2
 		instructionPagesNBS2 = instructionPagesNBS2.concat([
@@ -134,8 +138,9 @@ switch (mycounterbalance) {
 
 		var tarquery 	= "Target Key = F; Non-Target Key = J";
 
-		// pages.push("instructions/nbs-inst-2f.html");
-		// instructionPagesNBS2.push("instructions/nbs-inst-2f.html");
+		instructionPages = instructionPages.concat([
+			"instructions/base-inst-f.html"]);
+
 		//NBS2
 		instructionPagesNBS2 = instructionPagesNBS2.concat([
 			"instructions/nbs-inst-2f.html"]);
@@ -229,8 +234,18 @@ var NBS_Task = function() {
 
 	// Experiment Control Variables
 	// TIMING VARIABLES (in ms):
-	var stimtime 		= 25; // CHANGEBACK 250;
-	var ISI 			= 25; // CHANGEBACK 2500;
+	if (isdebugrun===1) {
+		var stimtime 		= 25;
+		var ISI 			= 25;
+		var ntargets 		= 2; 
+		var nnontargets 	= 2; 
+	}
+	else {
+		var stimtime 		= 250;
+		var ISI 			= 2500;
+		var ntargets 		= 6;
+		var nnontargets 	= 12;
+	}
 
 	// PRESENTATION VARIABLES:
 	var stimsize		= 80;
@@ -238,9 +253,6 @@ var NBS_Task = function() {
 
 	//EXPT CONTROL VARIABLES:
 	var nlevel          //instantiate for full scope
-	// var nlevelblocks 	= [2, 3, 4]; //CHANGEBACK [2, 2, 3, 3, 4, 4];
-	var ntargets 		= 2; //CHANGEBACK 6;
-	var nnontargets 	= 2; //CHANGEBACK 12;
 	
 
 	//TRIAL RECORDING VARIABLES
@@ -423,7 +435,9 @@ var NBS_Task = function() {
 	$("body").focus().keydown(response_handler); 
 
 	// Start the test
-	nextblock();
+	setTimeout(function() {
+		nextblock();
+	}, begindelay);
 };
 
 /**************************************
@@ -437,8 +451,18 @@ var NBR_Task = function() {
 
 	// Experiment Control Variables
 	// TIMING VARIABLES (in ms):
-	var stimtime 		= 25; // CHANGEBACK 250;
-	var ISI 			= 25; // CHANGEBACK 2500;
+	if (isdebugrun===1) {
+		var stimtime 		= 25;
+		var ISI 			= 25;
+		var ntargets 		= 2; 
+		var nnontargets 	= 2; 
+	}
+	else {
+		var stimtime 		= 250;
+		var ISI 			= 2500;
+		var ntargets 		= 6;
+		var nnontargets 	= 12;
+	}
 
 	// PRESENTATION VARIABLES:
 	var stimsize		= 80;
@@ -446,9 +470,6 @@ var NBR_Task = function() {
 
 	//EXPT CONTROL VARIABLES:
 	var nlevel          //instantiate for full scope
-	// var nlevelblocks 	= [2, 3, 4]; //= [2, 3]; //CHANGEBACK [2, 2, 3, 3, 4, 4];
-	var ntargets 		= 2; //CHANGEBACK 6;
-	var nnontargets 	= 2; //CHANGEBACK 12;
 	
 	//N-BACK RESET SPECIAL VARIABLES:
 	var ntargetsans		= 0;
@@ -711,7 +732,10 @@ var NBR_Task = function() {
 	// key down events.
 	$("body").focus().keydown(response_handler); 
 	
-	nextblock(); // Start the test
+	// Start the test
+	setTimeout(function() {
+		nextblock();
+	}, begindelay);
 };
 
 /**************************************
@@ -725,8 +749,14 @@ var CPT_Task = function() {
 
 	// Experiment Control Variables
 	// TIMING VARIABLES (in ms):
-	var stimtime 		= 15; // CHANGEBACK 250;
-	var ISI 			= 15; // CHANGEBACK 1000;
+	if (isdebugrun===1) {
+		var stimtime 		= 15;
+		var ISI 			= 15;
+	}
+	else {
+		var stimtime 		= 250;
+		var ISI 			= 1000;
+	}
 
 	// PRESENTATION VARIABLES:
 	var stimsize		= 80;
@@ -737,9 +767,6 @@ var CPT_Task = function() {
  	// 2 - non-target lure	A->Y
 	// 3 - non-target X  	B->X
 	// 4 - pure distractor	B->Y
-	
-	//var trialtypes = [42, 6, 6, 6]; //CHANGEBACK
-	// var trialtypes = [4, 1, 1, 1];
 
 	//TRIAL RECORDING VARIABLES
 	var letteron 	// time letter is presented
@@ -753,7 +780,6 @@ var CPT_Task = function() {
 	var rt 			= -1;
 	var trialphase  = 2; // each 'trial' is 2 consecutive letters; this keeps track
 
-	// var maxblocks   = 6; //CHANGEBACK 6
 	var curblock	= 0;
 	var curtrial	= 0; //need my own trial counter
 
@@ -947,7 +973,10 @@ var CPT_Task = function() {
 	// key down events.
 	$("body").focus().keydown(response_handler); 
 
-	nextblock(); // Start the test
+	// Start the test
+	setTimeout(function() {
+		nextblock();
+	}, begindelay);
 };
 
 
@@ -1164,9 +1193,8 @@ var Task_Controller = function() {
 
 			if (isprac===1) {
 
-				//var trialtypes = [42, 6, 6, 6]; //CHANGEBACK
-				trialtypes = [4, 1, 1, 1]
-				maxblocks   = 1; //CHANGEBACK 6
+				trialtypes  = [4, 1, 1, 1]
+				maxblocks   = 1; 
 
 				psiTurk.doInstructions(
 	    		instructionPagesCPT, // a list of pages you want to display in sequence
@@ -1175,9 +1203,8 @@ var Task_Controller = function() {
 			}//if
 			else {
 
-				//var trialtypes = [42, 6, 6, 6]; //CHANGEBACK
 				trialtypes = [4, 1, 1, 1]
-				maxblocks   = 1; //CHANGEBACK 6
+				maxblocks   = 1; 
 
 				donewtask = 1;
 
@@ -1213,18 +1240,29 @@ var donewtask   = 1;
 var curquery  	
 var querycolor 	= "black"
 
+var begindelay = 2500;
+
+//var isdebugrun = 1;
 
 //Leading -1 to deal with 0-index of JS that I dislike
 var tblockind  = [-1, 0, 0, 0, 0, 0];
 
-//Holder that determines how many blocks are done for each task:
-//  			  (blank)	NBS2, 	NBS3, 	NBR2, 	NBR3, 	CPT];
-var tblocks	    = [-1, 		2, 		2, 		2, 		2, 		6];
+if (isdebugrun===1) {
+	//Holder that determines how many blocks are done for each task:
+	//  			  (blank)	NBS2, 	NBS3, 	NBR2, 	NBR3, 	CPT];
+	var tblocks	    = [-1, 		2, 		2, 		2, 		2, 		2];
+	var cptTTprac 	= [4, 1, 1, 1]; 
+	var cptTT 		= [4, 1, 1, 1];
+		taskorder = [1, 2, 3, 4, 5]; 
+}//if
+else {
+	//Holder that determines how many blocks are done for each task:
+	//  			  (blank)	NBS2, 	NBS3, 	NBR2, 	NBR3, 	CPT];
+	var tblocks	    = [-1, 		2, 		2, 		2, 		2, 		6];
+	var cptTTprac 	= [8, 2, 2, 2]
+	var cptTT 		= [42, 6, 6, 6];
+}//else
 
-var cptTTprac 	= [4, 1, 1, 1]; //CHANGEBACK [8, 2, 2, 2]
-var cptTT 		= [4, 1, 1, 1]; //[42, 6, 6, 6] //var trialtypes = [42, 6, 6, 6]; //CHANGEBACK
- 
-taskorder = [1, 2, 3, 4, 5]; //CHANGEBACK --REMOVEME!
 
 /*******************
  * Run Task
