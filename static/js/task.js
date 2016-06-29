@@ -24,13 +24,9 @@ var instructionPages = [
 
 
 var instructionPagesNBS2 = []; // NBS2
-
 var instructionPagesNBS3 = []; // NBS3
-
 var instructionPagesNBR2 = []; //NBR2
-
 var instructionPagesNBR3 = []; //NBR3
-
 var instructionPagesCPT = []; //CPT
 
 //if psiturk's variables for counterbalancing fail for some reason
@@ -46,25 +42,25 @@ if (mycounterbalance===0) {
 //counterbalancing task order (1/2 are both NBS, 3/4 are both NBR)
 switch (mycondition) {
 	case 1:
-	var taskorder = [1, 2, 3, 4, 5];
+		var taskorder = [1, 2, 3, 4, 5];
 	break;
 	case 2:
-	var taskorder = [1, 2, 5, 3, 4];
+		var taskorder = [1, 2, 5, 3, 4];
 	break;
 	case 3:
-	var taskorder = [3, 4, 1, 2, 5];
+		var taskorder = [3, 4, 1, 2, 5];
 	break;
 	case 4:
-	var taskorder = [3, 4, 5, 1, 2];
+		var taskorder = [3, 4, 5, 1, 2];
 	break;
 	case 5:
-	var taskorder = [5, 1, 2, 3, 4];
+		var taskorder = [5, 1, 2, 3, 4];
 	break;
 	case 6:
-	var taskorder = [5, 3, 4, 1, 2];
+		var taskorder = [5, 3, 4, 1, 2];
 	break;
 	default:
-	var taskorder = [1, 2, 3, 4, 5];
+		var taskorder = [1, 2, 3, 4, 5];
 	break;
 }
 
@@ -74,7 +70,9 @@ switch (mycounterbalance) {
 		var Frespsame 	= 1; 
 		var Jresp 		= "nontarget";
 		var Jrespsame 	= 0;
-		var tarkey 		= "f";
+		var tarkey 		= "f"
+
+		var tarquery 	= "Target Key = F; Non-Target Key = J";
 
 		//NBS2
 		instructionPagesNBS2 = instructionPagesNBS2.concat([
@@ -104,6 +102,8 @@ switch (mycounterbalance) {
 		var Jrespsame 	= 1;
 		var tarkey 		= "j";
 
+		var tarquery 	= "Target Key = J; Non-Target Key = F";
+
 		//NBS2
 		instructionPagesNBS2 = instructionPagesNBS2.concat([
 			"instructions/nbs-inst-2j.html"]);
@@ -131,6 +131,8 @@ switch (mycounterbalance) {
 		var Jresp 		= "nontarget";
 		var Jrespsame 	= 0;
 		var tarkey 		= "f";
+
+		var tarquery 	= "Target Key = F; Non-Target Key = J";
 
 		// pages.push("instructions/nbs-inst-2f.html");
 		// instructionPagesNBS2.push("instructions/nbs-inst-2f.html");
@@ -202,6 +204,18 @@ var show_word = function(text, color) {
 	.style("font-weight","400")
 	.style("margin","20px")
 	.text(text);
+};
+
+var show_query= function() { //(text, color) {
+	d3.select("#query")
+	.append("div")
+	.attr("id","cquery")
+	.style("color",querycolor) //color
+	.style("text-align","center")
+	.style("font-size","20px")
+	.style("font-weight","200")
+	.style("margin","20px")
+	.text(curquery); //text
 };
 
 /**************************************
@@ -400,8 +414,9 @@ var NBS_Task = function() {
 	psiTurk.showPage('stage.html'); // Load the stage.html snippet into the body of the page
 
 	//basic task reminder at top
-	temptest = '<p id="prompt">2-back. F = Target, J = Non-Target.</p>';
-	d3.select("#query").html(temptest);
+	// temptest = '<p id="prompt">2-back. F = Target, J = Non-Target.</p>';
+	// d3.select("#query").html(temptest);
+	show_query();
 
 	// Register the response handler that is defined above to handle any
 	// key down events.
@@ -688,8 +703,9 @@ var NBR_Task = function() {
 
 	//basic task reminder at top
 	//d3.select("#query").html('<p id="prompt">2-back. F = Target, J = Non-Target.</p>');
-	var shortinst = '<p id="prompt">2-back. F = Target, J = Non-Target.</p>'
-	d3.select("#query").html(shortinst);
+	// var shortinst = '<p id="prompt">2-back. F = Target, J = Non-Target.</p>'
+	// d3.select("#query").html(shortinst);
+	show_query();
 
 	// Register the response handler that is defined above to handle any
 	// key down events.
@@ -924,7 +940,8 @@ var CPT_Task = function() {
 	psiTurk.showPage('stage.html');
 
 	//basic task reminder at top
-	d3.select("#query").html('<p id="prompt">2-back. F = Target, J = Non-Target.</p>');
+	// d3.select("#query").html('<p id="prompt">2-back. F = Target, J = Non-Target.</p>');
+	show_query(curquery, querycolor);
 
 	// Register the response handler that is defined above to handle any
 	// key down events.
@@ -1018,6 +1035,9 @@ var Task_Controller = function() {
   		case 1:
   			curtask = "NBS2";
 
+  			curquery = "Target: Same Letter 2-Back. ";
+  			curquery = curquery.concat(tarquery);
+
 			if (isprac===1) {
 				nlevelblocks = [2]; // one block of 2-back
 
@@ -1045,6 +1065,9 @@ var Task_Controller = function() {
 
 		case 2:
   			curtask = "NBS3";
+
+  			curquery = "Target: Same Letter 3-Back. ";
+  			curquery = curquery.concat(tarquery);
 
 			if (isprac===1) {
 				nlevelblocks = [3]; // one block of 3-back
@@ -1074,6 +1097,9 @@ var Task_Controller = function() {
 		case 3:
   			curtask = "NBR2";
 
+  			curquery = "Target: Same Letter 2-Back. ";
+  			curquery = curquery.concat(tarquery, "; Unsure = Spacebar");
+
 			if (isprac===1) {
 				nlevelblocks = [2]; // one block of 2-back
 
@@ -1102,6 +1128,9 @@ var Task_Controller = function() {
 		case 4:
   			curtask = "NBR3";
 
+  			curquery = "Target: Same Letter 3-Back. ";
+  			curquery = curquery.concat(tarquery, "; Unsure = Spacebar");
+
 			if (isprac===1) {
 				nlevelblocks = [3]; // one block of 3-back
 
@@ -1129,6 +1158,9 @@ var Task_Controller = function() {
 
 		case 5:
 		curtask = "CPT";
+
+			curquery = "Target: X that followed A. ";
+  			curquery = curquery.concat(tarquery);
 
 			if (isprac===1) {
 
@@ -1175,8 +1207,11 @@ var curtaskIndex = 0;
 var nlevelblocks
 var trialtypes
 var maxblocks
-var isprac 		 = 0;
-var donewtask    = 1;
+var isprac 		= 0;
+var donewtask   = 1;
+
+var curquery  	
+var querycolor 	= "black"
 
 
 //Leading -1 to deal with 0-index of JS that I dislike
