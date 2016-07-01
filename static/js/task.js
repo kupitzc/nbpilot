@@ -40,40 +40,40 @@ if (mycounterbalance===0) {
 //counterbalancing task order (1/2 are both NBS, 3/4 are both NBR)
 switch (mycondition) {
 	case 1:
-		var taskorder = [1, 2, 3, 4, 5];
+	var taskorder = [1, 2, 3, 4, 5];
 	break;
 	case 2:
-		var taskorder = [1, 2, 5, 3, 4];
+	var taskorder = [1, 2, 5, 3, 4];
 	break;
 	case 3:
-		var taskorder = [3, 4, 1, 2, 5];
+	var taskorder = [3, 4, 1, 2, 5];
 	break;
 	case 4:
-		var taskorder = [3, 4, 5, 1, 2];
+	var taskorder = [3, 4, 5, 1, 2];
 	break;
 	case 5:
-		var taskorder = [5, 1, 2, 3, 4];
+	var taskorder = [5, 1, 2, 3, 4];
 	break;
 	case 6:
-		var taskorder = [5, 3, 4, 1, 2];
+	var taskorder = [5, 3, 4, 1, 2];
 	break;
 	default:
-		var taskorder = [1, 2, 3, 4, 5];
+	var taskorder = [1, 2, 3, 4, 5];
 	break;
 }
 
 switch (mycounterbalance) {
 	case 1: //f is target
-		var Fresp 		= "target";
-		var Frespsame 	= 1; 
-		var Jresp 		= "nontarget";
-		var Jrespsame 	= 0;
-		var tarkey 		= "f"
+	var Fresp 		= "target";
+	var Frespsame 	= 1; 
+	var Jresp 		= "nontarget";
+	var Jrespsame 	= 0;
+	var tarkey 		= "f"
 
-		var tarquery 	= "Target Key = F; Non-Target Key = J";
+	var tarquery 	= "Target Key = F; Non-Target Key = J";
 
-		instructionPages = instructionPages.concat([
-			"instructions/base-inst-f.html"]);
+	instructionPages = instructionPages.concat([
+		"instructions/base-inst-f.html"]);
 
 		//NBS2
 		instructionPagesNBS2 = instructionPagesNBS2.concat([
@@ -94,19 +94,19 @@ switch (mycounterbalance) {
 		//CPT
 		instructionPagesCPT = instructionPagesCPT.concat([
 			"instructions/cpt-inst-f.html"]);
-	break;
+		break;
 
 	case 2: //j is target
-		var Fresp 		= "nontarget";
-		var Frespsame 	= 0; 
-		var Jresp 		= "target";
-		var Jrespsame 	= 1;
-		var tarkey 		= "j";
+	var Fresp 		= "nontarget";
+	var Frespsame 	= 0; 
+	var Jresp 		= "target";
+	var Jrespsame 	= 1;
+	var tarkey 		= "j";
 
-		var tarquery 	= "Target Key = J; Non-Target Key = F";
+	var tarquery 	= "Target Key = J; Non-Target Key = F";
 
-		instructionPages = instructionPages.concat([
-			"instructions/base-inst-j.html"]);
+	instructionPages = instructionPages.concat([
+		"instructions/base-inst-j.html"]);
 
 		//NBS2
 		instructionPagesNBS2 = instructionPagesNBS2.concat([
@@ -127,9 +127,9 @@ switch (mycounterbalance) {
 		//CPT
 		instructionPagesCPT = instructionPagesCPT.concat([
 			"instructions/cpt-inst-j.html"]);
-	break;
+		break;
 
-	default:
+		default:
 		var Fresp 		= "target";
 		var Frespsame 	= 1; 
 		var Jresp 		= "nontarget";
@@ -161,8 +161,8 @@ switch (mycounterbalance) {
 		//CPT
 		instructionPagesCPT = instructionPagesCPT.concat([
 			"instructions/cpt-inst-f.html"]);
-	break;
-}
+		break;
+	}
 	//NBS2
 	instructionPagesNBS2 = instructionPagesNBS2.concat([
 		"instructions/inst-prac.html"]);
@@ -185,14 +185,14 @@ switch (mycounterbalance) {
 
 	interludePages = ["instructions/inst-interlude.html"];
 
-pages = pages.concat(
-	instructionPages,
-	instructionPagesNBS2,
-	instructionPagesNBS3,
-	instructionPagesNBR2,
-	instructionPagesNBR3,
-	instructionPagesCPT,
-	interludePages);
+	pages = pages.concat(
+		instructionPages,
+		instructionPagesNBS2,
+		instructionPagesNBS3,
+		instructionPagesNBR2,
+		instructionPagesNBR3,
+		instructionPagesCPT,
+		interludePages);
 
 
 //after everything has been setup, (MUST) preload pages we're going to use
@@ -234,18 +234,23 @@ var NBS_Task = function() {
 
 	// Experiment Control Variables
 	// TIMING VARIABLES (in ms):
-	if (isdebugrun===1) {
+	var stimtime 	= 250;
+	var ISI 		= 2500;
+	var ntargets 	=  nbsTAR;
+	var nnontargets =  nbsNONTAR;
+
+	if (isprac===1) { //override for practice
+		ntargets =  nbsTARprac;
+		nnontargets =  nbsNONTARprac;
+	}
+
+	if (isdebugrun===1) { //override for debugging
 		var stimtime 		= 25;
 		var ISI 			= 25;
 		var ntargets 		= 2; 
 		var nnontargets 	= 2; 
 	}
-	else {
-		var stimtime 		= 250;
-		var ISI 			= 2500;
-		var ntargets 		= 6;
-		var nnontargets 	= 12;
-	}
+
 
 	// PRESENTATION VARIABLES:
 	var stimsize		= 80;
@@ -377,23 +382,23 @@ var NBS_Task = function() {
 		// f = 70, j = 74, space = 32
 		switch (keyCode) {
 			case 70: 	// "F"
-				response 	= Fresp;
-				respsame 	= Frespsame;
+			response 	= Fresp;
+			respsame 	= Frespsame;
 				// response = "target";
 				// respsame = 1;
-			break;
+				break;
 
 			case 74: 	// "J"
-				response 	= Jresp;
-				respsame 	= Jrespsame;
+			response 	= Jresp;
+			respsame 	= Jrespsame;
 				// response = "nontarget";
 				// respsame = 0;
-			break;
+				break;
 
-			default:
+				default:
 				response = "";
 				respsame = -1; //redundant but w/e
-			break;
+				break;
 		}//switch
 
 		if (response.length>0) {
@@ -645,28 +650,28 @@ var NBR_Task = function() {
 		// space = 32
 		switch (keyCode) {
 			case 32: 	// "spacebar"
-				response 	= "reset";
-				respsame 	= -2;
+			response 	= "reset";
+			respsame 	= -2;
 			break;
 
 			case 70: 	// "F"
-				response 	= Fresp;
-				respsame 	= Frespsame;
+			response 	= Fresp;
+			respsame 	= Frespsame;
 				// response = "target";
 				// respsame = 1;
-			break;
+				break;
 
 			case 74: 	// "J"
-				response 	= Jresp;
-				respsame 	= Jrespsame;
+			response 	= Jresp;
+			respsame 	= Jrespsame;
 				// response = "nontarget";
 				// respsame = 0;
-			break;
+				break;
 
-			default:
+				default:
 				response = "";
 				respsame = -1; //redundant but w/e
-			break;
+				break;
 		} //switch
 
 		if (response.length>0) {
@@ -715,7 +720,7 @@ var NBR_Task = function() {
 				do_reset();
        			}//if
        			nexttrial();
-   		}, ISI);
+       		}, ISI);
 	};
 
 	
@@ -882,16 +887,16 @@ var CPT_Task = function() {
 						ttype2 = "target";
 						break;
 					case 4: 	//  pure distractor	B->Y
-						letterID1[i] = Math.floor(2 + Math.random() * (nletters - 2));
-						letterID2[i] = Math.floor(2 + Math.random() * (nletters - 2));
-						ttype1 = "nontarget";
-						ttype2 = "target";
+					letterID1[i] = Math.floor(2 + Math.random() * (nletters - 2));
+					letterID2[i] = Math.floor(2 + Math.random() * (nletters - 2));
+					ttype1 = "nontarget";
+					ttype2 = "target";
 					break;
 					default:
-						letterID1[i] = -1;
-						letterID2[i] = -1;
-						ttype1 = "broken";
-						ttype2 = "broken";
+					letterID1[i] = -1;
+					letterID2[i] = -1;
+					ttype1 = "broken";
+					ttype2 = "broken";
 					break;
 				}//switch
 
@@ -920,26 +925,26 @@ var CPT_Task = function() {
 		/// f = 70, j = 74, space = 32
 		switch (keyCode) {
 			case 70: 	// "F"
-				response 	= Fresp;
-				respsame 	= Frespsame;
+			response 	= Fresp;
+			respsame 	= Frespsame;
 			break;
 
 			case 74: 	// "J"
-				response 	= Jresp;
-				respsame 	= Jrespsame;
+			response 	= Jresp;
+			respsame 	= Jrespsame;
 			break;
 
 			default:
-				response = "";
+			response = "";
 				respsame = -1; //redundant but w/e
 				break;
 			} //switch
 
-		if (response.length>0) {
-			listening 	= false;
-			gotresp 	= 1;
-			hit 		= response == stim[1];
-			rt 			= new Date().getTime() - letteron;
+			if (response.length>0) {
+				listening 	= false;
+				gotresp 	= 1;
+				hit 		= response == stim[1];
+				rt 			= new Date().getTime() - letteron;
 		} // if (response.length>0) {
 	}; //response_handler
 
@@ -1060,12 +1065,12 @@ var Task_Controller = function() {
 			taskblockindex++;
 		}//else
 
-  switch (TID) {
-  		case 1:
-  			curtask = "NBS2";
+		switch (TID) {
+			case 1:
+			curtask = "NBS2";
 
-  			curquery = "Target: Same Letter 2-Back. ";
-  			curquery = curquery.concat(tarquery);
+			curquery = "Target: Same Letter 2-Back. ";
+			curquery = curquery.concat(tarquery);
 
 			if (isprac===1) {
 				nlevelblocks = [2]; // one block of 2-back
@@ -1090,13 +1095,13 @@ var Task_Controller = function() {
 		    		);
 				} //else
 			}//else
-		break;
+			break;
 
-		case 2:
-  			curtask = "NBS3";
+			case 2:
+			curtask = "NBS3";
 
-  			curquery = "Target: Same Letter 3-Back. ";
-  			curquery = curquery.concat(tarquery);
+			curquery = "Target: Same Letter 3-Back. ";
+			curquery = curquery.concat(tarquery);
 
 			if (isprac===1) {
 				nlevelblocks = [3]; // one block of 3-back
@@ -1121,13 +1126,13 @@ var Task_Controller = function() {
 		    		);
 				} //else
 			}//else
-		break;
+			break;
 
-		case 3:
-  			curtask = "NBR2";
+			case 3:
+			curtask = "NBR2";
 
-  			curquery = "Target: Same Letter 2-Back. ";
-  			curquery = curquery.concat(tarquery, "; Unsure = Spacebar");
+			curquery = "Target: Same Letter 2-Back. ";
+			curquery = curquery.concat(tarquery, "; Unsure = Spacebar");
 
 			if (isprac===1) {
 				nlevelblocks = [2]; // one block of 2-back
@@ -1152,13 +1157,13 @@ var Task_Controller = function() {
 		    		);
 				} //else
 			}//else
-		break;
+			break;
 
-		case 4:
-  			curtask = "NBR3";
+			case 4:
+			curtask = "NBR3";
 
-  			curquery = "Target: Same Letter 3-Back. ";
-  			curquery = curquery.concat(tarquery, "; Unsure = Spacebar");
+			curquery = "Target: Same Letter 3-Back. ";
+			curquery = curquery.concat(tarquery, "; Unsure = Spacebar");
 
 			if (isprac===1) {
 				nlevelblocks = [3]; // one block of 3-back
@@ -1183,13 +1188,13 @@ var Task_Controller = function() {
 		    		);
 				} //else
 			}//else
-		break;
+			break;
 
-		case 5:
-		curtask = "CPT";
+			case 5:
+			curtask = "CPT";
 
 			curquery = "Target: X that followed A. ";
-  			curquery = curquery.concat(tarquery);
+			curquery = curquery.concat(tarquery);
 
 			if (isprac===1) {
 
@@ -1213,19 +1218,19 @@ var Task_Controller = function() {
 	    		function() { currentview = new CPT_Task(); } // what you want to do when you are done with instructions
 	    		);
 			}//else
-		break;
+			break;
 
-		default:
+			default:
 			curtask = "Broken";
 			currentview = new Questionnaire();
-		break;
+			break;
 		}//switch
 	}//else
 }; //Task_Controller
 
 
 // Task management variables ()
-var currentview;
+var currentview
 var curtask
 var TID
 var curphase 	 = "Main";
@@ -1242,27 +1247,37 @@ var querycolor 	= "black"
 
 var begindelay = 2500;
 
-//var isdebugrun = 1;
-
 //Leading -1 to deal with 0-index of JS that I dislike
 var tblockind  = [-1, 0, 0, 0, 0, 0];
 
+//Holder that determines how many blocks are done for each task:
+//  			  (blank)	NBS2, 	NBS3, 	NBR2, 	NBR3, 	CPT];
+var tblocks	    = [-1, 		2, 		2, 		2, 		2, 		6];
+
+//4 trial types described in the CPT_Task function
+var cptTTprac 	= [7, 1, 1, 1]; 	//matches python script
+var cptTT 		= [42, 6, 6, 6]; 	//matches python script
+
+//per block variables
+var nbsTAR			= 6;
+var nbsNONTAR		= 12;
+var nbsTARprac		= 3;
+var nbsNONTARprac	= 6;
+
+var nbrTAR			= 6;
+var nbrNONTAR		= 12;
+var nbrTARprac		= 3;
+var nbrNONTARprac	= 6;
+
+//overrides for debugging:
 if (isdebugrun===1) {
 	//Holder that determines how many blocks are done for each task:
 	//  			  (blank)	NBS2, 	NBS3, 	NBR2, 	NBR3, 	CPT];
-	var tblocks	    = [-1, 		2, 		2, 		2, 		2, 		2];
+	var tblocks	    = [-1, 		1, 		1, 		1, 		1, 		1];
 	var cptTTprac 	= [4, 1, 1, 1]; 
 	var cptTT 		= [4, 1, 1, 1];
-		taskorder = [1, 2, 3, 4, 5]; 
+		taskorder 	= [1, 2, 3, 4, 5]; //override for debug purposes:
 }//if
-else {
-	//Holder that determines how many blocks are done for each task:
-	//  			  (blank)	NBS2, 	NBS3, 	NBR2, 	NBR3, 	CPT];
-	var tblocks	    = [-1, 		2, 		2, 		2, 		2, 		6];
-	var cptTTprac 	= [8, 2, 2, 2]
-	var cptTT 		= [42, 6, 6, 6];
-}//else
-
 
 /*******************
  * Run Task
