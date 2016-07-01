@@ -13,7 +13,7 @@ var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 var mycondition 		= psiTurk.taskdata.get('condition');  // these two variables are passed by the psiturk server process
 var mycounterbalance 	= psiTurk.taskdata.get('counterbalance'); ;  // they tell you which condition you have been assigned to
 
-var isdebugrun = 1; 	//SET ME TO 0 FOR REAL RUN!
+var isdebugrun = 0; 	//SET ME TO 0 FOR REAL RUN!
 
 var pages = [
 "stage.html",
