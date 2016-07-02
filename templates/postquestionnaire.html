@@ -3,15 +3,50 @@
 
     <hr />
 
-    <p>You are finished!  Thank you for your contributions to science. You will be eligible for full payment once you answer the following questions.</p>
+    <p>Main tasks finished, thank you!
+    Responding to these items is <b>voluntary</b>. You may simply hit the "Continue" button below to complete the HIT.
+    As a reminder, we will not report any of the information obtained in this study in any personally identifying manner (demographic information will only be reported in aggregate statistics).</p>
 
     <div class="instructions well">
 
         <form id="postquiz" action="debrief" method="post">
 
+            <!-- beginning of a question -->
+            <div class="row question">
+                <div class="col-md-8">
+                    Which task was the <b> most difficult?</b> 
+                </div>
+                <div class="col-md-4">
+                    <select id="mostdiff" name="mostdiff">
+                        <option value="A-X" SELECTED>A-X</option>
+                        <option value="2-back">2-back</option>
+                        <option value="3-back">3-back</option>
+                        <option value="2-back reset">2-back reset</option>
+                        <option value="3-back reset">3-back reset</option>
+                    </select>
+                </div>
+            </div>
+            <!-- end of a question -->
 
             <!-- beginning of a question -->
             <div class="row question">
+                <div class="col-md-8">
+                    Which task was the <b> least difficult?</b> 
+                </div>
+                <div class="col-md-4">
+                    <select id="leastdiff" name="leastdiff">
+                        <option value="A-X" SELECTED>A-X</option>
+                        <option value="2-back">2-back</option>
+                        <option value="3-back">3-back</option>
+                        <option value="2-back reset">2-back reset</option>
+                        <option value="3-back reset">3-back reset</option>
+                    </select>
+                </div>
+            </div>
+            <!-- end of a question -->
+
+            <!-- beginning of a question -->
+            <!-- <div class="row question">
                 <div class="col-md-8">
                     On a scale of 1-10 (where 10 is the most engaged), please rate how <b>ENGAGING</b> you found the learning task:
                 </div>
@@ -30,12 +65,12 @@
                         <option value="0">0 - Not engaged</option>
                     </select>
                 </div>
-            </div>
+            </div> -->
             <!-- end of a question -->
 
 
             <!-- beginning of a question -->
-            <div class="row question">
+            <!-- <div class="row question">
                 <div class="col-md-8">
                     On a scale of 1-10 (where 10 is the most difficult), please rate how <b>DIFFICULT</b> you found the learning task:
                 </div>
@@ -54,8 +89,60 @@
                         <option value="0">0 - Not difficult at all</option>
                     </select>
                 </div>
+            </div> -->
+            <!-- end of a question -->
+
+            <!-- beginning of a question -->
+            <div class="row question">
+                <div class="col-md-8">
+                    What is your Age?
+                </div>
+                <div class="col-md-4">
+                    <textarea id="age" name="age" cols="20" rows="1" maxlength="3" required style="padding-top:10px;"></textarea>
+                </div>
+            </div>
+
+            <!-- beginning of a question -->
+            <div class="row question">
+                <div class="col-md-8">
+                    What gender do you identify as?
+                </div>
+                <div class="col-md-4">
+                    <textarea id="gender" name="gender" cols="20" rows="1" maxlength="20" required style="padding-top:10px;"></textarea>
+                </div>
             </div>
             <!-- end of a question -->
+
+            <!-- beginning of a question -->
+            <div class="row question">
+                <div class="col-md-8">
+                    What ethniticy do you identify as?
+                </div>
+                <div class="col-md-4">
+                    <textarea id="ethniticy" name="ethniticy" cols="20" rows="1" maxlength="20" required style="padding-top:10px;"></textarea>
+                </div>
+            </div>
+            <!-- end of a question -->
+
+            <!-- beginning of a question -->
+            <div class="row question">
+                <div class="col-md-8">
+                    What is the highest level of education you have completed?
+                </div>
+                <div class="col-md-4">
+                    <select id="education" name="education">
+                        <option value="Pre-Secondary Education" SELECTED>Pre-Secondary Education</option>
+                        <option value="High School (or GED)">High School Graduate (or GED)</option>
+                        <option value="Associate's Degree">Associate's Degree</option>
+                        <option value="Bachelor's Degree">Bachelor's Degree</option>
+                        <option value="Master's Degree">Master's Degree</option>
+                        <option value="Doctorate Degree" >Doctorate Degree</option>
+                        <option value="Post-Doctorate Degree">Post-Doctorate Degree</option>
+                    </select>
+                </div>
+            </div>
+            <!-- end of a question -->
+
         </form>
     </div>
 

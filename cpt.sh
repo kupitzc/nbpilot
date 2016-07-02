@@ -11,5 +11,5 @@ done
 for file in *.db
 do
 	NAME=${file%.*}
-	mv $file ${BDIR}${NAME}_${DATE}.csv
+	mv $file ${BDIR}${NAME}_${DATE}.db
 done

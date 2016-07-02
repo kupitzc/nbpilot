@@ -13,7 +13,7 @@ var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 var mycondition 		= psiTurk.taskdata.get('condition');  // these two variables are passed by the psiturk server process
 var mycounterbalance 	= psiTurk.taskdata.get('counterbalance'); ;  // they tell you which condition you have been assigned to
 
-var isdebugrun = 0; 	//SET ME TO 0 FOR REAL RUN!
+var isdebugrun = 1; 	//SET ME TO 0 FOR REAL RUN!
 
 var pages = [
 "stage.html",
@@ -1003,6 +1003,12 @@ var Questionnaire = function() {
 		$('select').each( function(i, val) {
 			psiTurk.recordUnstructuredData(this.id, this.value);		
 		});
+		//these are for checkboxes (I believe)
+		// $('input').each( function(i, val) {
+		// 	if (this.checked == true) {
+		// 		psiTurk.recordUnstructuredData(this.name, this.value);		
+		// 	}
+		// });
 
 	};
 
@@ -1246,6 +1252,8 @@ var curquery
 var querycolor 	= "black"
 
 var begindelay = 2500;
+
+if (isdebugrun===1) {begindelay = 25};
 
 //Leading -1 to deal with 0-index of JS that I dislike
 var tblockind  = [-1, 0, 0, 0, 0, 0];
