@@ -1,2 +1,485 @@
-[2016-06-29 15:36:28 +0000] [2377] [CRITICAL] WORKER TIMEOUT (pid:2386)
-[2016-06-29 21:15:48 +0000] [11602] [CRITICAL] WORKER TIMEOUT (pid:11608)
+[2016-07-01 17:09:40 +0000] [3923] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 515, in spawn_worker
+    worker.init_process()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 122, in init_process
+    self.load_wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 130, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment_server.py", line 47, in load
+    return util.import_app("psiturk.experiment:app")
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/util.py", line 357, in import_app
+    __import__(module)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment.py", line 84, in <module>
+    init_db()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/db.py", line 32, in init_db
+    Base.metadata.create_all(bind=engine)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/schema.py", line 2848, in create_all
+    tables=tables)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1478, in _run_visitor
+    with self._optional_conn_ctx_manager(connection) as conn:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1471, in _optional_conn_ctx_manager
+    with self.contextual_connect() as conn:
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1661, in contextual_connect
+    self.pool.connect(),
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 272, in connect
+    return _ConnectionFairy(self).checkout()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 431, in __init__
+    rec = self._connection_record = pool._do_get()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 788, in _do_get
+    con = self._create_connection()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 225, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 318, in __init__
+    self.connection = self.__connect()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 379, in __connect
+    connection = self.__pool._creator()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/strategies.py", line 80, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 283, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/__init__.py", line 81, in Connect
+    return Connection(*args, **kwargs)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/connections.py", line 193, in __init__
+    super(Connection, self).__init__(*args, **kwargs2)
+OperationalError: (OperationalError) (1045, "Access denied for user 'ckupitz'@'localhost' (using password: YES)") None None
+Traceback (most recent call last):
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 515, in spawn_worker
+    worker.init_process()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 122, in init_process
+    self.load_wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 130, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment_server.py", line 47, in load
+    return util.import_app("psiturk.experiment:app")
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/util.py", line 357, in import_app
+    __import__(module)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment.py", line 84, in <module>
+    init_db()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/db.py", line 32, in init_db
+    Base.metadata.create_all(bind=engine)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/schema.py", line 2848, in create_all
+    tables=tables)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1478, in _run_visitor
+    with self._optional_conn_ctx_manager(connection) as conn:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1471, in _optional_conn_ctx_manager
+    with self.contextual_connect() as conn:
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1661, in contextual_connect
+    self.pool.connect(),
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 272, in connect
+    return _ConnectionFairy(self).checkout()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 431, in __init__
+    rec = self._connection_record = pool._do_get()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 788, in _do_get
+    con = self._create_connection()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 225, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 318, in __init__
+    self.connection = self.__connect()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 379, in __connect
+    connection = self.__pool._creator()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/strategies.py", line 80, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 283, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/__init__.py", line 81, in Connect
+    return Connection(*args, **kwargs)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/connections.py", line 193, in __init__
+    super(Connection, self).__init__(*args, **kwargs2)
+OperationalError: (OperationalError) (1045, "Access denied for user 'ckupitz'@'localhost' (using password: YES)") None None
+[2016-07-01 17:09:41 +0000] [3924] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 515, in spawn_worker
+    worker.init_process()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 122, in init_process
+    self.load_wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 130, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment_server.py", line 47, in load
+    return util.import_app("psiturk.experiment:app")
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/util.py", line 357, in import_app
+    __import__(module)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment.py", line 84, in <module>
+    init_db()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/db.py", line 32, in init_db
+    Base.metadata.create_all(bind=engine)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/schema.py", line 2848, in create_all
+    tables=tables)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1478, in _run_visitor
+    with self._optional_conn_ctx_manager(connection) as conn:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1471, in _optional_conn_ctx_manager
+    with self.contextual_connect() as conn:
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1661, in contextual_connect
+    self.pool.connect(),
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 272, in connect
+    return _ConnectionFairy(self).checkout()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 431, in __init__
+    rec = self._connection_record = pool._do_get()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 788, in _do_get
+    con = self._create_connection()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 225, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 318, in __init__
+    self.connection = self.__connect()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 379, in __connect
+    connection = self.__pool._creator()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/strategies.py", line 80, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 283, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/__init__.py", line 81, in Connect
+    return Connection(*args, **kwargs)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/connections.py", line 193, in __init__
+    super(Connection, self).__init__(*args, **kwargs2)
+OperationalError: (OperationalError) (1045, "Access denied for user 'ckupitz'@'localhost' (using password: YES)") None None
+Traceback (most recent call last):
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 515, in spawn_worker
+    worker.init_process()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 122, in init_process
+    self.load_wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 130, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment_server.py", line 47, in load
+    return util.import_app("psiturk.experiment:app")
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/util.py", line 357, in import_app
+    __import__(module)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment.py", line 84, in <module>
+    init_db()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/db.py", line 32, in init_db
+    Base.metadata.create_all(bind=engine)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/schema.py", line 2848, in create_all
+    tables=tables)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1478, in _run_visitor
+    with self._optional_conn_ctx_manager(connection) as conn:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1471, in _optional_conn_ctx_manager
+    with self.contextual_connect() as conn:
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1661, in contextual_connect
+    self.pool.connect(),
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 272, in connect
+    return _ConnectionFairy(self).checkout()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 431, in __init__
+    rec = self._connection_record = pool._do_get()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 788, in _do_get
+    con = self._create_connection()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 225, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 318, in __init__
+    self.connection = self.__connect()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 379, in __connect
+    connection = self.__pool._creator()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/strategies.py", line 80, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 283, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/__init__.py", line 81, in Connect
+    return Connection(*args, **kwargs)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/connections.py", line 193, in __init__
+    super(Connection, self).__init__(*args, **kwargs2)
+OperationalError: (OperationalError) (1045, "Access denied for user 'ckupitz'@'localhost' (using password: YES)") None None
+[2016-07-01 17:09:41 +0000] [3929] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 515, in spawn_worker
+    worker.init_process()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 122, in init_process
+    self.load_wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 130, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment_server.py", line 47, in load
+    return util.import_app("psiturk.experiment:app")
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/util.py", line 357, in import_app
+    __import__(module)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment.py", line 84, in <module>
+    init_db()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/db.py", line 32, in init_db
+    Base.metadata.create_all(bind=engine)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/schema.py", line 2848, in create_all
+    tables=tables)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1478, in _run_visitor
+    with self._optional_conn_ctx_manager(connection) as conn:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1471, in _optional_conn_ctx_manager
+    with self.contextual_connect() as conn:
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1661, in contextual_connect
+    self.pool.connect(),
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 272, in connect
+    return _ConnectionFairy(self).checkout()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 431, in __init__
+    rec = self._connection_record = pool._do_get()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 788, in _do_get
+    con = self._create_connection()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 225, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 318, in __init__
+    self.connection = self.__connect()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 379, in __connect
+    connection = self.__pool._creator()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/strategies.py", line 80, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 283, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/__init__.py", line 81, in Connect
+    return Connection(*args, **kwargs)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/connections.py", line 193, in __init__
+    super(Connection, self).__init__(*args, **kwargs2)
+OperationalError: (OperationalError) (1045, "Access denied for user 'ckupitz'@'localhost' (using password: YES)") None None
+Traceback (most recent call last):
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 515, in spawn_worker
+    worker.init_process()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 122, in init_process
+    self.load_wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 130, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment_server.py", line 47, in load
+    return util.import_app("psiturk.experiment:app")
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/util.py", line 357, in import_app
+    __import__(module)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment.py", line 84, in <module>
+    init_db()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/db.py", line 32, in init_db
+    Base.metadata.create_all(bind=engine)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/schema.py", line 2848, in create_all
+    tables=tables)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1478, in _run_visitor
+    with self._optional_conn_ctx_manager(connection) as conn:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1471, in _optional_conn_ctx_manager
+    with self.contextual_connect() as conn:
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1661, in contextual_connect
+    self.pool.connect(),
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 272, in connect
+    return _ConnectionFairy(self).checkout()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 431, in __init__
+    rec = self._connection_record = pool._do_get()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 788, in _do_get
+    con = self._create_connection()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 225, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 318, in __init__
+    self.connection = self.__connect()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 379, in __connect
+    connection = self.__pool._creator()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/strategies.py", line 80, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 283, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/__init__.py", line 81, in Connect
+    return Connection(*args, **kwargs)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/connections.py", line 193, in __init__
+    super(Connection, self).__init__(*args, **kwargs2)
+OperationalError: (OperationalError) (1045, "Access denied for user 'ckupitz'@'localhost' (using password: YES)") None None
+[2016-07-01 17:09:41 +0000] [3927] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 515, in spawn_worker
+    worker.init_process()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 122, in init_process
+    self.load_wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 130, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment_server.py", line 47, in load
+    return util.import_app("psiturk.experiment:app")
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/util.py", line 357, in import_app
+    __import__(module)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment.py", line 84, in <module>
+    init_db()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/db.py", line 32, in init_db
+    Base.metadata.create_all(bind=engine)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/schema.py", line 2848, in create_all
+    tables=tables)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1478, in _run_visitor
+    with self._optional_conn_ctx_manager(connection) as conn:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1471, in _optional_conn_ctx_manager
+    with self.contextual_connect() as conn:
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1661, in contextual_connect
+    self.pool.connect(),
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 272, in connect
+    return _ConnectionFairy(self).checkout()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 431, in __init__
+    rec = self._connection_record = pool._do_get()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 788, in _do_get
+    con = self._create_connection()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 225, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 318, in __init__
+    self.connection = self.__connect()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 379, in __connect
+    connection = self.__pool._creator()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/strategies.py", line 80, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 283, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/__init__.py", line 81, in Connect
+    return Connection(*args, **kwargs)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/connections.py", line 193, in __init__
+    super(Connection, self).__init__(*args, **kwargs2)
+OperationalError: (OperationalError) (1045, "Access denied for user 'ckupitz'@'localhost' (using password: YES)") None None
+Traceback (most recent call last):
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 515, in spawn_worker
+    worker.init_process()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 122, in init_process
+    self.load_wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 130, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment_server.py", line 47, in load
+    return util.import_app("psiturk.experiment:app")
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/util.py", line 357, in import_app
+    __import__(module)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment.py", line 84, in <module>
+    init_db()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/db.py", line 32, in init_db
+    Base.metadata.create_all(bind=engine)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/schema.py", line 2848, in create_all
+    tables=tables)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1478, in _run_visitor
+    with self._optional_conn_ctx_manager(connection) as conn:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1471, in _optional_conn_ctx_manager
+    with self.contextual_connect() as conn:
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1661, in contextual_connect
+    self.pool.connect(),
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 272, in connect
+    return _ConnectionFairy(self).checkout()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 431, in __init__
+    rec = self._connection_record = pool._do_get()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 788, in _do_get
+    con = self._create_connection()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 225, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 318, in __init__
+    self.connection = self.__connect()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 379, in __connect
+    connection = self.__pool._creator()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/strategies.py", line 80, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 283, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/__init__.py", line 81, in Connect
+    return Connection(*args, **kwargs)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/connections.py", line 193, in __init__
+    super(Connection, self).__init__(*args, **kwargs2)
+OperationalError: (OperationalError) (1045, "Access denied for user 'ckupitz'@'localhost' (using password: YES)") None None
+[2016-07-01 17:09:41 +0000] [3933] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 515, in spawn_worker
+    worker.init_process()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 122, in init_process
+    self.load_wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 130, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment_server.py", line 47, in load
+    return util.import_app("psiturk.experiment:app")
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/util.py", line 357, in import_app
+    __import__(module)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment.py", line 84, in <module>
+    init_db()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/db.py", line 32, in init_db
+    Base.metadata.create_all(bind=engine)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/schema.py", line 2848, in create_all
+    tables=tables)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1478, in _run_visitor
+    with self._optional_conn_ctx_manager(connection) as conn:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1471, in _optional_conn_ctx_manager
+    with self.contextual_connect() as conn:
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1661, in contextual_connect
+    self.pool.connect(),
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 272, in connect
+    return _ConnectionFairy(self).checkout()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 431, in __init__
+    rec = self._connection_record = pool._do_get()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 788, in _do_get
+    con = self._create_connection()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 225, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 318, in __init__
+    self.connection = self.__connect()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 379, in __connect
+    connection = self.__pool._creator()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/strategies.py", line 80, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 283, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/__init__.py", line 81, in Connect
+    return Connection(*args, **kwargs)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/connections.py", line 193, in __init__
+    super(Connection, self).__init__(*args, **kwargs2)
+OperationalError: (OperationalError) (1045, "Access denied for user 'ckupitz'@'localhost' (using password: YES)") None None
+Traceback (most recent call last):
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/arbiter.py", line 515, in spawn_worker
+    worker.init_process()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 122, in init_process
+    self.load_wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/workers/base.py", line 130, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment_server.py", line 47, in load
+    return util.import_app("psiturk.experiment:app")
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/gunicorn/util.py", line 357, in import_app
+    __import__(module)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/experiment.py", line 84, in <module>
+    init_db()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/psiturk/db.py", line 32, in init_db
+    Base.metadata.create_all(bind=engine)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/schema.py", line 2848, in create_all
+    tables=tables)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1478, in _run_visitor
+    with self._optional_conn_ctx_manager(connection) as conn:
+  File "/usr/lib/python2.7/contextlib.py", line 17, in __enter__
+    return self.gen.next()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1471, in _optional_conn_ctx_manager
+    with self.contextual_connect() as conn:
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1661, in contextual_connect
+    self.pool.connect(),
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 272, in connect
+    return _ConnectionFairy(self).checkout()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 431, in __init__
+    rec = self._connection_record = pool._do_get()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 788, in _do_get
+    con = self._create_connection()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 225, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 318, in __init__
+    self.connection = self.__connect()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/pool.py", line 379, in __connect
+    connection = self.__pool._creator()
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/strategies.py", line 80, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 283, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/__init__.py", line 81, in Connect
+    return Connection(*args, **kwargs)
+  File "/home/colin/.virtualenvs/psiturk/local/lib/python2.7/site-packages/MySQLdb/connections.py", line 193, in __init__
+    super(Connection, self).__init__(*args, **kwargs2)
+OperationalError: (OperationalError) (1045, "Access denied for user 'ckupitz'@'localhost' (using password: YES)") None None
