@@ -819,11 +819,11 @@ var NBR_Task = function() {
 		if (isrespdebugrun===1){
 
 			var tmprnd = Math.random();
-			if (tmprnd < 0.4) {
+			if (tmprnd < 0.45) {
 				response 	= Jresp;
 				respsame 	= Jrespsame;
 			}
-			else if (tmprnd < 0.8) {
+			else if (tmprnd < 0.9) {
 				response 	= Fresp;
 				respsame 	= Frespsame;
 			}
@@ -1428,7 +1428,10 @@ var querycolor 	= "black"
 var begindelay = 4000;
 var resetdelay = 2000;
 
-if (istimedebugrun===1) {begindelay = 25};
+if (istimedebugrun===1) {
+	begindelay = 25;
+	resetdelay = 25;
+}
 
 //Leading -1 to deal with 0-index of JS that I dislike
 var tblockind  = [-1, 0, 0, 0, 0, 0];
