@@ -44,27 +44,40 @@ var instructionPagesCPT = []; //CPT
 //}
 
 //counterbalancing task order (1/2 are both NBS, 3/4 are both NBR)
+// switch (mycondition) {
+// 	case 1:
+// 	var taskorder = [1, 2, 3, 4, 5];
+// 	break;
+// 	case 2:
+// 	var taskorder = [1, 2, 5, 3, 4];
+// 	break;
+// 	case 3:
+// 	var taskorder = [3, 4, 1, 2, 5];
+// 	break;
+// 	case 4:
+// 	var taskorder = [3, 4, 5, 1, 2];
+// 	break;
+// 	case 5:
+// 	var taskorder = [5, 1, 2, 3, 4];
+// 	break;
+// 	case 6:
+// 	var taskorder = [5, 3, 4, 1, 2];
+// 	break;
+// 	default:
+// 	var taskorder = [1, 2, 3, 4, 5];
+// 	break;
+// }
+
+//counterbalancing task order (1/2 are both NBS, 3/4 are both NBR)
 switch (mycondition) {
 	case 1:
-	var taskorder = [1, 2, 3, 4, 5];
-	break;
-	case 2:
-	var taskorder = [1, 2, 5, 3, 4];
-	break;
-	case 3:
-	var taskorder = [3, 4, 1, 2, 5];
-	break;
-	case 4:
-	var taskorder = [3, 4, 5, 1, 2];
-	break;
-	case 5:
 	var taskorder = [5, 1, 2, 3, 4];
 	break;
-	case 6:
+	case 2:
 	var taskorder = [5, 3, 4, 1, 2];
 	break;
 	default:
-	var taskorder = [1, 2, 3, 4, 5];
+	var taskorder = [5, 1, 2, 3, 4];
 	break;
 }
 
@@ -632,7 +645,7 @@ var NBR_Task = function() {
 	
 	var do_reset = function() {
 			// re-setup remainder of stimulus presentations
-			d3.select("#letter").remove();
+			// d3.select("#letter").remove();
 			show_sentence("Resetting Sequence.",stimcolor,"60px");
 			var tmpar1		= new Array(ntargets-ntargetsans).fill(1);
 			var tmpar2		= new Array(nnontargets-nnontargetsans).fill(2);
@@ -678,8 +691,13 @@ var NBR_Task = function() {
 			});
 
 			setTimeout(function() {
-				nexttrial();
-       			}, resetdelay);
+				d3.select("#letter").remove();
+				setTimeout(function() {
+					nexttrial();
+       			}, ISI);
+       		}, resetdelay);
+
+
 	}; //do_reset
 
 	var response_handler = function(e) {
@@ -751,19 +769,18 @@ var NBR_Task = function() {
 		d3.select("#letter").remove();
 		letteroff = new Date().getTime();
 		lettertime = letteroff - letteron;
-			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],
-				response,respsame,lettertime,hit,rt,nresets,nseqlength,ntargetsans,nnontargetsans,isprac]);
-			if (respsame===-2) {
-				do_reset();
-       			}//if
-
-		// after ISI ms, record the current trial data, move to next trial
-		//THIS IS IN JSON FORMAT
-		setTimeout(function() {
-       			else {
-				nexttrial();
-			}
+		psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],
+			response,respsame,lettertime,hit,rt,nresets,nseqlength,ntargetsans,nnontargetsans,isprac]);
+		if (respsame===-2) {
+			do_reset();
+   		}//if
+   		else {
+			// after ISI ms, record the current trial data, move to next trial
+			//THIS IS IN JSON FORMAT
+			setTimeout(function() {
+					nexttrial();
        		}, ISI);
+		}
 	};
 
 	
