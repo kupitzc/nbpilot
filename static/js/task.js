@@ -217,6 +217,18 @@ var show_word = function(text, color) {
 	.text(text);
 };
 
+var show_sentence = function(text, color, textsize) {
+	d3.select("#stim")
+	.append("div")
+	.attr("id","letter")
+	.style("color",color)
+	.style("text-align","center")
+	.style("font-size",textsize)
+	.style("font-weight","400")
+	.style("margin","20px")
+	.text(text);
+};
+
 var show_query= function() { //(text, color) {
 	d3.select("#query")
 	.append("div")
@@ -620,6 +632,8 @@ var NBR_Task = function() {
 	
 	var do_reset = function() {
 			// re-setup remainder of stimulus presentations
+			d3.select("#letter").remove();
+			show_sentence("Resetting Sequence.",stimcolor,"60px");
 			var tmpar1		= new Array(ntargets-ntargetsans).fill(1);
 			var tmpar2		= new Array(nnontargets-nnontargetsans).fill(2);
 			var tmpar3	 	= tmpar1.concat(tmpar2);
@@ -662,6 +676,10 @@ var NBR_Task = function() {
 				'letterID': letterID,
 				'nresets': 	nresets
 			});
+
+			setTimeout(function() {
+				nexttrial();
+       			}, resetdelay);
 	}; //do_reset
 
 	var response_handler = function(e) {
@@ -733,16 +751,18 @@ var NBR_Task = function() {
 		d3.select("#letter").remove();
 		letteroff = new Date().getTime();
 		lettertime = letteroff - letteron;
-
-		// after ISI ms, record the current trial data, move to next trial
-		//THIS IS IN JSON FORMAT
-		setTimeout(function() {
 			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],
 				response,respsame,lettertime,hit,rt,nresets,nseqlength,ntargetsans,nnontargetsans,isprac]);
 			if (respsame===-2) {
 				do_reset();
        			}//if
-       			nexttrial();
+
+		// after ISI ms, record the current trial data, move to next trial
+		//THIS IS IN JSON FORMAT
+		setTimeout(function() {
+       			else {
+				nexttrial();
+			}
        		}, ISI);
 	};
 
@@ -779,11 +799,11 @@ var CPT_Task = function() {
 	// TIMING VARIABLES (in ms):
 	if (istimedebugrun===1) {
 		var stimtime 		= 15;
-		var ISI 			= 15;
+		var ISI 		= 15;
 	}
 	else {
 		var stimtime 		= 250;
-		var ISI 			= 1000;
+		var ISI 		= 1000;
 	}
 
 	// PRESENTATION VARIABLES:
@@ -1225,7 +1245,7 @@ var Task_Controller = function() {
 
 			if (isprac===1) {
 
-				trialtypes  = [4, 1, 1, 1]
+				trialtypes  = cptTTprac;
 				maxblocks   = 1; 
 
 				psiTurk.doInstructions(
@@ -1234,16 +1254,22 @@ var Task_Controller = function() {
 	    		);
 			}//if
 			else {
+				tblockind[TID]++;
+				if (tblockind[TID]>tblocks[TID]) {
+					donewtask = 1;
+					currentview = new Task_Controller();
+				} //if
+				else {
 
-				trialtypes = [4, 1, 1, 1]
-				maxblocks   = 1; 
+				trialtypes = cptTT;
+				maxblocks   = 1;
+				//donewtask = 1;
 
-				donewtask = 1;
-
-				psiTurk.doInstructions(
-	    		interludePages, // a list of pages you want to display in sequence
-	    		function() { currentview = new CPT_Task(); } // what you want to do when you are done with instructions
-	    		);
+					psiTurk.doInstructions(
+	    					interludePages, // a list of pages you want to display in sequence
+	    					function() { currentview = new CPT_Task(); } // what you want to do when you are done with instructions
+	    				);
+				};//else
 			}//else
 			break;
 
@@ -1273,6 +1299,7 @@ var curquery
 var querycolor 	= "black"
 
 var begindelay = 4000;
+var resetdelay = 2000;
 
 if (istimedebugrun===1) {begindelay = 25};
 
@@ -1319,6 +1346,8 @@ if (isdebugrun===1) {
 
 	taskorder 	= [1, 2, 3, 4, 5]; //override for debug purposes:
 }//if
+
+taskorder = [3, 4, 1, 2, 5];
 
 /*******************
  * Run Task
