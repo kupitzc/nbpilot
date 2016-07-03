@@ -12,8 +12,8 @@ organization_name = University of California, Irvine
 browser_exclude_rule = MSIE, mobile, tablet
 
 [Database Parameters]
-database_url = mysql://ckupitz:badinfluence@127.0.0.1:3306/nbdatabase
-table_name = nbdatabase
+database_url = mysql://ckupitz:badinfluence@127.0.0.1:3306/nbpilot
+table_name = nbpilot
 
 [Server Parameters]
 host = 0.0.0.0

@@ -10,10 +10,16 @@ var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 // var mycondition = condition;  // these two variables are passed by the psiturk server process
 // var mycounterbalance = counterbalance;  // they tell you which condition you have been assigned to
 
-var mycondition 		= psiTurk.taskdata.get('condition');  // these two variables are passed by the psiturk server process
+var mycondition 	= psiTurk.taskdata.get('condition');  // these two variables are passed by the psiturk server process
 var mycounterbalance 	= psiTurk.taskdata.get('counterbalance'); ;  // they tell you which condition you have been assigned to
 
-var isdebugrun = 1; 	//SET ME TO 0 FOR REAL RUN!
+mycondition++;
+mycounterbalance++;
+
+var isdebugrun = 0; 	//SET ME TO 0 FOR REAL RUN!
+var istimedebugrun = 0;
+//alert(mycondition);
+//alert(mycounterbalance);
 
 var pages = [
 "stage.html",
@@ -30,12 +36,12 @@ var instructionPagesCPT = []; //CPT
 //if psiturk's variables for counterbalancing fail for some reason
 //selecting condition (task order) and counterbalance (targetkey)
 //randomly should be close to true counterbalance with all the participants
-if (mycondition===0) {
-	mycondition = 1 + Math.floor(Math.random() * 6);
-}
-if (mycounterbalance===0) {
-	mycounterbalance = 1 + Math.floor(Math.random() * 2);
-}
+//if (mycondition===0) {
+//	mycondition = 1 + Math.floor(Math.random() * 6);
+//}
+//if (mycounterbalance===0) {
+//	mycounterbalance = 1 + Math.floor(Math.random() * 2);
+//}
 
 //counterbalancing task order (1/2 are both NBS, 3/4 are both NBR)
 switch (mycondition) {
@@ -244,11 +250,11 @@ var NBS_Task = function() {
 		nnontargets =  nbsNONTARprac;
 	}
 
-	if (isdebugrun===1) { //override for debugging
+	if (istimedebugrun===1) { //override for debugging
 		var stimtime 		= 25;
 		var ISI 			= 25;
-		var ntargets 		= 2; 
-		var nnontargets 	= 2; 
+	//	var ntargets 		= 2; 
+	//	var nnontargets 	= 2; 
 	}
 
 
@@ -456,18 +462,35 @@ var NBR_Task = function() {
 
 	// Experiment Control Variables
 	// TIMING VARIABLES (in ms):
-	if (isdebugrun===1) {
+	var stimtime 	= 250;
+	var ISI 		= 2500;
+	var ntargets 	=  nbrTAR;
+	var nnontargets =  nbrNONTAR;
+
+	if (isprac===1) { //override for practice
+		ntargets =  nbrTARprac;
+		nnontargets =  nbrNONTARprac;
+	}
+
+	if (istimedebugrun===1) { //override for debugging
 		var stimtime 		= 25;
 		var ISI 			= 25;
-		var ntargets 		= 2; 
-		var nnontargets 	= 2; 
+	//	var ntargets 		= 2; 
+	//	var nnontargets 	= 2; 
 	}
-	else {
-		var stimtime 		= 250;
-		var ISI 			= 2500;
-		var ntargets 		= 6;
-		var nnontargets 	= 12;
-	}
+
+//	if (isdebugrun===1) {
+//		var stimtime 		= 25;
+//		var ISI 			= 25;
+//		var ntargets 		= NBRtar
+//		var nnontargets 	= 2; 
+//	}
+//	else {
+//		var stimtime 		= 250;
+//		var ISI 			= 2500;
+//		var ntargets 		= 6;
+//		var nnontargets 	= 12;
+//	}
 
 	// PRESENTATION VARIABLES:
 	var stimsize		= 80;
@@ -475,7 +498,7 @@ var NBR_Task = function() {
 
 	//EXPT CONTROL VARIABLES:
 	var nlevel          //instantiate for full scope
-	
+
 	//N-BACK RESET SPECIAL VARIABLES:
 	var ntargetsans		= 0;
 	var nnontargetsans 	= 0;
@@ -715,7 +738,7 @@ var NBR_Task = function() {
 		//THIS IS IN JSON FORMAT
 		setTimeout(function() {
 			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],
-				response,respsame,lettertime,hit,rt,nresets,nseqlength,ntargetsans,nnontargetsans]);
+				response,respsame,lettertime,hit,rt,nresets,nseqlength,ntargetsans,nnontargetsans,isprac]);
 			if (respsame===-2) {
 				do_reset();
        			}//if
@@ -754,7 +777,7 @@ var CPT_Task = function() {
 
 	// Experiment Control Variables
 	// TIMING VARIABLES (in ms):
-	if (isdebugrun===1) {
+	if (istimedebugrun===1) {
 		var stimtime 		= 15;
 		var ISI 			= 15;
 	}
@@ -962,7 +985,7 @@ var CPT_Task = function() {
 		// after ISI ms, record the current trial data, move to next trial
 		setTimeout(function() {
 			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,trialphase,stim[0],stim[1],stim[2],stim[3],
-				response,respsame,lettertime,hit,rt]);
+				response,respsame,lettertime,hit,rt,isprac]);
 			nexttrial();
 		}, ISI);
 	}; //remove_word
@@ -1020,7 +1043,7 @@ var Questionnaire = function() {
 	resubmit = function() {
 		document.body.innerHTML = "<h1>Trying to resubmit...</h1>";
 		reprompt = setTimeout(prompt_resubmit, 10000);
-		
+
 		psiTurk.saveData({
 			success: function() {
 				clearInterval(reprompt);
@@ -1034,7 +1057,7 @@ var Questionnaire = function() {
 	// Load the questionnaire snippet 
 	psiTurk.showPage('postquestionnaire.html');
 	psiTurk.recordTrialData({'phase':'postquestionnaire', 'status':'begin'});
-	
+
 	$("#next").click(function () {
 		record_responses();
 		psiTurk.saveData({
@@ -1042,12 +1065,10 @@ var Questionnaire = function() {
 				psiTurk.completeHIT();
                 // psiTurk.computeBonus('compute_bonus', function() { 
                 // 	psiTurk.completeHIT(); // when finished saving compute bonus, the quit
-                // }); 
-            }, 
+                // });
+            },
             error: prompt_resubmit});
 	});
-
-	
 };
 
 var Task_Controller = function() {
@@ -1251,40 +1272,52 @@ var donewtask   = 1;
 var curquery  	
 var querycolor 	= "black"
 
-var begindelay = 2500;
+var begindelay = 4000;
 
-if (isdebugrun===1) {begindelay = 25};
+if (istimedebugrun===1) {begindelay = 25};
 
 //Leading -1 to deal with 0-index of JS that I dislike
 var tblockind  = [-1, 0, 0, 0, 0, 0];
 
 //Holder that determines how many blocks are done for each task:
 //  			  (blank)	NBS2, 	NBS3, 	NBR2, 	NBR3, 	CPT];
-var tblocks	    = [-1, 		2, 		2, 		2, 		2, 		6];
+var tblocks	    = [-1, 5, 5, 5, 5, 5]; //CHANGEBACK!
+//var tblocks = [-1, 1, 1, 1, 1, 1];
+
 
 //4 trial types described in the CPT_Task function
 var cptTTprac 	= [7, 1, 1, 1]; 	//matches python script
-var cptTT 		= [42, 6, 6, 6]; 	//matches python script
+var cptTT 	= [42, 6, 6, 6]; 	//matches python script
 
 //per block variables
-var nbsTAR			= 6;
-var nbsNONTAR		= 12;
-var nbsTARprac		= 3;
-var nbsNONTARprac	= 6;
+var nbsTAR		= 8 //6;
+var nbsNONTAR		= 16 //12;
+var nbsTARprac		= 2;
+var nbsNONTARprac	= 4;
 
-var nbrTAR			= 6;
-var nbrNONTAR		= 12;
-var nbrTARprac		= 3;
-var nbrNONTARprac	= 6;
+var nbrTAR		= 8 // 6;
+var nbrNONTAR		= 16 //12;
+var nbrTARprac		= 2;
+var nbrNONTARprac	= 4;
 
 //overrides for debugging:
 if (isdebugrun===1) {
 	//Holder that determines how many blocks are done for each task:
 	//  			  (blank)	NBS2, 	NBS3, 	NBR2, 	NBR3, 	CPT];
 	var tblocks	    = [-1, 		1, 		1, 		1, 		1, 		1];
-	var cptTTprac 	= [4, 1, 1, 1]; 
+	var cptTTprac 	= [4, 1, 1, 1];
 	var cptTT 		= [4, 1, 1, 1];
-		taskorder 	= [1, 2, 3, 4, 5]; //override for debug purposes:
+	var nbsTAR		= 2 //6;
+	var nbsNONTAR		= 2 //12;
+	var nbsTARprac		= 2;
+	var nbsNONTARprac	= 2;
+
+	var nbrTAR		= 2 // 6;
+	var nbrNONTAR		= 2 //12;
+	var nbrTARprac		= 2;
+	var nbrNONTARprac	= 2;
+
+	taskorder 	= [1, 2, 3, 4, 5]; //override for debug purposes:
 }//if
 
 /*******************
