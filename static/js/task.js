@@ -10,14 +10,15 @@ var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 // var mycondition = condition;  // these two variables are passed by the psiturk server process
 // var mycounterbalance = counterbalance;  // they tell you which condition you have been assigned to
 
-var mycondition 	= psiTurk.taskdata.get('condition');  // these two variables are passed by the psiturk server process
+var mycondition 		= psiTurk.taskdata.get('condition');  // these two variables are passed by the psiturk server process
 var mycounterbalance 	= psiTurk.taskdata.get('counterbalance'); ;  // they tell you which condition you have been assigned to
 
 mycondition++;
 mycounterbalance++;
 
-var isdebugrun = 1; 	//SET ME TO 0 FOR REAL RUN!
-var istimedebugrun = 0;
+var isdebugrun 		= 0; 	//SET ME TO 0 FOR REAL RUN!
+var istimedebugrun 	= 0;
+var isrespdebugrun 	= 1;
 //alert(mycondition);
 //alert(mycounterbalance);
 
@@ -451,6 +452,22 @@ var NBS_Task = function() {
 		letteroff = new Date().getTime();
 		lettertime = letteroff - letteron;
 
+		if (isrespdebugrun===1){
+
+			if (Math.random() > 0.5) {
+				response 	= Jresp;
+				respsame 	= Jrespsame;
+			}
+			else {
+				response 	= Fresp;
+				respsame 	= Frespsame;
+			}
+			listening 	= false;
+			gotresp 	= 1;
+			hit 		= response == stim[1];
+			rt 			= Math.floor(Math.random() * 500) + 250;
+		}//isrespdebugrun
+
 		// after ISI ms, record the current trial data, move to next trial
 		setTimeout(function() {
 			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],response,respsame,lettertime,hit,rt,isprac]);
@@ -766,19 +783,19 @@ var NBR_Task = function() {
 				hit 	= -2;
 				nresets = nresets + 1;
 				nseqlength = 0;
-		}//if
-		else {
-			nseqlength  = nseqlength + 1; //another answered in a row
-			gotresp 	= 1;
-			hit 		= response == stim[1];
+			}//if reset
+			else {
+				nseqlength  = nseqlength + 1; //another answered in a row
+				gotresp 	= 1;
+				hit 		= response == stim[1];
 
-			if (stim[3]===1) {//target trial
-				ntargetsans = ntargetsans + 1;
-			}//if
-			else { //nontarget trial
-				nnontargetsans = nnontargetsans + 1;
-			}
-		}//else
+				if (stim[3]===1) {//target trial
+					ntargetsans = ntargetsans + 1;
+				}//if
+				else { //nontarget trial
+					nnontargetsans = nnontargetsans + 1;
+				}
+			}//else reset
 
 		} // if (response.length>0) {
 	}; //response_handler
@@ -793,7 +810,47 @@ var NBR_Task = function() {
 		d3.select("#letter").remove();
 		letteroff = new Date().getTime();
 		lettertime = letteroff - letteron;
-		
+
+		if (isrespdebugrun===1){
+
+			var tmprnd = Math.random();
+			if (tmprnd < 0.4) {
+				response 	= Jresp;
+				respsame 	= Jrespsame;
+			}
+			else if (tmprnd < 0.8) {
+				response 	= Fresp;
+				respsame 	= Frespsame;
+			}
+			else {
+				response 	= "reset";
+				respsame 	= -2;
+			}
+
+			listening 	= false;
+			rt 			= Math.floor(Math.random() * 500) + 250;
+
+			if (respsame===-2) {  //RESET RESPONSE
+				gotresp = -2;
+				hit 	= -2;
+				nresets = nresets + 1;
+				nseqlength = 0;
+			}//if reset
+			else {
+				nseqlength  = nseqlength + 1; //another answered in a row
+				gotresp 	= 1;
+				hit 		= response == stim[1];
+
+				if (stim[3]===1) {//target trial
+					ntargetsans = ntargetsans + 1;
+				}//if
+				else { //nontarget trial
+					nnontargetsans = nnontargetsans + 1;
+				}
+			}//else reset
+
+		}//isrespdebugrun
+
 		// after ISI ms, record the current trial data, move to next trial
 		//THIS IS IN JSON FORMAT
 		setTimeout(function() {
@@ -809,7 +866,6 @@ var NBR_Task = function() {
 
 	};
 
-	
 	// Load the stage.html snippet into the body of the page
 	psiTurk.showPage('stage.html');
 
@@ -964,19 +1020,19 @@ var CPT_Task = function() {
 						letterID1[i] = 0; //A
 						letterID2[i] = Math.floor(2 + Math.random() * (nletters - 2));
 						ttype1 = "nontarget";
-						ttype2 = "target";
+						ttype2 = "nontarget";
 						break;
 					case 3: 	//  non-target X  	B->X
 					letterID1[i] = Math.floor(2 + Math.random() * (nletters - 2));
 						letterID2[i] = 1; //X
 						ttype1 = "nontarget";
-						ttype2 = "target";
+						ttype2 = "nontarget";
 						break;
 					case 4: 	//  pure distractor	B->Y
 					letterID1[i] = Math.floor(2 + Math.random() * (nletters - 2));
 					letterID2[i] = Math.floor(2 + Math.random() * (nletters - 2));
 					ttype1 = "nontarget";
-					ttype2 = "target";
+					ttype2 = "nontarget";
 					break;
 					default:
 					letterID1[i] = -1;
@@ -1045,6 +1101,22 @@ var CPT_Task = function() {
 		letteroff = new Date().getTime();
 		lettertime = letteroff - letteron;
 
+		if (isrespdebugrun===1){
+
+			if (Math.random() > 0.5) {
+				response 	= Jresp;
+				respsame 	= Jrespsame;
+			}
+			else {
+				response 	= Fresp;
+				respsame 	= Frespsame;
+			}
+			listening 	= false;
+			gotresp 	= 1;
+			hit 		= response == stim[1];
+			rt 			= Math.floor(Math.random() * 500) + 250;
+		}//isrespdebugrun
+		
 		// after ISI ms, record the current trial data, move to next trial
 		setTimeout(function() {
 			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,trialphase,stim[0],stim[2],stim[3],
@@ -1357,7 +1429,7 @@ var tblocks	    = [-1, 5, 5, 5, 5, 5]; //CHANGEBACK!
 
 //4 trial types described in the CPT_Task function
 var cptTTprac 	= [7, 1, 1, 1]; 	//matches python script
-var cptTT 	= [42, 6, 6, 6]; 	//matches python script
+var cptTT 		= [42, 6, 6, 6]; 	//matches python script
 
 //per block variables
 var nbsTAR			= 8 //6;
@@ -1373,16 +1445,16 @@ var nbrNONTARprac	= 4;
 //overrides for debugging:
 if (isdebugrun===1) {
 	//Holder that determines how many blocks are done for each task:
-	//  			  (blank)	NBS2, 	NBS3, 	NBR2, 	NBR3, 	CPT];
-	var tblocks	    = [-1, 		2, 		2, 		2, 		2, 		2];
-	var cptTTprac 	= [4, 1, 1, 1];
-	var cptTT 		= [4, 1, 1, 1];
-	var nbsTAR		= 2 //6;
+	//  			  	(blank)		NBS2, 	NBS3, 	NBR2, 	NBR3, 	CPT];
+	var tblocks	    	= [-1, 		2, 		2, 		2, 		2, 		2];
+	var cptTTprac 		= [4, 1, 1, 1];
+	var cptTT 			= [4, 1, 1, 1];
+	var nbsTAR			= 2 //6;
 	var nbsNONTAR		= 2 //12;
 	var nbsTARprac		= 2;
 	var nbsNONTARprac	= 2;
 
-	var nbrTAR		= 2 // 6;
+	var nbrTAR			= 2 // 6;
 	var nbrNONTAR		= 2 //12;
 	var nbrTARprac		= 2;
 	var nbrNONTARprac	= 2;
