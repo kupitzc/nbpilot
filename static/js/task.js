@@ -16,7 +16,7 @@ var mycounterbalance 	= psiTurk.taskdata.get('counterbalance'); ;  // they tell 
 mycondition++;
 mycounterbalance++;
 
-var isdebugrun = 0; 	//SET ME TO 0 FOR REAL RUN!
+var isdebugrun = 1; 	//SET ME TO 0 FOR REAL RUN!
 var istimedebugrun = 0;
 //alert(mycondition);
 //alert(mycounterbalance);
@@ -646,10 +646,34 @@ var NBR_Task = function() {
 	var do_reset = function() {
 			// re-setup remainder of stimulus presentations
 			// d3.select("#letter").remove();
-			show_sentence("Resetting Sequence.",stimcolor,"60px");
-			var tmpar1		= new Array(ntargets-ntargetsans).fill(1);
-			var tmpar2		= new Array(nnontargets-nnontargetsans).fill(2);
-			var tmpar3	 	= tmpar1.concat(tmpar2);
+			show_sentence("Begin new Sub-sequence.",stimcolor,"60px");
+			var newntars 	= ntargets - ntargetsans;
+			var newnnontars = nnontargets - nnontargetsans;
+
+			if (newntars > 0) {
+				var tmpar1		= new Array(newntars).fill(1);
+				if (newnnontars > 0) {
+					var tmpar2		= new Array(newnnontars).fill(2);
+					var tmpar3	 	= tmpar1.concat(tmpar2);
+				}
+				else {
+					var tmpar2		= [];
+					var tmpar3 = tmpar1;
+				}
+			}
+			else {
+				var tmpar1		= [];
+				if (newnnontars > 0) {
+					var tmpar2		= new Array(newnnontars).fill(2);
+					var tmpar3 = tmpar2;
+				}
+				else {
+					var tmpar2		= [];
+					var tmpar3 = [2];
+				}
+			}
+			
+			// var tmpar3	 	= tmpar1.concat(tmpar2);
 			tmpar3 			= _.shuffle(tmpar3);
 
 			// prepend nlevel non-targets to the sequence after randomizing
@@ -769,18 +793,20 @@ var NBR_Task = function() {
 		d3.select("#letter").remove();
 		letteroff = new Date().getTime();
 		lettertime = letteroff - letteron;
-		psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],
+		
+		// after ISI ms, record the current trial data, move to next trial
+		//THIS IS IN JSON FORMAT
+		setTimeout(function() {
+			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,stim[0],stim[1],stim[2],stim[3],
 			response,respsame,lettertime,hit,rt,nresets,nseqlength,ntargetsans,nnontargetsans,isprac]);
-		if (respsame===-2) {
-			do_reset();
-   		}//if
-   		else {
-			// after ISI ms, record the current trial data, move to next trial
-			//THIS IS IN JSON FORMAT
-			setTimeout(function() {
-					nexttrial();
-       		}, ISI);
-		}
+			if (respsame===-2) {
+				do_reset();
+			}//if
+   			else {
+				nexttrial();
+			}
+   		}, ISI);
+
 	};
 
 	
@@ -1021,7 +1047,7 @@ var CPT_Task = function() {
 
 		// after ISI ms, record the current trial data, move to next trial
 		setTimeout(function() {
-			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,trialphase,stim[0],stim[1],stim[2],stim[3],
+			psiTurk.recordTrialData([curphase,curtask,curblock,curtrial,trialphase,stim[0],stim[2],stim[3],
 				response,respsame,lettertime,hit,rt,isprac]);
 			nexttrial();
 		}, ISI);
@@ -1334,12 +1360,12 @@ var cptTTprac 	= [7, 1, 1, 1]; 	//matches python script
 var cptTT 	= [42, 6, 6, 6]; 	//matches python script
 
 //per block variables
-var nbsTAR		= 8 //6;
+var nbsTAR			= 8 //6;
 var nbsNONTAR		= 16 //12;
 var nbsTARprac		= 2;
 var nbsNONTARprac	= 4;
 
-var nbrTAR		= 8 // 6;
+var nbrTAR			= 8 // 6;
 var nbrNONTAR		= 16 //12;
 var nbrTARprac		= 2;
 var nbrNONTARprac	= 4;
@@ -1348,7 +1374,7 @@ var nbrNONTARprac	= 4;
 if (isdebugrun===1) {
 	//Holder that determines how many blocks are done for each task:
 	//  			  (blank)	NBS2, 	NBS3, 	NBR2, 	NBR3, 	CPT];
-	var tblocks	    = [-1, 		1, 		1, 		1, 		1, 		1];
+	var tblocks	    = [-1, 		2, 		2, 		2, 		2, 		2];
 	var cptTTprac 	= [4, 1, 1, 1];
 	var cptTT 		= [4, 1, 1, 1];
 	var nbsTAR		= 2 //6;
@@ -1361,10 +1387,10 @@ if (isdebugrun===1) {
 	var nbrTARprac		= 2;
 	var nbrNONTARprac	= 2;
 
-	taskorder 	= [1, 2, 3, 4, 5]; //override for debug purposes:
+	// taskorder 	= [1, 2, 3, 4, 5]; //override for debug purposes:
 }//if
 
-taskorder = [3, 4, 1, 2, 5];
+//taskorder = [3, 4, 1, 2, 5];
 
 /*******************
  * Run Task
