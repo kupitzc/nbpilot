@@ -7,7 +7,7 @@
 // Initalize psiturk object
 var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 
-var isdebugrun 		= 1; 	//SET ME TO 0 FOR REAL RUN!
+var isdebugrun 		= 0; 	//SET ME TO 0 FOR REAL RUN!
 var istimedebugrun 	= 0;
 var isrespdebugrun 	= 0;
 //alert(mycondition);
@@ -1519,22 +1519,22 @@ var tblockind  = [-1, 0, 0, 0, 0, 0];
 
 //Holder that determines how many blocks are done for each task:
 //  			  (blank)	NBS2, 	NBS3, 	NBR2, 	NBR3, 	CPT];
-var tblocks	    = [-1, 5, 5, 5, 5, 4]; //CHANGEBACK!
+var tblocks	    = [-1, 6, 6, 6, 6, 4]; //CHANGEBACK!
 //var tblocks = [-1, 1, 1, 1, 1, 1];
 
 
 //4 trial types described in the CPT_Task function
 var cptTTprac 	= [7, 1, 1, 1]; 	//matches python script
-var cptTT 		= [42, 6, 6, 6]; 	//matches python script
+var cptTT 		= [42, 6, 6, 6];
 
 //per block variables
-var nbsTAR			= 6 //6;
-var nbsNONTAR		= 12 //12;
+var nbsTAR		= 6; //6;
+var nbsNONTAR		= 12; //12;
 var nbsTARprac		= 2;
 var nbsNONTARprac	= 4;
 
-var nbrTAR			= 6 // 6;
-var nbrNONTAR		= 12 //12;
+var nbrTAR		= 6; // 6;
+var nbrNONTAR		= 12; //12;
 var nbrTARprac		= 2;
 var nbrNONTARprac	= 4;
 
