@@ -1253,7 +1253,11 @@ var Task_Controller = function() {
 	psiTurk.saveData();
 
 	if (taskorder.length===0 && donewtask===1) {
-			currentview = new Questionnaire(); //done!
+		finishflag = 1;
+		tmpphase = "finish-flag";
+		psiTurk.recordTrialData({'phase': tmpphase,
+				'finishflag': finishflag});
+		currentview = new Questionnaire(); //done!
 	}//if
 	else {
 
@@ -1547,6 +1551,7 @@ if (isdebugrun===1) {
 	// taskorder 	= [1, 2, 3, 4, 5]; //override for debug purposes:
 }//if
 
+var finishflag = 0;
 var tmpphase;
 
 tmpphase = "debug-flag";
