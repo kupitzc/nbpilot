@@ -22,8 +22,8 @@ mycondition++;
 mycounterbalance++;
 
 var isdebugrun 		= 0; 	//SET ME TO 0 FOR REAL RUN!
-var istimedebugrun 	= 0;
-var isrespdebugrun 	= 0;
+var istimedebugrun 	= 1;
+var isrespdebugrun 	= 1;
 //alert(mycondition);
 //alert(mycounterbalance);
 
