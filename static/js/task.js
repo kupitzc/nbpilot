@@ -507,7 +507,7 @@ var NBR_Task = function() {
 	// TIMING VARIABLES (in ms):
 	var stimtime 	= 500;
 	var ISI 		= 2500;
-	var ntargets 	=  nbrTAR;
+	var ntargets 	=  nbrTAR + nbrTARadjuster;
 	var nnontargets =  nbrNONTAR;
 
 	if (isprac===1) { //override for practice
@@ -573,6 +573,11 @@ var NBR_Task = function() {
 	//CONTROLS INDIVIDUAL TRIALS
 	var nexttrial = function() {
 		if (stims.length===0) {
+			nbrTARadjuster = 0;
+			nextblock();
+		}
+		else if (curtrial > 30) {
+			nbrTARadjuster = ntargets - ntargetsans;
 			nextblock();
 		}
 		else {
@@ -1460,11 +1465,13 @@ var nbsTARprac		= 2;
 var nbsNONTARprac	= 4;
 
 var nbrTAR			= 6 // 6;
-var nbrNONTAR		= 9 //12;
+var nbrNONTAR		= 12 //12;
 var nbrTARprac		= 2;
 var nbrNONTARprac	= 3;
 
-var nbrTARtoNONTARratio = 1.5;
+var nbrTARtoNONTARratio = 2;
+
+var nbrTARadjuster  = 0;
 
 //overrides for debugging:
 if (isdebugrun===1) {
