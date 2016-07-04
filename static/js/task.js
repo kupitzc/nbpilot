@@ -395,7 +395,7 @@ var NBS_Task = function() {
 				} //else
 			} //for
 
-			var tmpphase = "blocksetup";
+			tmpphase = "blocksetup";
 			psiTurk.recordTrialData({	'phase': tmpphase,
 				'task': curtask,
 				'curtaskindex': curtaskindex,
@@ -655,14 +655,13 @@ var NBR_Task = function() {
 				} //else
 			} //for
 
-			var tmpphase = "blocksetup";
+			tmpphase = "blocksetup";
 			psiTurk.recordTrialData({	'phase': tmpphase,
 				'task': curtask,
 				'curtaskindex': curtaskindex,
 				'block': taskblockindex,
 				'stimID': stimID,
-				'letterID': letterID
-			});
+				'letterID': letterID});
 			nexttrial(); //runs every trial
 		} //else
 	};//nextblock
@@ -735,15 +734,14 @@ var NBR_Task = function() {
 				} //else
 			} //for
 
-			var tmpphase = "reset";
+			tmpphase = "reset";
 			psiTurk.recordTrialData({	'phase': tmpphase,
 				'task': curtask,
 				'curtaskindex': curtaskindex,
 				'block': taskblockindex,
 				'stimID': stimID,
 				'letterID': letterID,
-				'nresets': 	nresets
-			});
+				'nresets': nresets});
 
 			setTimeout(function() {
 				d3.select("#letter").remove();
@@ -1061,15 +1059,14 @@ var CPT_Task = function() {
 
 			} //for
 
-			var tmpphase = "blocksetup";
+			tmpphase = "blocksetup";
 			psiTurk.recordTrialData({	'phase': tmpphase,
 				'task': curtask,
 				'curtaskindex': curtaskindex,
 				'block': taskblockindex,
 				'stimID': stimID,
 				'letterID1': letterID1,
-				'letterID2': letterID2
-			});
+				'letterID2': letterID2});
 			nexttrial(); //runs every trial
 		} //else
 	}; //nextblock
@@ -1134,8 +1131,7 @@ var CPT_Task = function() {
 		
 		// after ISI ms, record the current trial data, move to next trial
 		setTimeout(function() {
-			psiTurk.recordTrialData([curtask,curphase,TID,isprac,curtaskindex,taskblockindex,curtrial,trialphase,stim[0],stim[2],stim[3],
-				response,respsame,lettertime,hit,rt]);
+			psiTurk.recordTrialData([curtask,curphase,TID,isprac,curtaskindex,taskblockindex,curtrial,trialphase,stim[0],stim[2],stim[3],response,respsame,lettertime,hit,rt]);
 			nexttrial();
 		}, ISI);
 	}; //remove_word
@@ -1515,6 +1511,8 @@ if (isdebugrun===1) {
 
 	// taskorder 	= [1, 2, 3, 4, 5]; //override for debug purposes:
 }//if
+
+var tmpphase;
 
 tmpphase = "debug-flag";
 psiTurk.recordTrialData({	'phase': tmpphase,
