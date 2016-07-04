@@ -398,6 +398,7 @@ var NBS_Task = function() {
 			var tmpphase = "blocksetup";
 			psiTurk.recordTrialData({	'phase': 	tmpphase,
 				'task': 	curtask,
+				'curtaskindex': curtaskindex,
 				'block': 	taskblockindex,
 				'stimID': 	stimID,
 				'letterID': letterID
@@ -470,7 +471,7 @@ var NBS_Task = function() {
 
 		// after ISI ms, record the current trial data, move to next trial
 		setTimeout(function() {
-			psiTurk.recordTrialData([curtask,curphase,taskblockindex,curtrial,stim[0],stim[1],stim[2],stim[3],response,respsame,lettertime,hit,rt,isprac]);
+			psiTurk.recordTrialData([curtask,curphase,curtaskindex,taskblockindex,curtrial,stim[0],stim[1],stim[2],stim[3],response,respsame,lettertime,hit,rt,isprac]);
 			nexttrial();
 		}, ISI);
 	}; //remove_word
@@ -652,6 +653,7 @@ var NBR_Task = function() {
 			var tmpphase = "blocksetup";
 			psiTurk.recordTrialData({	'phase': 	tmpphase,
 				'task': 	curtask,
+				'curtaskindex': curtaskindex,
 				'block': 	taskblockindex,
 				'stimID': 	stimID,
 				'letterID': letterID
@@ -668,8 +670,8 @@ var NBR_Task = function() {
 			// var newnnontars = nnontargets - nnontargetsans;
 			var newnnontars = (newntars * nbrTARtoNONTARratio) - nlevel; //prevent growing sequence
 
-			if (newnnontars < nlevel) {
-				newnnontars = newntars;
+			if (newnnontars < 1) { //never just finish with targets, but try and avoid growing seq
+				newnnontars = 1;
 			}
 
 			if (newntars > 0) {
@@ -730,6 +732,7 @@ var NBR_Task = function() {
 			var tmpphase = "reset";
 			psiTurk.recordTrialData({	'phase': 	tmpphase,
 				'task': 	curtask,
+				'curtaskindex': curtaskindex,
 				'block': 	taskblockindex,
 				'stimID': 	stimID,
 				'letterID': letterID,
@@ -859,7 +862,7 @@ var NBR_Task = function() {
 		// after ISI ms, record the current trial data, move to next trial
 		//THIS IS IN JSON FORMAT
 		setTimeout(function() {
-			psiTurk.recordTrialData([curtask,curphase,taskblockindex,curtrial,stim[0],stim[1],stim[2],stim[3],
+			psiTurk.recordTrialData([curtask,curphase,curtaskindex,taskblockindex,curtrial,stim[0],stim[1],stim[2],stim[3],
 			response,respsame,lettertime,hit,rt,nresets,nseqlength,ntargetsans,nnontargetsans,isprac]);
 			if (respsame===-2) {
 				do_reset();
@@ -1055,6 +1058,7 @@ var CPT_Task = function() {
 			var tmpphase = "blocksetup";
 			psiTurk.recordTrialData({	'phase': 	tmpphase,
 				'task': 	curtask,
+				'curtaskindex': curtaskindex,
 				'block': 	taskblockindex,
 				'stimID': 	stimID,
 				'letterID1': letterID1,
@@ -1124,7 +1128,7 @@ var CPT_Task = function() {
 		
 		// after ISI ms, record the current trial data, move to next trial
 		setTimeout(function() {
-			psiTurk.recordTrialData([curtask,curphase,taskblockindex,curtrial,trialphase,stim[0],stim[2],stim[3],
+			psiTurk.recordTrialData([curtask,curphase,curtaskindex,taskblockindex,curtrial,trialphase,stim[0],stim[2],stim[3],
 				response,respsame,lettertime,hit,rt,isprac]);
 			nexttrial();
 		}, ISI);
@@ -1220,7 +1224,7 @@ var Task_Controller = function() {
 		if (donewtask===1) {
 			donewtask 		= 0;
 			isprac 			= 1;
-			curtaskIndex 	= curtaskIndex + 1;  //increment task counter
+			curtaskindex 	= curtaskindex + 1;  //increment task counter
 			TID 			= taskorder.shift(); //get next task
 			taskblockindex 	= -1;
 		}
@@ -1414,7 +1418,7 @@ var currentview
 var curtask
 var TID
 var curphase 	 = "Main";
-var curtaskIndex = 0;
+var curtaskindex = 0;
 
 var nlevelblocks
 var trialtypes
@@ -1481,23 +1485,22 @@ if (isdebugrun===1) {
 
 //taskorder = [3, 4, 1, 2, 5];
 tmpphase = "ExperimentSetup";
-psiTurk.recordTrialData({	'phase': 	tmpphase,
-							'mycondition':mycondition,
-							'mycounterbalance':mycounterbalance,
-							'tarkey':tarkey,
-							'taskorder':taskorder,
-							'tblocks':tblocks,
-							'cptTTprac':cptTTprac,
-							'cptTT':cptTT,
-							'nbsTAR':nbsTAR,
-							'nbsNONTAR':nbsNONTAR,
-							'nbsTARprac':nbsTARprac,
-							'nbsNONTARprac':nbsNONTARprac,
-							'nbrTAR':nbrTAR,
-							'nbrNONTAR':nbrNONTAR,
-							'nbrTARprac':nbrTARprac,
-							'nbrNONTARprac':nbrNONTARprac,
-							'nbrTARtoNONTARratio':nbrTARtoNONTARratio
+psiTurk.recordTrialData({	'phase': tmpphase,
+							'mycondition': mycondition,
+							'mycounterbalance': mycounterbalance,
+							'tarkey': tarkey,
+							'tblocks': tblocks,
+							'cptTTprac': cptTTprac,
+							'cptTT': cptTT,
+							'nbsTAR': nbsTAR,
+							'nbsNONTAR': nbsNONTAR,
+							'nbsTARprac': nbsTARprac,
+							'nbsNONTARprac': nbsNONTARprac,
+							'nbrTAR': nbrTAR,
+							'nbrNONTAR': nbrNONTAR,
+							'nbrTARprac': nbrTARprac,
+							'nbrNONTARprac': nbrNONTARprac,
+							'nbrTARtoNONTARratio': nbrTARtoNONTARratio
 });
 /*******************
  * Run Task
