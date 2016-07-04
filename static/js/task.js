@@ -21,9 +21,9 @@ var mycounterbalance 	= psiTurk.taskdata.get('counterbalance'); ;  // they tell 
 mycondition++;
 mycounterbalance++;
 
-var isdebugrun 		= 1; 	//SET ME TO 0 FOR REAL RUN!
-var istimedebugrun 	= 1;
-var isrespdebugrun 	= 1;
+var isdebugrun 		= 0; 	//SET ME TO 0 FOR REAL RUN!
+var istimedebugrun 	= 0;
+var isrespdebugrun 	= 0;
 //alert(mycondition);
 //alert(mycounterbalance);
 
