@@ -1251,26 +1251,30 @@ var Questionnaire = function() {
 var Task_Controller = function() {
 
 	psiTurk.saveData();
-	if (curtaskindex>0) {
-		blockendtime = new Date().getTime();
-		blocktime = blockendtime - blockstarttime;
 
-		tmpphase = "block-timing";
-		psiTurk.recordTrialData({'phase': tmpphase, 
-								'curtask': curtask,
-								'curphase': curphase,
-								'TID': TID,
-								'isprac': isprac,
-								'taskIndex':curtaskindex,
-								'blockIndex': taskblockindex,
-								'blockstarttime': blockstarttime,
-								'blockendtime': blockendtime,
-								'blocktime': blocktime});
-	}
 	if (taskorder.length===0 && donewtask===1) {
 			currentview = new Questionnaire(); //done!
 	}//if
 	else {
+
+		//record block end times
+		if (curtaskindex>0) {
+			blockendtime = new Date().getTime();
+			blocktime = blockendtime - blockstarttime;
+
+			tmpphase = "block-timing";
+			psiTurk.recordTrialData({'phase': tmpphase, 
+									'curtask': curtask,
+									'curphase': curphase,
+									'TID': TID,
+									'isprac': isprac,
+									'taskIndex':curtaskindex,
+									'blockIndex': taskblockindex,
+									'blockstarttime': blockstarttime,
+									'blockendtime': blockendtime,
+									'blocktime': blocktime});
+		}
+
 		if (donewtask===1) {
 			donewtask 		= 0;
 			isprac 			= 1;
