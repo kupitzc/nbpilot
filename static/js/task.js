@@ -7,6 +7,7 @@
 // Initalize psiturk object
 var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 
+// This magic prevents a crash if the user accepts the HIT but then immediately closes
 psiTurk.recordTrialData({'phase':'mysqlsaver'});
 psiTurk.recordUnstructuredData('empty', 'mysqlsaver');
 psiTurk.saveData();
