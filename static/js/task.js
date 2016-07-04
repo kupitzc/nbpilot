@@ -402,12 +402,11 @@ var NBS_Task = function() {
 
 			tmpphase = "blocksetup";
 			psiTurk.recordTrialData({'phase': tmpphase,
-				'task': curtask,
-				'curtaskindex': curtaskindex,
-				'block': taskblockindex,
-				'stimID': stimID,
-				'letterID': letterID
-			});
+									'task': curtask,
+									'curtaskindex': curtaskindex,
+									'block': taskblockindex,
+									'stimID': stimID,
+									'letterID': letterID});
 			blockstarttime = new Date().getTime();
 			nexttrial(); //runs every trial
 		} //else
@@ -443,7 +442,11 @@ var NBS_Task = function() {
 		if (response.length>0) {
 			listening 	= false;
 			gotresp 	= 1;
-			hit 		= response == stim[1];
+			if (response==stim[1]) {
+				hit 	= 1;
+			} else {
+				hit 	= 0;
+			}
 			rt 			= new Date().getTime() - letteron;
 		} // if (response.length>0) {
 	}; //response_handler
@@ -471,7 +474,11 @@ var NBS_Task = function() {
 			}
 			listening 	= false;
 			gotresp 	= 1;
-			hit 		= response == stim[1];
+			if (response==stim[1]) {
+				hit 	= 1;
+			} else {
+				hit 	= 0;
+			}
 			rt 			= Math.floor(Math.random() * 500) + 250;
 		}//isrespdebugrun
 
@@ -663,11 +670,11 @@ var NBR_Task = function() {
 
 			tmpphase = "blocksetup";
 			psiTurk.recordTrialData({'phase': tmpphase,
-				'task': curtask,
-				'curtaskindex': curtaskindex,
-				'block': taskblockindex,
-				'stimID': stimID,
-				'letterID': letterID});
+									'task': curtask,
+									'curtaskindex': curtaskindex,
+									'block': taskblockindex,
+									'stimID': stimID,
+									'letterID': letterID});
 			blockstarttime = new Date().getTime();
 			nexttrial(); //runs every trial
 		} //else
@@ -743,12 +750,12 @@ var NBR_Task = function() {
 
 			tmpphase = "reset";
 			psiTurk.recordTrialData({'phase': tmpphase,
-				'task': curtask,
-				'curtaskindex': curtaskindex,
-				'block': taskblockindex,
-				'stimID': stimID,
-				'letterID': letterID,
-				'nresets': nresets});
+									'task': curtask,
+									'curtaskindex': curtaskindex,
+									'block': taskblockindex,
+									'stimID': stimID,
+									'letterID': letterID,
+									'nresets': nresets});
 
 			setTimeout(function() {
 				d3.select("#letter").remove();
@@ -806,7 +813,11 @@ var NBR_Task = function() {
 			else {
 				nseqlength  = nseqlength + 1; //another answered in a row
 				gotresp 	= 1;
-				hit 		= response == stim[1];
+				if (response==stim[1]) {
+				hit 	= 1;
+			} else {
+				hit 	= 0;
+			}
 
 				if (stim[3]===1) {//target trial
 					ntargetsans = ntargetsans + 1;
@@ -858,7 +869,11 @@ var NBR_Task = function() {
 			else {
 				nseqlength  = nseqlength + 1; //another answered in a row
 				gotresp 	= 1;
-				hit 		= response == stim[1];
+				if (response==stim[1]) {
+				hit 	= 1;
+			} else {
+				hit 	= 0;
+			}
 
 				if (stim[3]===1) {//target trial
 					ntargetsans = ntargetsans + 1;
@@ -1067,13 +1082,13 @@ var CPT_Task = function() {
 			} //for
 
 			tmpphase = "blocksetup";
-			psiTurk.recordTrialData({'phase': tmpphase,
-				'task': curtask,
-				'curtaskindex': curtaskindex,
-				'block': taskblockindex,
-				'stimID': stimID,
-				'letterID1': letterID1,
-				'letterID2': letterID2});
+			psiTurk.recordTrialData({'phase': tmpphase, 
+									'task': curtask,
+									'curtaskindex': curtaskindex,
+									'block': taskblockindex,
+									'stimID': stimID,
+									'letterID1': letterID1,
+									'letterID2': letterID2});
 			blockstarttime = new Date().getTime();
 			nexttrial(); //runs every trial
 		} //else
@@ -1105,7 +1120,11 @@ var CPT_Task = function() {
 			if (response.length>0) {
 				listening 	= false;
 				gotresp 	= 1;
-				hit 		= response == stim[1];
+				if (response==stim[1]) {
+				hit 	= 1;
+			} else {
+				hit 	= 0;
+			}
 				rt 			= new Date().getTime() - letteron;
 		} // if (response.length>0) {
 	}; //response_handler
@@ -1133,7 +1152,11 @@ var CPT_Task = function() {
 			}
 			listening 	= false;
 			gotresp 	= 1;
-			hit 		= response == stim[1];
+			if (response==stim[1]) {
+				hit 	= 1;
+			} else {
+				hit 	= 0;
+			}
 			rt 			= Math.floor(Math.random() * 500) + 250;
 		}//isrespdebugrun
 		
@@ -1233,7 +1256,7 @@ var Task_Controller = function() {
 		blocktime = blockendtime - blockstarttime;
 
 		tmpphase = "block-timing";
-		psiTurk.recordTrialData({'phase': tmpphase,
+		psiTurk.recordTrialData({'phase': tmpphase, 
 								'curtask': curtask,
 								'curphase': curphase,
 								'TID': TID,
