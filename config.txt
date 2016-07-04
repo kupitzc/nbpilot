@@ -12,14 +12,14 @@ organization_name = University of California, Irvine
 browser_exclude_rule = MSIE, mobile, tablet
 
 [Database Parameters]
-database_url = mysql://ckupitz:badinfluence@127.0.0.1:3306/nbpilotdebug
-table_name = nbpilotdebugV6
+database_url = mysql://ckupitz:badinfluence@127.0.0.1:3306/nbpilot
+table_name = nbpilotV1
 
 [Server Parameters]
 host = 0.0.0.0
 port = 33333
 cutoff_time = 30
-logfile = serverdebug.log
+logfile = nbpilotV1.log
 loglevel = 2
 debug = true
 login_username = examplename
