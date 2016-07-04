@@ -429,6 +429,7 @@ var NBS_Task = function() {
 		var keyCode = e.keyCode;
 
 		// f = 70, j = 74, space = 32
+		// f = 102, j = 106
 		switch (keyCode) {
 			case 70: 	// "F"
 			response 	= Fresp;
