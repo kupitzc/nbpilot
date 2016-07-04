@@ -401,13 +401,14 @@ var NBS_Task = function() {
 			} //for
 
 			tmpphase = "blocksetup";
-			psiTurk.recordTrialData({	'phase': tmpphase,
+			psiTurk.recordTrialData({'phase': tmpphase,
 				'task': curtask,
 				'curtaskindex': curtaskindex,
 				'block': taskblockindex,
 				'stimID': stimID,
 				'letterID': letterID
 			});
+			blockstarttime = new Date().getTime();
 			nexttrial(); //runs every trial
 		} //else
 	}; //nextblock
@@ -661,12 +662,13 @@ var NBR_Task = function() {
 			} //for
 
 			tmpphase = "blocksetup";
-			psiTurk.recordTrialData({	'phase': tmpphase,
+			psiTurk.recordTrialData({'phase': tmpphase,
 				'task': curtask,
 				'curtaskindex': curtaskindex,
 				'block': taskblockindex,
 				'stimID': stimID,
 				'letterID': letterID});
+			blockstarttime = new Date().getTime();
 			nexttrial(); //runs every trial
 		} //else
 	};//nextblock
@@ -740,7 +742,7 @@ var NBR_Task = function() {
 			} //for
 
 			tmpphase = "reset";
-			psiTurk.recordTrialData({	'phase': tmpphase,
+			psiTurk.recordTrialData({'phase': tmpphase,
 				'task': curtask,
 				'curtaskindex': curtaskindex,
 				'block': taskblockindex,
@@ -1065,13 +1067,14 @@ var CPT_Task = function() {
 			} //for
 
 			tmpphase = "blocksetup";
-			psiTurk.recordTrialData({	'phase': tmpphase,
+			psiTurk.recordTrialData({'phase': tmpphase,
 				'task': curtask,
 				'curtaskindex': curtaskindex,
 				'block': taskblockindex,
 				'stimID': stimID,
 				'letterID1': letterID1,
 				'letterID2': letterID2});
+			blockstarttime = new Date().getTime();
 			nexttrial(); //runs every trial
 		} //else
 	}; //nextblock
@@ -1224,22 +1227,22 @@ var Questionnaire = function() {
 
 var Task_Controller = function() {
 
+	psiTurk.saveData();
 	if (curtaskindex>0) {
 		blockendtime = new Date().getTime();
 		blocktime = blockendtime - blockstarttime;
 
 		tmpphase = "block-timing";
-		psiTurk.recordTrialData({	'phase': tmpphase,
-							'curtask': curtask,
-							'curphase': curphase,
-							'TID': TID,
-							'isprac': isprac,
-							'taskIndex':curtaskindex,
-							'blockIndex': taskblockindex,
-							'start': blockstarttime,
-							'end': blockendtime,
-							'total': blocktime,
-							'nbrNONTARprac': nbrNONTARprac});
+		psiTurk.recordTrialData({'phase': tmpphase,
+								'curtask': curtask,
+								'curphase': curphase,
+								'TID': TID,
+								'isprac': isprac,
+								'taskIndex':curtaskindex,
+								'blockIndex': taskblockindex,
+								'blockstarttime': blockstarttime,
+								'blockendtime': blockendtime,
+								'blocktime': blocktime});
 	}
 	if (taskorder.length===0 && donewtask===1) {
 			currentview = new Questionnaire(); //done!
@@ -1520,39 +1523,39 @@ if (isdebugrun===1) {
 var tmpphase;
 
 tmpphase = "debug-flag";
-psiTurk.recordTrialData({	'phase': tmpphase,
-							'isdebugrun': isdebugrun,
-							'istimedebugrun': istimedebugrun,
-							'isrespdebugrun': isrespdebugrun});
+psiTurk.recordTrialData({'phase': tmpphase,
+						'isdebugrun': isdebugrun,
+						'istimedebugrun': istimedebugrun,
+						'isrespdebugrun': isrespdebugrun});
 
 tmpphase = "setup-experiment";
-psiTurk.recordTrialData({	'phase': tmpphase,
-							'mycondition': mycondition,
-							'mycounterbalance': mycounterbalance,
-							'tarkey': tarkey,
-							'tblocks': tblocks});
+psiTurk.recordTrialData({'phase': tmpphase,
+						'mycondition': mycondition,
+						'mycounterbalance': mycounterbalance,
+						'tarkey': tarkey,
+						'tblocks': tblocks});
 
 tmpphase = "setup-cpt";
-psiTurk.recordTrialData({	'phase': tmpphase,
-							'cptTTprac': cptTTprac,
-							'cptTT': cptTT});
+psiTurk.recordTrialData({'phase': tmpphase,
+						'cptTTprac': cptTTprac,
+						'cptTT': cptTT});
 
 tmpphase = "setup-nbs";
-psiTurk.recordTrialData({	'phase': tmpphase,
-							'nbsTAR': nbsTAR,
-							'nbsNONTAR': nbsNONTAR,
-							'nbsTARprac': nbsTARprac,
-							'nbsNONTARprac': nbsNONTARprac});
+psiTurk.recordTrialData({'phase': tmpphase,
+						'nbsTAR': nbsTAR,
+						'nbsNONTAR': nbsNONTAR,
+						'nbsTARprac': nbsTARprac,
+						'nbsNONTARprac': nbsNONTARprac});
 
 tmpphase = "setup-nbr";
-psiTurk.recordTrialData({	'phase': tmpphase,
-							'nbrTAR': nbrTAR,
-							'nbrNONTAR': nbrNONTAR,
-							'nbrTARprac': nbrTARprac,
-							'nbrNONTARprac': nbrNONTARprac,
-							'nbrTARtoNONTARratio': nbrTARtoNONTARratio,
-							'resetdelaypretrial': resetdelaypretrial,
-							'resetdelaytext': resetdelaytext});
+psiTurk.recordTrialData({'phase': tmpphase,
+						'nbrTAR': nbrTAR,
+						'nbrNONTAR': nbrNONTAR,
+						'nbrTARprac': nbrTARprac,
+						'nbrNONTARprac': nbrNONTARprac,
+						'nbrTARtoNONTARratio': nbrTARtoNONTARratio,
+						'resetdelaypretrial': resetdelaypretrial,
+						'resetdelaytext': resetdelaytext});
 /*******************
  * Run Task
  ******************/
