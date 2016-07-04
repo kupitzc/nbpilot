@@ -8,8 +8,8 @@ do
 	mv $file ${BDIR}${NAME}_${DATE}.csv
 done
 
-for file in *.db
-do
-	NAME=${file%.*}
-	mv $file ${BDIR}${NAME}_${DATE}.db
-done
+#for file in *.db
+#do
+#	NAME=${file%.*}
+#	mv $file ${BDIR}${NAME}_${DATE}.db
+#done
