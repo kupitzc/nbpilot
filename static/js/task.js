@@ -396,11 +396,11 @@ var NBS_Task = function() {
 			} //for
 
 			var tmpphase = "blocksetup";
-			psiTurk.recordTrialData({	'phase': 	tmpphase,
-				'task': 	curtask,
+			psiTurk.recordTrialData({	'phase': tmpphase,
+				'task': curtask,
 				'curtaskindex': curtaskindex,
-				'block': 	taskblockindex,
-				'stimID': 	stimID,
+				'block': taskblockindex,
+				'stimID': stimID,
 				'letterID': letterID
 			});
 			nexttrial(); //runs every trial
@@ -656,11 +656,11 @@ var NBR_Task = function() {
 			} //for
 
 			var tmpphase = "blocksetup";
-			psiTurk.recordTrialData({	'phase': 	tmpphase,
-				'task': 	curtask,
+			psiTurk.recordTrialData({	'phase': tmpphase,
+				'task': curtask,
 				'curtaskindex': curtaskindex,
-				'block': 	taskblockindex,
-				'stimID': 	stimID,
+				'block': taskblockindex,
+				'stimID': stimID,
 				'letterID': letterID
 			});
 			nexttrial(); //runs every trial
@@ -736,11 +736,11 @@ var NBR_Task = function() {
 			} //for
 
 			var tmpphase = "reset";
-			psiTurk.recordTrialData({	'phase': 	tmpphase,
-				'task': 	curtask,
+			psiTurk.recordTrialData({	'phase': tmpphase,
+				'task': curtask,
 				'curtaskindex': curtaskindex,
-				'block': 	taskblockindex,
-				'stimID': 	stimID,
+				'block': taskblockindex,
+				'stimID': stimID,
 				'letterID': letterID,
 				'nresets': 	nresets
 			});
@@ -1062,11 +1062,11 @@ var CPT_Task = function() {
 			} //for
 
 			var tmpphase = "blocksetup";
-			psiTurk.recordTrialData({	'phase': 	tmpphase,
-				'task': 	curtask,
+			psiTurk.recordTrialData({	'phase': tmpphase,
+				'task': curtask,
 				'curtaskindex': curtaskindex,
-				'block': 	taskblockindex,
-				'stimID': 	stimID,
+				'block': taskblockindex,
+				'stimID': stimID,
 				'letterID1': letterID1,
 				'letterID2': letterID2
 			});
@@ -1232,9 +1232,9 @@ var Task_Controller = function() {
 							'curtask': curtask,
 							'curphase': curphase,
 							'TID': TID,
-							'isprac',isprac,
-							'taskIndex',curtaskindex,
-							'blockIndex',taskblockindex,
+							'isprac': isprac,
+							'taskIndex':curtaskindex,
+							'blockIndex': taskblockindex,
 							'start': blockstarttime,
 							'end': blockendtime,
 							'total': blocktime,
