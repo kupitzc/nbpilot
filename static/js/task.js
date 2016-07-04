@@ -667,8 +667,8 @@ var NBR_Task = function() {
 			// d3.select("#letter").remove();
 			show_sentence("Begin new Sub-sequence.",stimcolor,"60px");
 			var newntars 	= ntargets - ntargetsans;
-			// var newnnontars = nnontargets - nnontargetsans;
-			var newnnontars = (newntars * nbrTARtoNONTARratio) - nlevel; //prevent growing sequence
+			var newnnontars = Math.max( (nnontargets - nnontargetsans), Math.ceil((newntars * nbrTARtoNONTARratio)) );
+			newnnontars = newnnontars - nlevel; //prevent growing sequence
 
 			if (newnnontars < 1) { //never just finish with targets, but try and avoid growing seq
 				newnnontars = 1;
@@ -743,8 +743,8 @@ var NBR_Task = function() {
 				d3.select("#letter").remove();
 				setTimeout(function() {
 					nexttrial();
-       			}, ISI);
-       		}, resetdelay);
+       			}, resetdelaypretrial);
+       		}, resetdelaytext);
 
 
 	}; //do_reset
@@ -1430,11 +1430,14 @@ var curquery
 var querycolor 	= "black"
 
 var begindelay = 4000;
-var resetdelay = 2000;
+// var resetdelay = 2000;
+var resetdelaypretrial = 1500;
+var resetdelaytext = 1500;
 
 if (istimedebugrun===1) {
 	begindelay = 25;
-	resetdelay = 25;
+	resetdelaypretrial = 25;
+	resetdelaytext = 25;
 }
 
 //Leading -1 to deal with 0-index of JS that I dislike
@@ -1457,11 +1460,11 @@ var nbsTARprac		= 2;
 var nbsNONTARprac	= 4;
 
 var nbrTAR			= 6 // 6;
-var nbrNONTAR		= 12 //12;
+var nbrNONTAR		= 9 //12;
 var nbrTARprac		= 2;
-var nbrNONTARprac	= 4;
+var nbrNONTARprac	= 3;
 
-var nbrTARtoNONTARratio = 2;
+var nbrTARtoNONTARratio = 1.5;
 
 //overrides for debugging:
 if (isdebugrun===1) {
