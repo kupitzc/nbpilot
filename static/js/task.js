@@ -471,7 +471,7 @@ var NBS_Task = function() {
 
 		// after ISI ms, record the current trial data, move to next trial
 		setTimeout(function() {
-			psiTurk.recordTrialData([curtask,curphase,curtaskindex,taskblockindex,curtrial,stim[0],stim[1],stim[2],stim[3],response,respsame,lettertime,hit,rt,isprac]);
+			psiTurk.recordTrialData([curtask,curphase,TID,isprac,curtaskindex,taskblockindex,curtrial,stim[0],stim[1],stim[2],stim[3],response,respsame,lettertime,hit,rt]);
 			nexttrial();
 		}, ISI);
 	}; //remove_word
@@ -862,8 +862,8 @@ var NBR_Task = function() {
 		// after ISI ms, record the current trial data, move to next trial
 		//THIS IS IN JSON FORMAT
 		setTimeout(function() {
-			psiTurk.recordTrialData([curtask,curphase,curtaskindex,taskblockindex,curtrial,stim[0],stim[1],stim[2],stim[3],
-			response,respsame,lettertime,hit,rt,nresets,nseqlength,ntargetsans,nnontargetsans,isprac]);
+			psiTurk.recordTrialData([curtask,curphase,TID,isprac,curtaskindex,taskblockindex,curtrial,stim[0],stim[1],stim[2],stim[3],
+			response,respsame,lettertime,hit,rt,nresets,nseqlength,ntargetsans,nnontargetsans]);
 			if (respsame===-2) {
 				do_reset();
 			}//if
@@ -1128,8 +1128,8 @@ var CPT_Task = function() {
 		
 		// after ISI ms, record the current trial data, move to next trial
 		setTimeout(function() {
-			psiTurk.recordTrialData([curtask,curphase,curtaskindex,taskblockindex,curtrial,trialphase,stim[0],stim[2],stim[3],
-				response,respsame,lettertime,hit,rt,isprac]);
+			psiTurk.recordTrialData([curtask,curphase,TID,isprac,curtaskindex,taskblockindex,curtrial,trialphase,stim[0],stim[2],stim[3],
+				response,respsame,lettertime,hit,rt]);
 			nexttrial();
 		}, ISI);
 	}; //remove_word
@@ -1502,6 +1502,7 @@ psiTurk.recordTrialData({	'phase': tmpphase,
 							'nbrNONTARprac': nbrNONTARprac,
 							'nbrTARtoNONTARratio': nbrTARtoNONTARratio
 });
+
 /*******************
  * Run Task
  ******************/
