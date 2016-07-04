@@ -822,11 +822,11 @@ var NBR_Task = function() {
 		if (isrespdebugrun===1){
 
 			var tmprnd = Math.random();
-			if (tmprnd < 0.45) {
+			if (tmprnd < 0.4) {
 				response 	= Jresp;
 				respsame 	= Jrespsame;
 			}
-			else if (tmprnd < 0.9) {
+			else if (tmprnd < 0.8) {
 				response 	= Fresp;
 				respsame 	= Frespsame;
 			}
