@@ -7,6 +7,10 @@
 // Initalize psiturk object
 var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 
+psiTurk.recordTrialData({'phase':'mysqlsaver'});
+psiTurk.recordUnstructuredData('empty', 'mysqlsaver');
+psiTurk.saveData();
+
 // var mycondition = condition;  // these two variables are passed by the psiturk server process
 // var mycounterbalance = counterbalance;  // they tell you which condition you have been assigned to
 
