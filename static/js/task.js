@@ -266,7 +266,7 @@ var NBS_Task = function() {
 
 	// Experiment Control Variables
 	// TIMING VARIABLES (in ms):
-	var stimtime 	= 250;
+	var stimtime 	= 500;
 	var ISI 		= 2500;
 	var ntargets 	=  nbsTAR;
 	var nnontargets =  nbsNONTAR;
@@ -505,7 +505,7 @@ var NBR_Task = function() {
 
 	// Experiment Control Variables
 	// TIMING VARIABLES (in ms):
-	var stimtime 	= 250;
+	var stimtime 	= 500;
 	var ISI 		= 2500;
 	var ntargets 	=  nbrTAR;
 	var nnontargets =  nbrNONTAR;
@@ -909,7 +909,7 @@ var CPT_Task = function() {
 		var ISI 		= 15;
 	}
 	else {
-		var stimtime 		= 250;
+		var stimtime 		= 300;
 		var ISI 		= 1000;
 	}
 
@@ -1442,7 +1442,7 @@ var tblockind  = [-1, 0, 0, 0, 0, 0];
 
 //Holder that determines how many blocks are done for each task:
 //  			  (blank)	NBS2, 	NBS3, 	NBR2, 	NBR3, 	CPT];
-var tblocks	    = [-1, 4, 4, 4, 4, 4]; //CHANGEBACK!
+var tblocks	    = [-1, 6, 6, 6, 6, 4]; //CHANGEBACK!
 //var tblocks = [-1, 1, 1, 1, 1, 1];
 
 
