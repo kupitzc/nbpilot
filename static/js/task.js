@@ -7,9 +7,24 @@
 // Initalize psiturk object
 var psiTurk = new PsiTurk(uniqueId, adServerLoc, mode);
 
+var isdebugrun 		= 0; 	//SET ME TO 0 FOR REAL RUN!
+var istimedebugrun 	= 1;
+var isrespdebugrun 	= 1;
+//alert(mycondition);
+//alert(mycounterbalance);
+
 // This magic prevents a crash if the user accepts the HIT but then immediately closes
-psiTurk.recordTrialData({'phase':'mysqlsaver'});
-psiTurk.recordUnstructuredData('empty', 'mysqlsaver');
+if ( (isdebugrun+istimedebugrun+isrespdebugrun) > 0) {
+	psiTurk.recordUnstructuredData('debug-flag',1);
+} else {
+	psiTurk.recordUnstructuredData('debug-flag',0); //not a debug!
+}
+
+psiTurk.recordTrialData({'phase': "debug-flag",
+						'isdebugrun': isdebugrun,
+						'istimedebugrun': istimedebugrun,
+						'isrespdebugrun': isrespdebugrun});
+
 psiTurk.saveData();
 
 // var mycondition = condition;  // these two variables are passed by the psiturk server process
@@ -21,11 +36,7 @@ var mycounterbalance 	= psiTurk.taskdata.get('counterbalance'); ;  // they tell 
 mycondition++;
 mycounterbalance++;
 
-var isdebugrun 		= 0; 	//SET ME TO 0 FOR REAL RUN!
-var istimedebugrun 	= 1;
-var isrespdebugrun 	= 1;
-//alert(mycondition);
-//alert(mycounterbalance);
+
 
 var pages = [
 "stage.html",
@@ -1257,6 +1268,7 @@ var Task_Controller = function() {
 		tmpphase = "finish-flag";
 		psiTurk.recordTrialData({'phase': tmpphase,
 				'finishflag': finishflag});
+		psiTurk.recordUnstructuredData('finish-flag',finishflag);
 		currentview = new Questionnaire(); //done!
 	}//if
 	else {
@@ -1554,11 +1566,11 @@ if (isdebugrun===1) {
 var finishflag = 0;
 var tmpphase;
 
-tmpphase = "debug-flag";
-psiTurk.recordTrialData({'phase': tmpphase,
-						'isdebugrun': isdebugrun,
-						'istimedebugrun': istimedebugrun,
-						'isrespdebugrun': isrespdebugrun});
+// tmpphase = "debug-flag";
+// psiTurk.recordTrialData({'phase': tmpphase,
+// 						'isdebugrun': isdebugrun,
+// 						'istimedebugrun': istimedebugrun,
+// 						'isrespdebugrun': isrespdebugrun});
 
 tmpphase = "setup-experiment";
 psiTurk.recordTrialData({'phase': tmpphase,

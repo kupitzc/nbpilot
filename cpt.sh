@@ -1,6 +1,6 @@
 #!/bin/bash
 DATE=$(date +%s)
-BDIR=./cleanptbackup/
+BDIR=./backup/csv/
 
 for file in *.csv
 do
