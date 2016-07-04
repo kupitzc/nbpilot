@@ -16,7 +16,7 @@ var mycounterbalance 	= psiTurk.taskdata.get('counterbalance'); ;  // they tell 
 mycondition++;
 mycounterbalance++;
 
-var isdebugrun 		= 0; 	//SET ME TO 0 FOR REAL RUN!
+var isdebugrun 		= 1; 	//SET ME TO 0 FOR REAL RUN!
 var istimedebugrun 	= 1;
 var isrespdebugrun 	= 1;
 //alert(mycondition);
@@ -1223,6 +1223,23 @@ var Questionnaire = function() {
 
 var Task_Controller = function() {
 
+	if (curtaskindex>0) {
+		blockendtime = new Date().getTime();
+		blocktime = blockendtime - blockstarttime;
+
+		tmpphase = "block-timing";
+		psiTurk.recordTrialData({	'phase': tmpphase,
+							'curtask': curtask,
+							'curphase': curphase,
+							'TID': TID,
+							'isprac',isprac,
+							'taskIndex',curtaskindex,
+							'blockIndex',taskblockindex,
+							'start': blockstarttime,
+							'end': blockendtime,
+							'total': blocktime,
+							'nbrNONTARprac': nbrNONTARprac});
+	}
 	if (taskorder.length===0 && donewtask===1) {
 			currentview = new Questionnaire(); //done!
 	}//if
@@ -1446,6 +1463,10 @@ if (istimedebugrun===1) {
 	resetdelaytext = 25;
 }
 
+var blocktime 		= -1;
+var blockendtime 	= -1;
+var blockstarttime 	= -1;
+
 //Leading -1 to deal with 0-index of JS that I dislike
 var tblockind  = [-1, 0, 0, 0, 0, 0];
 
@@ -1495,26 +1516,40 @@ if (isdebugrun===1) {
 	// taskorder 	= [1, 2, 3, 4, 5]; //override for debug purposes:
 }//if
 
-//taskorder = [3, 4, 1, 2, 5];
-tmpphase = "ExperimentSetup";
+tmpphase = "debug-flag";
+psiTurk.recordTrialData({	'phase': tmpphase,
+							'isdebugrun': isdebugrun,
+							'istimedebugrun': istimedebugrun,
+							'isrespdebugrun': isrespdebugrun});
+
+tmpphase = "setup-experiment";
 psiTurk.recordTrialData({	'phase': tmpphase,
 							'mycondition': mycondition,
 							'mycounterbalance': mycounterbalance,
 							'tarkey': tarkey,
-							'tblocks': tblocks,
+							'tblocks': tblocks});
+
+tmpphase = "setup-cpt";
+psiTurk.recordTrialData({	'phase': tmpphase,
 							'cptTTprac': cptTTprac,
-							'cptTT': cptTT,
+							'cptTT': cptTT});
+
+tmpphase = "setup-nbs";
+psiTurk.recordTrialData({	'phase': tmpphase,
 							'nbsTAR': nbsTAR,
 							'nbsNONTAR': nbsNONTAR,
 							'nbsTARprac': nbsTARprac,
-							'nbsNONTARprac': nbsNONTARprac,
+							'nbsNONTARprac': nbsNONTARprac});
+
+tmpphase = "setup-nbr";
+psiTurk.recordTrialData({	'phase': tmpphase,
 							'nbrTAR': nbrTAR,
 							'nbrNONTAR': nbrNONTAR,
 							'nbrTARprac': nbrTARprac,
 							'nbrNONTARprac': nbrNONTARprac,
-							'nbrTARtoNONTARratio': nbrTARtoNONTARratio
-});
-
+							'nbrTARtoNONTARratio': nbrTARtoNONTARratio,
+							'resetdelaypretrial': resetdelaypretrial,
+							'resetdelaytext': resetdelaytext});
 /*******************
  * Run Task
  ******************/
