@@ -17,8 +17,8 @@ mycondition++;
 mycounterbalance++;
 
 var isdebugrun 		= 0; 	//SET ME TO 0 FOR REAL RUN!
-var istimedebugrun 	= 1;
-var isrespdebugrun 	= 1;
+var istimedebugrun 	= 0;
+var isrespdebugrun 	= 0;
 //alert(mycondition);
 //alert(mycounterbalance);
 
@@ -576,7 +576,7 @@ var NBR_Task = function() {
 			nbrTARadjuster = 0;
 			nextblock();
 		}
-		else if (curtrial > 30) {
+		else if (curtrial > nbrTrialLimit) {
 			nbrTARadjuster = ntargets - ntargetsans;
 			nextblock();
 		}
@@ -672,7 +672,8 @@ var NBR_Task = function() {
 			// d3.select("#letter").remove();
 			show_sentence("Begin new Sub-sequence.",stimcolor,"60px");
 			var newntars 	= ntargets - ntargetsans;
-			var newnnontars = Math.max( (nnontargets - nnontargetsans), Math.ceil((newntars * nbrTARtoNONTARratio)) );
+			// var newnnontars = Math.max( (nnontargets - nnontargetsans), Math.ceil((newntars * nbrTARtoNONTARratio)) );
+			var newnnontars = Math.ceil(newntars * nbrTARtoNONTARratio);
 			newnnontars = newnnontars - nlevel; //prevent growing sequence
 
 			if (newnnontars < 1) { //never just finish with targets, but try and avoid growing seq
@@ -1450,7 +1451,7 @@ var tblockind  = [-1, 0, 0, 0, 0, 0];
 
 //Holder that determines how many blocks are done for each task:
 //  			  (blank)	NBS2, 	NBS3, 	NBR2, 	NBR3, 	CPT];
-var tblocks	    = [-1, 6, 6, 6, 6, 4]; //CHANGEBACK!
+var tblocks	    = [-1, 5, 5, 5, 5, 4]; //CHANGEBACK!
 //var tblocks = [-1, 1, 1, 1, 1, 1];
 
 
@@ -1467,11 +1468,12 @@ var nbsNONTARprac	= 4;
 var nbrTAR			= 6 // 6;
 var nbrNONTAR		= 12 //12;
 var nbrTARprac		= 2;
-var nbrNONTARprac	= 3;
+var nbrNONTARprac	= 4;
 
 var nbrTARtoNONTARratio = 2;
 
 var nbrTARadjuster  = 0;
+var nbrTrialLimit 	= 36;
 
 //overrides for debugging:
 if (isdebugrun===1) {
